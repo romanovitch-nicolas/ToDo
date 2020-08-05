@@ -15,8 +15,8 @@
     				<li><a href="#">Contact</a></li>
     			</ul>
     			<ul>
-    				<li><a href="<?= LINK_DASHBOARD ?>">Connexion</a></li>
-    				<li><a href="#">Inscription</a></li>
+    				<li><a href="<?= LINK_CONNEXION ?>">Connexion</a></li>
+    				<li><a href="<?= LINK_INSCRIPTION ?>">Inscription</a></li>
     			</ul>
     		</nav>
     	</header>

@@ -9,7 +9,7 @@ class User
     protected $mail;
     protected $inscriptionDate;
 
-    public function __construct(array $data)
+    public function __construct($data)
     {
         $this->hydrate($data);
     }
