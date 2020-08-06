@@ -14,10 +14,17 @@
     				<li><a href="#">Fonctionnalités</a></li>
     				<li><a href="#">Contact</a></li>
     			</ul>
-    			<ul>
-    				<li><a href="<?= LINK_CONNEXION ?>">Connexion</a></li>
-    				<li><a href="<?= LINK_INSCRIPTION ?>">Inscription</a></li>
-    			</ul>
+                <?php if (isset($_SESSION['id']) OR isset($_COOKIE['id'])) { ?>
+                    <ul>
+                        <li><a href="<?= LINK_DASHBOARD ?>">Tableau de Bord</a></li>
+                        <li><a href="index.php?action=disconnect">Déconnexion</a></li>
+                    </ul>
+                <?php } else { ?>
+                    <ul>
+                        <li><a href="<?= LINK_CONNECTION ?>">Connexion</a></li>
+                        <li><a href="<?= LINK_INSCRIPTION ?>">Inscription</a></li>
+                    </ul>
+                <?php } ?>
     		</nav>
     	</header>
 

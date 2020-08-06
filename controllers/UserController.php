@@ -75,7 +75,7 @@ class UserController
 	}
 
 	// Connexion
-	public function connexion()
+	public function connection()
 	{
 		$userManager = new UserManager();
 
@@ -87,11 +87,9 @@ class UserController
             if ($passverif) {
             	session_start();
                 $_SESSION['id'] = $userinfo->id();
-                $_SESSION['login'] = $login;
                     if(isset($_POST['autoconnect']))
                     {
                     	setcookie('id', $userinfo->id(), time() + 365*24*3600, null, null, false, true);
-                        setcookie('login', $login, time() + 365*24*3600, null, null, false, true);
                     }
                 header('Location: ' . LINK_DASHBOARD);
             }
@@ -105,4 +103,13 @@ class UserController
 
         require('views/frontend/connectView.php');
 	}
+
+	// Déconnexion
+    public function disconnection()
+    { 
+        $_SESSION = array();
+        session_destroy();
+        setcookie('id', '');
+        header("Location: " . LINK_HOME);
+    }
 }

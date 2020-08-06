@@ -25,7 +25,7 @@ $title = "Connexion";
 		</table>
 		<p><input type="submit" name="connexion" value="Se connecter" /></p>
 	</form>
-	<p>Pas encore inscrit ?</p>
+	<p><a href="<?= LINK_INSCRIPTION ?>">Pas encore inscrit ?</a></p>
 	<p>Mot de passe oublié ?</p>
 </section>
 

@@ -11,13 +11,14 @@
     			<a id="logo" href="<?= LINK_HOME ?>"><img src="http://placehold.it/125x40" alt="Logo" /></a>
     			<ul>
     				<li><i class="fas fa-plus fa-fw" title="Ajouter une tâche"></i></li>
-    				<li><a href="<?= LINK_DASHBOARD ?>"><i class="fas fa-chart-line fa-fw" title="Tableau de bord"></i></a></li>
     				<li><a href="#"><i class="fas fa-cog fa-fw" title="Préférences"></i></a></li>
     			</ul>
     		</nav>
     		<nav id="left-nav">
     			<ul>
-    				<li><a href="<?= LINK_ALLTASKS ?>" <?php if($_GET['action'] == 'all-tasks') { echo 'class="active"'; } ?>><i class="far fa-list-alt fa-fw"></i>Toutes les tâches</a></li>
+                    <li><a href="<?= LINK_DASHBOARD ?>" <?php if($_GET['action'] == 'dashboard') { echo 'class="active"'; } ?>><i class="fas fa-chart-line fa-fw" title="Tableau de bord"></i>Tableau de bord</a></li>
+                    <li><div class="line"></div></li>
+    				<li><a href="<?= LINK_ALLTASKS ?>" <?php if($_GET['action'] == 'allTasks') { echo 'class="active"'; } ?>><i class="far fa-list-alt fa-fw"></i>Toutes les tâches</a></li>
     				<li><a href="#"><i class="fas fa-exclamation-circle fa-fw"></i>Important</a></li>
     				<li><a href="#"><i class="far fa-calendar fa-fw"></i>Aujourd'hui</a></li>
     				<li><a href="#"><i class="far fa-calendar-alt fa-fw"></i>7 Prochains Jours</a></li>
@@ -33,6 +34,10 @@
         <div id="task-form" class="invisible">
             <i class="fas fa-times"></i>
             <h2>Ajouter une tâche</h2>
+            <form method="POST" action="index.php?action=addTask">
+                <input type="text" name="task" maxlength="255" required /><br />
+                <input type="submit" value="Ajouter" />
+            </form>
         </div>
 
         <?= $content ?>

@@ -8,7 +8,7 @@ $title = "Inscription";
 
 <section id="inscription">
 	<?php if (isset($return) && $return !== true) { echo '<p><i class="fas fa-exclamation-circle"></i> ' . $return . '</p>'; } ?>
-	<?php if (isset($return) && $return === true) { echo '<p><i class="fas fa-check"></i> Votre inscription est terminé, vous pouvez maintenant <a href="' . LINK_CONNEXION . '">vous connecter</a>.</p>'; } ?>
+	<?php if (isset($return) && $return === true) { echo '<p><i class="fas fa-check"></i> Votre inscription est terminé, vous pouvez maintenant <a href="' . LINK_CONNECTION . '">vous connecter</a>.</p>'; } ?>
 	<form <?php if (isset($return) && $return === true) { echo 'class="invisible"'; }?> method="POST" action="index.php?action=register">
 		<table>
 			<tr>
@@ -30,7 +30,7 @@ $title = "Inscription";
 		</table>
 		<p><input type="submit" name="Inscription" value="S'inscrire" /></p>
 	</form>
-	<p>Déjà inscrit ?</p>
+	<p><a href="<?= LINK_CONNECTION ?>">Déjà inscrit ?</a></p>
 	<p>Mot de passe oublié ?</p>
 </section>
 

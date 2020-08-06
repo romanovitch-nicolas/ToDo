@@ -32,7 +32,7 @@ class UserManager extends Manager
         return $insertUser;
     }
 
-    // Récupération des informations d'un utilisateur
+    // Récupération des informations d'un utilisateur depuis son login
     public function getUserInfo($login)
     {
         $req = $this->db->prepare('SELECT * FROM users WHERE login = ?');
