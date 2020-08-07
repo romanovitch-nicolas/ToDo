@@ -8,9 +8,11 @@ class Form {
 		this.formTitle = document.querySelector("#task-form h2");
 		this.formText = document.querySelector("#task-form input[type='text']");
 		this.formSubmit = document.querySelector("#task-form input[type='submit']");
+		this.checkbox = document.querySelectorAll("input[type='checkbox']");
 		this.background = document.querySelector("#background");
 		this.open();
 		this.close();
+		this.checkboxSubmit();
 	}
 
 	open() {
@@ -50,6 +52,26 @@ class Form {
 	toggleInvisible() {
 		this.taskForm.classList.toggle("invisible");
 		this.background.classList.toggle("invisible");
+	}
+
+	checkboxSubmit() {
+		// Validation dynamique des checkbox en BDD
+		if(this.checkbox !== null) {
+			this.checkbox.forEach(function (checkbox) {
+				let taskId = checkbox.getAttribute("id");
+				checkbox.addEventListener('click', function() {
+					let data = new FormData();
+					if (checkbox.checked === true) {
+						data.append("done", 1);
+					}
+					else {
+						data.append("done", 0);
+					}
+					data.append("task_id", taskId);
+					ajaxPost("include/checkbox.php", data, function() {});
+				});
+			});
+		};
 	}
 }
 

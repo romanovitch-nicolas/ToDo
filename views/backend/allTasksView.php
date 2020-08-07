@@ -11,11 +11,12 @@ $title = "Toutes les tâches";
 	if($taskExist) {
 ?>
 
+<section id="all_tasks">
 	<table>
 		<?php foreach ($tasks as $task) { ?>
 			<tr>
 				<td>
-					<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" />
+					<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
 					<label for="<?= $task->id() ?>"><?= $task->name() ?></label>
 				</td>
 				<td>
@@ -25,6 +26,7 @@ $title = "Toutes les tâches";
 			</tr>
 		<?php } ?>
 	</table>
+</section>
 
 <?php } else { ?>
 	<p>Pas de tâches.</p>

@@ -43,6 +43,7 @@
         <?= $content ?>
 
         <script src="https://kit.fontawesome.com/45b095f08c.js" crossorigin="anonymous"></script>
+        <script src="public/js/ajax.js"></script>
         <script src="public/js/form.js"></script>
     </body>
 </html>
