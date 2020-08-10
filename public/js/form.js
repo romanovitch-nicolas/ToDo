@@ -1,18 +1,25 @@
 class Form {
 	constructor() {
-		this.addTaskButton = document.querySelector(".fa-plus");
 		this.task = document.querySelectorAll("tr");
+		this.addTaskButton = document.querySelector(".fa-plus");
 		this.closeButton = document.querySelector(".fa-times");
 		this.taskForm = document.querySelector("#task-form");
+		this.background = document.querySelector("#background");
+
 		this.form = document.querySelector("#task-form form");
 		this.formTitle = document.querySelector("#task-form h2");
 		this.formText = document.querySelector("#task-form input[type='text']");
 		this.formSubmit = document.querySelector("#task-form input[type='submit']");
-		this.checkbox = document.querySelectorAll("input[type='checkbox']");
-		this.background = document.querySelector("#background");
+
+		this.checkbox = document.querySelectorAll("table input[type='checkbox']");
+		this.importantButton = document.querySelector("#important");
+		this.importantActiveButton = document.querySelector("#important_active");
+		this.importantCheckbox = document.querySelector("#task-form form p span input[type='checkbox']");
+
 		this.open();
 		this.close();
 		this.checkboxSubmit();
+		this.setImportant();
 	}
 
 	open() {
@@ -22,6 +29,11 @@ class Form {
 			this.formTitle.textContent = "Ajouter une tâche";
 			this.formText.value = '';
 			this.formSubmit.value = "Ajouter";
+			if (this.importantActiveButton.className !== "invisible") {
+				this.importantCheckbox.checked = false;
+				this.importantActiveButton.classList.add("invisible");
+				this.importantButton.classList.remove("invisible");
+			}
 			this.toggleInvisible();
 		}.bind(this));
 
@@ -32,13 +44,25 @@ class Form {
 				let taskId = label.getAttribute("for");
 				let taskName = label.innerHTML;
 				let taskEditButton = task.querySelector(".fa-edit");
+				let taskImportant = label.getAttribute("important");
+
 				taskEditButton.addEventListener("click", function() {
 					this.form.setAttribute("action", "index.php?action=editTask&id=" + taskId);
 					this.formTitle.textContent = "Modifier une tâche";
 					this.formText.value = taskName;
 					this.formSubmit.value = "Enregistrer";
+					if (taskImportant == 1) {
+						this.importantCheckbox.checked = true;
+						this.importantButton.classList.add("invisible");
+						this.importantActiveButton.classList.remove("invisible");
+					} else {
+						this.importantCheckbox.checked = false;
+						this.importantActiveButton.classList.add("invisible");
+						this.importantButton.classList.remove("invisible");
+					}
 					this.toggleInvisible();
 				}.bind(this));
+
 			}.bind(this));
 		};
 	}
@@ -72,6 +96,21 @@ class Form {
 				});
 			});
 		};
+	}
+
+	setImportant() {
+		// Icône à la place de la checkbox "Important"
+		this.importantButton.addEventListener('click', function() {
+			this.importantCheckbox.checked = true;
+			this.importantButton.classList.add("invisible");
+			this.importantActiveButton.classList.remove("invisible");
+		}.bind(this));
+
+		this.importantActiveButton.addEventListener('click', function() {
+			this.importantCheckbox.checked = false;
+			this.importantActiveButton.classList.add("invisible");
+			this.importantButton.classList.remove("invisible");
+		}.bind(this));
 	}
 }
 

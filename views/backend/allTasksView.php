@@ -17,7 +17,7 @@ $title = "Toutes les tâches";
 			<tr>
 				<td>
 					<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
-					<label for="<?= $task->id() ?>"><?= $task->name() ?></label>
+					<label for="<?= $task->id() ?>" important="<?= $task->important() ?>"><?= $task->name() ?></label>
 				</td>
 				<td>
 					<i class="fas fa-edit"></i>

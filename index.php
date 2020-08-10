@@ -91,10 +91,10 @@ try {
 
             case 'addTask':
                 if (isset($_SESSION['id'])) {
-                    $taskController->addTask($_POST['task'], $_SESSION['id']);
+                    $taskController->addTask($_POST['task'], $_SESSION['id'], $_POST['important']);
                 }
                 elseif (isset($_COOKIE['id'])) {
-                    $taskController->addTask($_POST['task'], $_COOKIE['id']);
+                    $taskController->addTask($_POST['task'], $_COOKIE['id'], $_POST['important']);
                 }
                 else {
                     require('views/frontend/connectView.php'); 
@@ -104,7 +104,7 @@ try {
             case 'editTask':
                 if (isset($_SESSION['id'])) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        $taskController->editTask($_GET['id'], $_POST['task'], $_SESSION['id']);
+                        $taskController->editTask($_GET['id'], $_POST['task'], $_SESSION['id'], $_POST['important']);
                     }
                     else
                     {
@@ -113,7 +113,7 @@ try {
                 }
                 elseif (isset($_COOKIE['id'])) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        $taskController->editTask($_GET['id'], $_POST['task'], $_COOKIE['id']);
+                        $taskController->editTask($_GET['id'], $_POST['task'], $_COOKIE['id'], $_POST['important']);
                     }
                     else
                     {

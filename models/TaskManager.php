@@ -31,19 +31,19 @@ class TaskManager extends Manager
     }
 
     // Ajout d'une tâche
-    public function insertTask($name, $userId)
+    public function insertTask($name, $userId, $important)
     {
-        $req = $this->db->prepare('INSERT INTO tasks(name, user_id, list_id, creation_date, deadline_date) VALUES(?, ?, ?, NOW(), ?)');
-        $insertTask = $req->execute(array($name, $userId, NULL, NULL));
+        $req = $this->db->prepare('INSERT INTO tasks(name, user_id, list_id, creation_date, deadline_date, important) VALUES(?, ?, ?, NOW(), ?, ?)');
+        $insertTask = $req->execute(array($name, $userId, NULL, NULL, $important));
 
         return $insertTask;
     }
 
     // Edition d'une tâche
-    public function editTask($taskId, $name, $userId)
+    public function editTask($taskId, $name, $userId, $important)
     {
-        $req = $this->db->prepare('UPDATE tasks SET name = ? WHERE id = ? AND user_id = ?');
-        $editTask = $req->execute(array($name, $taskId, $userId));
+        $req = $this->db->prepare('UPDATE tasks SET name = ?, important = ? WHERE id = ? AND user_id = ?');
+        $editTask = $req->execute(array($name, $important, $taskId, $userId));
 
         return $editTask;
     }

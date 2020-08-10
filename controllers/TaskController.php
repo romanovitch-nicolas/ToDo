@@ -17,15 +17,21 @@ class TaskController
     }
 
 	// Ajout d'une tâche
-    public function addTask($name, $userId)
+    public function addTask($name, $userId, $important)
     {
         $taskManager = new TaskManager();
 
         $name = htmlspecialchars($name);
-	    $nameLength = strlen($name);
+        $nameLength = strlen($name);
+        if ($important == true) {
+            $important = 1;
+        }
+        else {
+            $important = 0;
+        }
 
         if($nameLength <= 255) {
-            $insertTask = $taskManager->insertTask($name, $userId);
+            $insertTask = $taskManager->insertTask($name, $userId, $important);
             if ($insertTask === false) {
                 throw new \Exception('Impossible d\'ajouter la tâche.');
             }
@@ -39,15 +45,21 @@ class TaskController
     }
 
     // Modification d'une tâche
-    public function editTask($id, $name, $userId)
+    public function editTask($id, $name, $userId, $important)
     {
         $taskManager = new TaskManager();
 
         $name = htmlspecialchars($name);
         $nameLength = strlen($name);
+        if ($important == true) {
+            $important = 1;
+        }
+        else {
+            $important = 0;
+        }
 
         if($nameLength <= 255) {
-            $editTask = $taskManager->editTask($id, $name, $userId);
+            $editTask = $taskManager->editTask($id, $name, $userId, $important);
             if ($editTask === false) {
                 throw new \Exception('Impossible de modifier la tâche.');
             }

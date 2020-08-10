@@ -25,7 +25,7 @@
     				<li><a href="#"><i class="far fa-calendar-times fa-fw"></i>Retard</a></li>
     				<li><a href="#"><i class="fas fa-archive fa-fw"></i>Archives</a></li>
     				<li><div class="line"></div></li>
-    				<li><i class="fas fa-project-diagram fa-fw"></i>Listes ▼</li>
+    				<li><i class="fas fa-list"></i>Listes ▼</li>
     			</ul>
     		</nav>
     	</header>
@@ -35,8 +35,17 @@
             <i class="fas fa-times"></i>
             <h2>Ajouter une tâche</h2>
             <form method="POST" action="index.php?action=addTask">
-                <input type="text" name="task" maxlength="255" required /><br />
-                <input type="submit" value="Ajouter" />
+                <p><input type="text" name="task" maxlength="255" required /></p>
+                <p>
+                    <input type="submit" value="Ajouter" />
+                    <span>
+                        <i class="fas fa-list"></i>
+                        <i class="far fa-clock"></i>
+                        <input type="checkbox" name="important" class="invisible" />
+                        <i class="far fa-flag" id="important" title="Important"></i>
+                        <i class="fas fa-flag invisible" id="important_active" title="Important"></i>
+                    </span>
+                </p>
             </form>
         </div>
 
