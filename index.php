@@ -91,10 +91,10 @@ try {
 
             case 'addTask':
                 if (isset($_SESSION['id'])) {
-                    $taskController->addTask($_POST['task'], $_SESSION['id'], $_POST['important']);
+                    $taskController->addTask($_POST['task'], $_SESSION['id'], $_POST['important'], $_POST['time'], $_POST['deadline']);
                 }
                 elseif (isset($_COOKIE['id'])) {
-                    $taskController->addTask($_POST['task'], $_COOKIE['id'], $_POST['important']);
+                    $taskController->addTask($_POST['task'], $_COOKIE['id'], $_POST['important'], $_POST['time'], $_POST['deadline']);
                 }
                 else {
                     require('views/frontend/connectView.php'); 
@@ -104,7 +104,9 @@ try {
             case 'editTask':
                 if (isset($_SESSION['id'])) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        $taskController->editTask($_GET['id'], $_POST['task'], $_SESSION['id'], $_POST['important']);
+                        if (isset($_POST['important'])) { $important = $_POST['important']; } else { $important = 0; };
+                        if (isset($_POST['time'])) { $time = $_POST['time']; } else { $time = false; };
+                        $taskController->editTask($_GET['id'], $_POST['task'], $_SESSION['id'], $important, $time, $_POST['deadline']);
                     }
                     else
                     {
@@ -113,7 +115,9 @@ try {
                 }
                 elseif (isset($_COOKIE['id'])) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        $taskController->editTask($_GET['id'], $_POST['task'], $_COOKIE['id'], $_POST['important']);
+                        if (isset($_POST['important'])) { $important = $_POST['important']; } else { $important = 0; };
+                        if (isset($_POST['time'])) { $time = $_POST['time']; } else { $time = false; };
+                        $taskController->editTask($_GET['id'], $_POST['task'], $_COOKIE['id'], $important, $time, $_POST['deadline']);
                     }
                     else
                     {

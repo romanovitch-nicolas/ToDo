@@ -8,7 +8,7 @@ class Task
     protected $listId;
     protected $name;
     protected $creationDate;
-    protected $deadline;
+    protected $deadlineDate;
     protected $important;
     protected $done;
 

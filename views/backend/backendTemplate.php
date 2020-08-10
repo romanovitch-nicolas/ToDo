@@ -40,11 +40,16 @@
                     <input type="submit" value="Ajouter" />
                     <span>
                         <i class="fas fa-list"></i>
-                        <i class="far fa-clock"></i>
+                        <i class="far fa-clock" id="time"></i>
                         <input type="checkbox" name="important" class="invisible" />
                         <i class="far fa-flag" id="important" title="Important"></i>
                         <i class="fas fa-flag invisible" id="important_active" title="Important"></i>
                     </span>
+                </p>
+                <p id="time-menu" class="invisible">
+                    <input type="checkbox" name="time" />
+                    <label for="time">Prévoir pour le :</label>
+                    <input type="date" name="deadline" />
                 </p>
             </form>
         </div>

@@ -35,8 +35,9 @@ class TaskManager extends Manager
     {
         $req = $this->db->prepare('INSERT INTO tasks(name, user_id, list_id, creation_date, deadline_date, important) VALUES(?, ?, ?, NOW(), ?, ?)');
         $insertTask = $req->execute(array($name, $userId, NULL, NULL, $important));
+        $lastId = $this->db->lastInsertId();
 
-        return $insertTask;
+        return $lastId;
     }
 
     // Edition d'une tâche
@@ -55,5 +56,14 @@ class TaskManager extends Manager
         $deleteProduct = $req->execute(array($taskId, $userId));
 
         return $deleteTask;
+    }
+
+    // Ajout d'une date d'échéance
+    public function setDeadline($taskId, $userId, $deadline)
+    {
+        $req = $this->db->prepare('UPDATE tasks SET deadline_date = ? WHERE id = ? AND user_id = ?');
+        $setDeadline = $req->execute(array($deadline, $taskId, $userId));
+
+        return $setDeadline;
     }
 }

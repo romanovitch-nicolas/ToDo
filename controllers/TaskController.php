@@ -17,7 +17,7 @@ class TaskController
     }
 
 	// Ajout d'une tâche
-    public function addTask($name, $userId, $important)
+    public function addTask($name, $userId, $important, $time, $deadline)
     {
         $taskManager = new TaskManager();
 
@@ -36,7 +36,18 @@ class TaskController
                 throw new \Exception('Impossible d\'ajouter la tâche.');
             }
             else {
-                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                if ($time == true) {
+                    $setDeadline = $taskManager->setDeadline($insertTask, $userId, $deadline);
+                }
+                else {
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                }
+                if ($setDeadline === false) {
+                    throw new \Exception('Impossible d\'ajouter l\'échéance.');
+                }
+                else {
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                }
             }
         }
         else {
@@ -45,7 +56,7 @@ class TaskController
     }
 
     // Modification d'une tâche
-    public function editTask($id, $name, $userId, $important)
+    public function editTask($id, $name, $userId, $important, $time, $deadline)
     {
         $taskManager = new TaskManager();
 
@@ -64,7 +75,18 @@ class TaskController
                 throw new \Exception('Impossible de modifier la tâche.');
             }
             else {
-                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                if ($time == true) {
+                    $setDeadline = $taskManager->setDeadline($id, $userId, $deadline);
+                }
+                else {
+                    $setDeadline = $taskManager->setDeadline($id, $userId, null);
+                }
+                if ($setDeadline === false) {
+                    throw new \Exception('Impossible d\'ajouter l\'échéance.');
+                }
+                else {
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                }
             }
         }
         else {

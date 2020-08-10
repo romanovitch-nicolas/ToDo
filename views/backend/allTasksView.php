@@ -16,8 +16,14 @@ $title = "Toutes les tâches";
 		<?php foreach ($tasks as $task) { ?>
 			<tr>
 				<td>
+
+				</td>
+				<td>
 					<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
 					<label for="<?= $task->id() ?>" important="<?= $task->important() ?>"><?= $task->name() ?></label>
+				</td>
+				<td>
+					<p class="date"><?= $task->deadlineDate() ?></p>
 				</td>
 				<td>
 					<i class="fas fa-edit"></i>
