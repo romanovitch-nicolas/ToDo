@@ -11,14 +11,149 @@ class TaskManager extends Manager
         $this->db = $this->dbConnect();
     }
 
+    // Récupération du nombre de tâches importantes d'un utilisateur
+    public function getNumberOfImportant($userId)
+    {
+        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 0 AND important = 1 ORDER BY creation_date');
+        $req->execute(array($userId));
+        $nbTasks = $req->rowCount();
+
+        return $nbTasks;
+    }
+
+    // Récupération du nombre de tâches du jour d'un utilisateur
+    public function getNumberOfToday($userId)
+    {
+        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND DATEDIFF(deadline_date, NOW()) = 0 ORDER BY creation_date');
+        $req->execute(array($userId));
+        $nbTasks = $req->rowCount();
+
+        return $nbTasks;
+    }
+
+    // Récupération du nombre de tâches de la semaine d'un utilisateur
+    public function getNumberOfWeek($userId)
+    {
+        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) >= 0 AND DATEDIFF(deadline_date, NOW()) <= 7 ORDER BY creation_date');
+        $req->execute(array($userId));
+        $nbTasks = $req->rowCount();
+
+        return $nbTasks;
+    }
+
+    // Récupération du nombre de tâches en retard d'un utilisateur
+    public function getNumberOfOverdue($userId)
+    {
+        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) < 0 ORDER BY creation_date');
+        $req->execute(array($userId));
+        $nbTasks = $req->rowCount();
+
+        return $nbTasks;
+    }
+
     // Récupération de toutes les tâches d'un utilisateur
     public function getAllTasks($userId)
     {
         $req = $this->db->prepare('
         	SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done 
         	FROM tasks
-        	WHERE user_id = ?
+        	WHERE user_id = ? AND done = 0
         	ORDER BY creation_date'
+        );
+        $req->execute(array($userId));
+
+        $tasks = [];
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $tasks[] = new Task($data);
+        }
+
+        return $tasks;
+    }
+
+    // Récupération des tâches importantes d'un utilisateur
+    public function getImportantTasks($userId)
+    {
+        $req = $this->db->prepare('
+            SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done 
+            FROM tasks
+            WHERE user_id = ? AND done = 0 AND important = 1
+            ORDER BY creation_date'
+        );
+        $req->execute(array($userId));
+
+        $tasks = [];
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $tasks[] = new Task($data);
+        }
+
+        return $tasks;
+    }
+
+    // Récupération des tâches du jour d'un utilisateur
+    public function getTodayTasks($userId)
+    {
+        $req = $this->db->prepare('
+            SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done 
+            FROM tasks
+            WHERE user_id = ? AND DATEDIFF(deadline_date, NOW()) = 0
+            ORDER BY creation_date'
+        );
+        $req->execute(array($userId));
+
+        $tasks = [];
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $tasks[] = new Task($data);
+        }
+
+        return $tasks;
+    }
+
+    // Récupération des tâches des 7 prochains jours d'un utilisateur
+    public function getWeekTasks($userId)
+    {
+        $req = $this->db->prepare('
+            SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done 
+            FROM tasks
+            WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) >= 0 AND DATEDIFF(deadline_date, NOW()) <= 7
+            ORDER BY creation_date'
+        );
+        $req->execute(array($userId));
+
+        $tasks = [];
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $tasks[] = new Task($data);
+        }
+
+        return $tasks;
+    }
+
+    // Récupération des tâches en retard d'un utilisateur
+    public function getOverdueTasks($userId)
+    {
+        $req = $this->db->prepare('
+            SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done 
+            FROM tasks
+            WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) < 0
+            ORDER BY creation_date'
+        );
+        $req->execute(array($userId));
+
+        $tasks = [];
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $tasks[] = new Task($data);
+        }
+
+        return $tasks;
+    }
+
+    // Récupération des tâches archivées d'un utilisateur
+    public function getArchivedTasks($userId)
+    {
+        $req = $this->db->prepare('
+            SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done 
+            FROM tasks
+            WHERE user_id = ? AND done = 1 AND DATEDIFF(deadline_date, NOW()) <= 0 AND DATEDIFF(deadline_date, NOW()) >= "-90"
+            ORDER BY creation_date'
         );
         $req->execute(array($userId));
 

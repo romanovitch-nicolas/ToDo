@@ -69,11 +69,14 @@ try {
             break;
 
             case 'dashboard':
-                if (isset($_SESSION['id']) OR isset($_COOKIE['id'])) {
-                    require('views/backend/dashboardView.php');
+                if (isset($_SESSION['id'])) {
+                    $taskController->getDashboard($_SESSION['id']);
+                } 
+                elseif (isset($_COOKIE['id'])) {
+                    $taskController->getDashboard($_COOKIE['id']);
                 }
                 else {
-                    require('views/frontend/homeView.php');
+                    require('views/frontend/connectView.php');
                 }
             break;
 
@@ -83,6 +86,66 @@ try {
                 } 
                 elseif (isset($_COOKIE['id'])) {
                     $taskController->getAllTasks($_COOKIE['id']);
+                }
+                else {
+                    require('views/frontend/connectView.php');
+                }
+            break;
+
+            case 'important':
+                if (isset($_SESSION['id'])) {
+                    $taskController->getImportantTasks($_SESSION['id']);
+                } 
+                elseif (isset($_COOKIE['id'])) {
+                    $taskController->getImportantTasks($_COOKIE['id']);
+                }
+                else {
+                    require('views/frontend/connectView.php');
+                }
+            break;
+
+            case 'today':
+                if (isset($_SESSION['id'])) {
+                    $taskController->getTodayTasks($_SESSION['id']);
+                } 
+                elseif (isset($_COOKIE['id'])) {
+                    $taskController->getTodayTasks($_COOKIE['id']);
+                }
+                else {
+                    require('views/frontend/connectView.php');
+                }
+            break;
+
+            case 'week':
+                if (isset($_SESSION['id'])) {
+                    $taskController->getWeekTasks($_SESSION['id']);
+                } 
+                elseif (isset($_COOKIE['id'])) {
+                    $taskController->getWeekTasks($_COOKIE['id']);
+                }
+                else {
+                    require('views/frontend/connectView.php');
+                }
+            break;
+
+            case 'overdue':
+                if (isset($_SESSION['id'])) {
+                    $taskController->getOverdueTasks($_SESSION['id']);
+                } 
+                elseif (isset($_COOKIE['id'])) {
+                    $taskController->getOverdueTasks($_COOKIE['id']);
+                }
+                else {
+                    require('views/frontend/connectView.php');
+                }
+            break;
+
+            case 'archives':
+                if (isset($_SESSION['id'])) {
+                    $taskController->getArchivedTasks($_SESSION['id']);
+                } 
+                elseif (isset($_COOKIE['id'])) {
+                    $taskController->getArchivedTasks($_COOKIE['id']);
                 }
                 else {
                     require('views/frontend/connectView.php');

@@ -1,14 +1,14 @@
 <?php
-$title = "Toutes les tâches";
+$title = "Important";
 ?>
 
 <?php ob_start(); ?>
 
-<h1>Toutes les tâches</h1>
+<h1>Important</h1>
 
 <?php if(count($tasks)) { ?>
 
-<section id="all_tasks">
+<section id="important">
 	<table>
 		<?php foreach ($tasks as $task) { ?>
 			<tr>
@@ -28,7 +28,7 @@ $title = "Toutes les tâches";
 	</table>
 </section>
 
-<?php } else { ?><p>Pas de tâche.</p><?php } ?>
+<?php } else { ?><p>Pas de tâche importante.</p><?php } ?>
 
 <?php $content = ob_get_clean(); ?>
 

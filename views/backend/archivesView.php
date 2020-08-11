@@ -1,14 +1,14 @@
 <?php
-$title = "Toutes les tâches";
+$title = "Archives";
 ?>
 
 <?php ob_start(); ?>
 
-<h1>Toutes les tâches</h1>
+<h1>Archives des 90 derniers jours</h1>
 
 <?php if(count($tasks)) { ?>
 
-<section id="all_tasks">
+<section id="archives">
 	<table>
 		<?php foreach ($tasks as $task) { ?>
 			<tr>
@@ -20,7 +20,6 @@ $title = "Toutes les tâches";
 					<p class="date"><?= $task->deadlineDate() ?></p>
 				</td>
 				<td>
-					<i class="fas fa-edit"></i>
 					<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash"></i></a>
 				</td>
 			</tr>
@@ -28,7 +27,7 @@ $title = "Toutes les tâches";
 	</table>
 </section>
 
-<?php } else { ?><p>Pas de tâche.</p><?php } ?>
+<?php } else { ?><p>Pas de tâche effectuée au cours des 90 derniers jours.</p><?php } ?>
 
 <?php $content = ob_get_clean(); ?>
 

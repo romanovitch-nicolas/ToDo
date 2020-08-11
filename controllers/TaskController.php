@@ -5,7 +5,24 @@ use ToDo\Models\ListManager;
 use ToDo\Models\TaskManager;
 
 class TaskController
-{   
+{  
+    // Affichage du dashboard (tâches en retard, tâches du jour, tâches importantes) d'un utilisateur
+    public function getDashboard($userId)
+    {
+        $taskManager = new TaskManager();
+
+        $overdueTasks = $taskManager->getOverdueTasks($userId);
+        $todayTasks = $taskManager->getTodayTasks($userId);
+        $importantTasks = $taskManager->getImportantTasks($userId);
+
+        $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+        $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+        $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+        $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+
+        require('views/backend/dashboardView.php');
+    }
+
 	// Affichage de toutes les tâches d'un utilisateur
     public function getAllTasks($userId)
     {
@@ -13,7 +30,87 @@ class TaskController
 
         $tasks = $taskManager->getAllTasks($userId);
 
+        $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+        $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+        $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+        $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+
         require('views/backend/allTasksView.php');
+    }
+
+    // Affichage des tâches importantes d'un utilisateur
+    public function getImportantTasks($userId)
+    {
+        $taskManager = new TaskManager();
+
+        $tasks = $taskManager->getImportantTasks($userId);
+
+        $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+        $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+        $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+        $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+
+        require('views/backend/importantView.php');
+    }
+
+    // Affichage des tâches du jour d'un utilisateur
+    public function getTodayTasks($userId)
+    {
+        $taskManager = new TaskManager();
+
+        $tasks = $taskManager->getTodayTasks($userId);
+
+        $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+        $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+        $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+        $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+
+        require('views/backend/todayView.php');
+    }
+
+    // Affichage des tâches des 7 prochains jours d'un utilisateur
+    public function getWeekTasks($userId)
+    {
+        $taskManager = new TaskManager();
+
+        $tasks = $taskManager->getWeekTasks($userId);
+
+        $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+        $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+        $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+        $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+
+        require('views/backend/weekView.php');
+    }
+
+    // Affichage des tâches en retard d'un utilisateur
+    public function getOverdueTasks($userId)
+    {
+        $taskManager = new TaskManager();
+
+        $tasks = $taskManager->getOverdueTasks($userId);
+
+        $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+        $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+        $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+        $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+
+        require('views/backend/overdueView.php');
+    }
+
+    // Affichage des tâches archivées d'un utilisateur
+    public function getArchivedTasks($userId)
+    {
+        $taskManager = new TaskManager();
+
+        $tasks = $taskManager->getArchivedTasks($userId);
+
+        $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+        $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+        $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+        $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+
+        require('views/backend/archivesView.php');
     }
 
 	// Ajout d'une tâche

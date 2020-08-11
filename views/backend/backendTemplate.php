@@ -19,11 +19,11 @@
                     <li><a href="<?= LINK_DASHBOARD ?>" <?php if($_GET['action'] == 'dashboard') { echo 'class="active"'; } ?>><i class="fas fa-chart-line fa-fw" title="Tableau de bord"></i>Tableau de bord</a></li>
                     <li><div class="line"></div></li>
     				<li><a href="<?= LINK_ALLTASKS ?>" <?php if($_GET['action'] == 'allTasks') { echo 'class="active"'; } ?>><i class="far fa-list-alt fa-fw"></i>Toutes les tâches</a></li>
-    				<li><a href="#"><i class="fas fa-exclamation-circle fa-fw"></i>Important</a></li>
-    				<li><a href="#"><i class="far fa-calendar fa-fw"></i>Aujourd'hui</a></li>
-    				<li><a href="#"><i class="far fa-calendar-alt fa-fw"></i>7 Prochains Jours</a></li>
-    				<li><a href="#"><i class="far fa-calendar-times fa-fw"></i>Retard</a></li>
-    				<li><a href="#"><i class="fas fa-archive fa-fw"></i>Archives</a></li>
+    				<li id="nav_important"><a href="<?= LINK_IMPORTANT ?>" <?php if($_GET['action'] == 'important') { echo 'class="active"'; } ?>><i class="fas fa-exclamation-circle fa-fw"></i>Important</a></li>
+    				<li id="nav_today"><a href="<?= LINK_TODAY ?>" <?php if($_GET['action'] == 'today') { echo 'class="active"'; } ?>><i class="far fa-calendar fa-fw"></i>Aujourd'hui</a></li>
+    				<li id="nav_week"><a href="<?= LINK_WEEK ?>" <?php if($_GET['action'] == 'week') { echo 'class="active"'; } ?>><i class="far fa-calendar-alt fa-fw"></i>7 Prochains Jours</a></li>
+    				<li id="nav_overdue"><a href="<?= LINK_OVERDUE ?>" <?php if($_GET['action'] == 'overdue') { echo 'class="active"'; } ?>><i class="far fa-calendar-times fa-fw"></i>Retard</a></li>
+    				<li><a href="<?= LINK_ARCHIVES ?>" <?php if($_GET['action'] == 'archives') { echo 'class="active"'; } ?>><i class="fas fa-archive fa-fw"></i>Archives</a></li>
     				<li><div class="line"></div></li>
     				<li><i class="fas fa-list"></i>Listes ▼</li>
     			</ul>
@@ -56,8 +56,16 @@
 
         <?= $content ?>
 
+        <div class="invisible">
+            <p id="nb_important"><?= $nbImportantTasks ?></p>
+            <p id="nb_today"><?= $nbTodayTasks ?></p>
+            <p id="nb_week"><?= $nbWeekTasks ?></p>
+            <p id="nb_overdue"><?= $nbOverdueTasks ?></p>
+        </div>
+
         <script src="https://kit.fontawesome.com/45b095f08c.js" crossorigin="anonymous"></script>
         <script src="public/js/ajax.js"></script>
         <script src="public/js/form.js"></script>
+        <script src="public/js/nav.js"></script>
     </body>
 </html>
