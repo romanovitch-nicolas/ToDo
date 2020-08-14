@@ -21,6 +21,15 @@ $listController = new ToDo\Controllers\ListController();
 $taskController = new ToDo\Controllers\TaskController();
 $userController = new ToDo\Controllers\UserController();
 
+if (isset($_SESSION['id']))
+{
+    $userId = $_SESSION['id'];
+}
+elseif (isset($_COOKIE['id']))
+{
+    $userId = $_COOKIE['id'];
+}
+
 try {
     if (isset($_GET['action'])) {
         switch ($_GET['action']) {
@@ -29,7 +38,7 @@ try {
             break;
 
             case 'inscription':
-                if (!isset($_SESSION['id']) OR !isset($_COOKIE['id'])) {
+                if (empty($userId)) {
                     require('views/frontend/inscriptionView.php');
                 }
                 else {
@@ -38,7 +47,7 @@ try {
             break;
 
             case 'register':
-                if (!isset($_SESSION['id']) OR !isset($_COOKIE['id'])) {
+                if (empty($userId)) {
                     $userController->inscription();
                 }
                 else {
@@ -47,7 +56,7 @@ try {
             break;
 
             case 'connection':
-                if (!isset($_SESSION['id']) OR !isset($_COOKIE['id'])) {
+                if (empty($userId)) {
                     require('views/frontend/connectView.php');
                 }
                 else {
@@ -56,7 +65,7 @@ try {
             break;
 
             case 'connect':
-                if (!isset($_SESSION['id']) OR !isset($_COOKIE['id'])) {
+                if (empty($userId)) {
                     $userController->connection();
                 }
                 else {
@@ -69,95 +78,74 @@ try {
             break;
 
             case 'dashboard':
-                if (isset($_SESSION['id'])) {
-                    $taskController->getDashboard($_SESSION['id']);
+                if (!empty($userId)) {
+                    $taskController->getDashboard($userId);
                 } 
-                elseif (isset($_COOKIE['id'])) {
-                    $taskController->getDashboard($_COOKIE['id']);
-                }
                 else {
                     require('views/frontend/connectView.php');
                 }
             break;
 
             case 'allTasks':
-                if (isset($_SESSION['id'])) {
-                    $taskController->getAllTasks($_SESSION['id']);
+                if (!empty($userId)) {
+                    $taskController->getAllTasks($userId);
                 } 
-                elseif (isset($_COOKIE['id'])) {
-                    $taskController->getAllTasks($_COOKIE['id']);
-                }
                 else {
                     require('views/frontend/connectView.php');
                 }
             break;
 
             case 'important':
-                if (isset($_SESSION['id'])) {
-                    $taskController->getImportantTasks($_SESSION['id']);
+                if (!empty($userId)) {
+                    $taskController->getImportantTasks($userId);
                 } 
-                elseif (isset($_COOKIE['id'])) {
-                    $taskController->getImportantTasks($_COOKIE['id']);
-                }
                 else {
                     require('views/frontend/connectView.php');
                 }
             break;
 
             case 'today':
-                if (isset($_SESSION['id'])) {
-                    $taskController->getTodayTasks($_SESSION['id']);
+                if (!empty($userId)) {
+                    $taskController->getTodayTasks($userId);
                 } 
-                elseif (isset($_COOKIE['id'])) {
-                    $taskController->getTodayTasks($_COOKIE['id']);
-                }
                 else {
                     require('views/frontend/connectView.php');
                 }
             break;
 
             case 'week':
-                if (isset($_SESSION['id'])) {
-                    $taskController->getWeekTasks($_SESSION['id']);
+                if (!empty($userId)) {
+                    $taskController->getWeekTasks($userId);
                 } 
-                elseif (isset($_COOKIE['id'])) {
-                    $taskController->getWeekTasks($_COOKIE['id']);
-                }
                 else {
                     require('views/frontend/connectView.php');
                 }
             break;
 
             case 'overdue':
-                if (isset($_SESSION['id'])) {
-                    $taskController->getOverdueTasks($_SESSION['id']);
+                if (!empty($userId)) {
+                    $taskController->getOverdueTasks($userId);
                 } 
-                elseif (isset($_COOKIE['id'])) {
-                    $taskController->getOverdueTasks($_COOKIE['id']);
-                }
                 else {
                     require('views/frontend/connectView.php');
                 }
             break;
 
             case 'archives':
-                if (isset($_SESSION['id'])) {
-                    $taskController->getArchivedTasks($_SESSION['id']);
+                if (!empty($userId)) {
+                    $taskController->getArchivedTasks($userId);
                 } 
-                elseif (isset($_COOKIE['id'])) {
-                    $taskController->getArchivedTasks($_COOKIE['id']);
-                }
                 else {
                     require('views/frontend/connectView.php');
                 }
             break;
 
             case 'addTask':
-                if (isset($_SESSION['id'])) {
-                    $taskController->addTask($_POST['task'], $_SESSION['id'], $_POST['important'], $_POST['time'], $_POST['deadline']);
-                }
-                elseif (isset($_COOKIE['id'])) {
-                    $taskController->addTask($_POST['task'], $_COOKIE['id'], $_POST['important'], $_POST['time'], $_POST['deadline']);
+                if (!empty($userId)) {
+                    if (isset($_POST['important'])) { $important = $_POST['important']; } else { $important = 0; };
+                    if (isset($_POST['time'])) { $time = $_POST['time']; } else { $time = false; };
+                    if (isset($_POST['reccuring'])) { $reccuring = $_POST['reccuring']; } else { $reccuring = 0; };
+                    $taskController->addTask($_POST['task'], $userId, $important, $time, $_POST['deadline'], $reccuring, $_POST['schedule_number'], $_POST['schedule_delay']);
                 }
                 else {
                     require('views/frontend/connectView.php'); 
@@ -165,22 +153,12 @@ try {
             break;
 
             case 'editTask':
-                if (isset($_SESSION['id'])) {
+                if (!empty($userId)) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         if (isset($_POST['important'])) { $important = $_POST['important']; } else { $important = 0; };
                         if (isset($_POST['time'])) { $time = $_POST['time']; } else { $time = false; };
-                        $taskController->editTask($_GET['id'], $_POST['task'], $_SESSION['id'], $important, $time, $_POST['deadline']);
-                    }
-                    else
-                    {
-                        require('views/backend/dashboardView.php');
-                    }
-                }
-                elseif (isset($_COOKIE['id'])) {
-                    if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        if (isset($_POST['important'])) { $important = $_POST['important']; } else { $important = 0; };
-                        if (isset($_POST['time'])) { $time = $_POST['time']; } else { $time = false; };
-                        $taskController->editTask($_GET['id'], $_POST['task'], $_COOKIE['id'], $important, $time, $_POST['deadline']);
+                        if (isset($_POST['reccuring'])) { $reccuring = $_POST['reccuring']; } else { $reccuring = 0; };
+                        $taskController->editTask($_GET['id'], $_POST['task'], $userId, $important, $time, $_POST['deadline'], $reccuring, $_POST['schedule_number'], $_POST['schedule_delay']);
                     }
                     else
                     {
@@ -193,18 +171,9 @@ try {
             break;
 
             case 'deleteTask':
-                if (isset($_SESSION['id'])) {
+                if (!empty($userId)) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        $taskController->deleteTask($_GET['id'], $_SESSION['id']);
-                    }
-                    else
-                    {
-                        require('views/backend/dashboardView.php');
-                    }
-                }
-                elseif (isset($_COOKIE['id'])) {
-                    if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        $taskController->deleteTask($_GET['id'], $_COOKIE['id']);
+                        $taskController->deleteTask($_GET['id'], $userId);
                     }
                     else
                     {

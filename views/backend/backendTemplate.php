@@ -18,12 +18,12 @@
     			<ul>
                     <li><a href="<?= LINK_DASHBOARD ?>" <?php if($_GET['action'] == 'dashboard') { echo 'class="active"'; } ?>><i class="fas fa-chart-line fa-fw" title="Tableau de bord"></i>Tableau de bord</a></li>
                     <li><div class="line"></div></li>
-    				<li><a href="<?= LINK_ALLTASKS ?>" <?php if($_GET['action'] == 'allTasks') { echo 'class="active"'; } ?>><i class="far fa-list-alt fa-fw"></i>Toutes les tâches</a></li>
+    				<li id="nav_tasks"><a href="<?= LINK_ALLTASKS ?>" <?php if($_GET['action'] == 'allTasks') { echo 'class="active"'; } ?>><i class="far fa-list-alt fa-fw"></i>Toutes les tâches</a></li>
     				<li id="nav_important"><a href="<?= LINK_IMPORTANT ?>" <?php if($_GET['action'] == 'important') { echo 'class="active"'; } ?>><i class="fas fa-exclamation-circle fa-fw"></i>Important</a></li>
     				<li id="nav_today"><a href="<?= LINK_TODAY ?>" <?php if($_GET['action'] == 'today') { echo 'class="active"'; } ?>><i class="far fa-calendar fa-fw"></i>Aujourd'hui</a></li>
     				<li id="nav_week"><a href="<?= LINK_WEEK ?>" <?php if($_GET['action'] == 'week') { echo 'class="active"'; } ?>><i class="far fa-calendar-alt fa-fw"></i>7 Prochains Jours</a></li>
     				<li id="nav_overdue"><a href="<?= LINK_OVERDUE ?>" <?php if($_GET['action'] == 'overdue') { echo 'class="active"'; } ?>><i class="far fa-calendar-times fa-fw"></i>Retard</a></li>
-    				<li><a href="<?= LINK_ARCHIVES ?>" <?php if($_GET['action'] == 'archives') { echo 'class="active"'; } ?>><i class="fas fa-archive fa-fw"></i>Archives</a></li>
+    				<li id="nav_archived"><a href="<?= LINK_ARCHIVES ?>" <?php if($_GET['action'] == 'archives') { echo 'class="active"'; } ?>><i class="fas fa-archive fa-fw"></i>Archives</a></li>
     				<li><div class="line"></div></li>
     				<li><i class="fas fa-list"></i>Listes ▼</li>
     			</ul>
@@ -46,21 +46,36 @@
                         <i class="fas fa-flag invisible" id="important_active" title="Important"></i>
                     </span>
                 </p>
-                <p id="time-menu" class="invisible">
-                    <input type="checkbox" name="time" />
-                    <label for="time">Prévoir pour le :</label>
-                    <input type="date" name="deadline" />
-                </p>
+                <div id="time-menu" class="invisible">
+                    <p>
+                        <input id="deadline_checkbox" type="checkbox" name="time" />
+                        <label for="time">Prévoir pour le :</label>
+                        <input type="date" name="deadline" />
+                    </p>
+                    <p>
+                        <input id="reccuring_checkbox" type="checkbox" name="reccuring" />
+                        <label id="reccuring_label" for="reccuring">Répéter tous les :</label>
+                        <input type="number" name="schedule_number" min="1" max="999" />
+                        <select id="schedule_delay" name="schedule_delay">
+                            <option value="day">jours</option>
+                            <option value="week">semaines</option>
+                            <option value="month">mois</option>
+                            <option value="year">ans</option>
+                        </select>
+                    </p>
+                </div>
             </form>
         </div>
 
         <?= $content ?>
 
         <div class="invisible">
+            <p id="nb_tasks"><?= $nbTasks ?></p>
             <p id="nb_important"><?= $nbImportantTasks ?></p>
             <p id="nb_today"><?= $nbTodayTasks ?></p>
             <p id="nb_week"><?= $nbWeekTasks ?></p>
             <p id="nb_overdue"><?= $nbOverdueTasks ?></p>
+            <p id="nb_archived"><?= $nbArchivedTasks ?></p>
         </div>
 
         <script src="https://kit.fontawesome.com/45b095f08c.js" crossorigin="anonymous"></script>

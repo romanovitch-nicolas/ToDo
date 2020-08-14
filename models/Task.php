@@ -11,6 +11,8 @@ class Task
     protected $deadlineDate;
     protected $important;
     protected $done;
+    protected $reccuring;
+    protected $schedule;
 
     public function __construct(array $data)
     {
@@ -48,6 +50,11 @@ class Task
             $this->setDeadlineDate($data['deadline_date_fr']);
         }
 
+        if (isset($data['completion_date_fr']))
+        {
+            $this->setCompletionDate($data['completion_date_fr']);
+        }
+
         if (isset($data['important']))
         {
             $this->setImportant($data['important']);
@@ -56,6 +63,16 @@ class Task
         if (isset($data['done']))
         {
             $this->setDone($data['done']);
+        }
+
+        if (isset($data['reccuring']))
+        {
+            $this->setReccuring($data['reccuring']);
+        }
+
+        if (isset($data['schedule']))
+        {
+            $this->setSchedule($data['schedule']);
         }
     }
 
@@ -84,12 +101,24 @@ class Task
         return $this->deadlineDate;
     }
 
+    public function completionDate() {
+        return $this->completionDate;
+    }
+
     public function important() {
         return $this->important;
     }
 
     public function done() {
         return $this->done;
+    }
+
+    public function reccuring() {
+        return $this->reccuring;
+    }
+
+    public function schedule() {
+        return $this->schedule;
     }
 
     // Setters
@@ -137,6 +166,11 @@ class Task
         $this->deadlineDate = $deadlineDate;
     }
 
+    public function setCompletionDate($completionDate)
+    {
+        $this->completionDate = $completionDate;
+    }
+
     public function setImportant($important) {
         if ($important == 0 || $important == 1)
         {
@@ -148,6 +182,20 @@ class Task
         if ($done == 0 || $done == 1)
         {
             $this->done = $done;
+        }
+    }
+
+    public function setReccuring($reccuring) {
+        if ($reccuring == 0 || $reccuring == 1)
+        {
+            $this->reccuring = $reccuring;
+        }
+    }
+
+    public function setSchedule($schedule) {
+        if (is_string($schedule))
+        {
+            $this->schedule = $schedule;
         }
     }
 }

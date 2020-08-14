@@ -10,21 +10,34 @@ $title = "Toutes les tâches";
 
 <section id="all_tasks">
 	<table>
-		<?php foreach ($tasks as $task) { ?>
+		<thead>
 			<tr>
-				<td>
-					<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
-					<label for="<?= $task->id() ?>" important="<?= $task->important() ?>"><?= $task->name() ?></label>
-				</td>
-				<td>
-					<p class="date"><?= $task->deadlineDate() ?></p>
-				</td>
-				<td>
-					<i class="fas fa-edit"></i>
-					<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash"></i></a>
-				</td>
+				<th>Tâche</th>
+				<th>Deadline</th>
+				<th>Action</th>
 			</tr>
-		<?php } ?>
+		</thead>
+		<tbody>
+			<?php foreach ($tasks as $task) { ?>
+				<tr class="task">
+					<td>
+						<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
+						<label for="<?= $task->id() ?>" important="<?= $task->important() ?>"><?= $task->name() ?></label>
+					</td>
+					<td>
+						<p class="date" <?php if($task->reccuring() == 1) { echo 'schedule="' . $task->schedule() . '"'; } ?>><?= $task->deadlineDate() ?></p>
+					</td>
+					<td>
+						<i class="fas fa-edit" title="Modifier"></i>
+						<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash" onclick="
+							if(<?= $task->reccuring() ?> == 1) {
+								if(confirm('Attention, ceci est une tâche récurrente. Pensez à décocher la case \'Répéter\' si vous voulez aussi supprimer les récurrences. Supprimer définitivement ?')){return true;}else{return false;}
+							} else if(confirm('Supprimer définitivement ?')){return true;}else{return false;}
+							"title="Supprimer"></i></a>
+					</td>
+				</tr>
+			<?php } ?>
+		</tbody>
 	</table>
 </section>
 

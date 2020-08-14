@@ -28,6 +28,11 @@ body
 	margin-bottom: 10px;
 }
 
+.date
+{
+	font-size: 14px;
+}
+
 #background
 {
 	position: fixed;
@@ -177,15 +182,46 @@ header
 
 #time-menu
 {
-	font-size: 14px;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
+	font-size: 14px;
 	border-top: 1px solid #000;
-	padding-top: 16px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 #time-menu label
 {
 	margin-left: 5px;
 	margin-right: 5px;
+}
+
+#time-menu p
+{
+	display: flex;
+	align-items: center;
+	justify-content: initial !important;
+	padding-bottom: 0 !important;
+	padding-top: 0 !important;
+	margin-block-start: 0.5em;
+	margin-block-end: 0.5em;
+}
+
+#time-menu input[type="date"]
+{
+	padding: 1.5px;
+	width: 146px;
+}
+
+#time-menu input[type="number"]
+{
+	width: 37px;
+	margin-right: 2px;
+	padding: 4px;
+}
+
+#time-menu select
+{
+	padding: 4px;
 }

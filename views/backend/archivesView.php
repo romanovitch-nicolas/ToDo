@@ -4,30 +4,35 @@ $title = "Archives";
 
 <?php ob_start(); ?>
 
-<h1>Archives des 90 derniers jours</h1>
+<h1>Archives des 30 derniers jours</h1>
 
 <?php if(count($tasks)) { ?>
 
 <section id="archives">
 	<table>
-		<?php foreach ($tasks as $task) { ?>
+		<thead>
 			<tr>
-				<td>
-					<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
-					<label for="<?= $task->id() ?>" important="<?= $task->important() ?>"><?= $task->name() ?></label>
-				</td>
-				<td>
-					<p class="date"><?= $task->deadlineDate() ?></p>
-				</td>
-				<td>
-					<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash"></i></a>
-				</td>
+				<th>Tâche</th>
+				<th>Date d'accomplissement</th>
 			</tr>
-		<?php } ?>
+		</thead>
+		<tbody>
+			<?php foreach ($tasks as $task) { ?>
+				<tr class="task">
+					<td>
+						<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
+						<label for="<?= $task->id() ?>" important="<?= $task->important() ?>"><?= $task->name() ?></label>
+					</td>
+					<td>
+						<p class="date"><?= $task->completionDate() ?></p>
+					</td>
+				</tr>
+			<?php } ?>
+		</tbody>
 	</table>
 </section>
 
-<?php } else { ?><p>Pas de tâche effectuée au cours des 90 derniers jours.</p><?php } ?>
+<?php } else { ?><p>Pas de tâche effectuée.</p><?php } ?>
 
 <?php $content = ob_get_clean(); ?>
 
