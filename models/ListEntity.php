@@ -1,7 +1,7 @@
 <?php
 namespace ToDo\Models;
 
-class List
+class ListEntity
 {
     protected $id;
     protected $userId;

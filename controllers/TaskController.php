@@ -10,10 +10,12 @@ class TaskController
     public function getDashboard($userId)
     {
         $taskManager = new TaskManager();
+        $listManager = new ListManager();
 
         $overdueTasks = $taskManager->getOverdueTasks($userId);
         $todayTasks = $taskManager->getTodayTasks($userId);
         $importantTasks = $taskManager->getImportantTasks($userId);
+        $lists = $listManager->getLists($userId);
 
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
@@ -25,12 +27,14 @@ class TaskController
         require('views/backend/dashboardView.php');
     }
 
-	// Affichage de toutes les tâches d'un utilisateur
-    public function getAllTasks($userId)
+	// Affichage de toutes les tâches non terminées d'un utilisateur
+    public function getAllUnfinishedTasks($userId)
     {
         $taskManager = new TaskManager();
+        $listManager = new ListManager();
 
-        $tasks = $taskManager->getAllTasks($userId);
+        $tasks = $taskManager->getAllUnfinishedTasks($userId);
+        $lists = $listManager->getLists($userId);
 
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
@@ -46,8 +50,10 @@ class TaskController
     public function getImportantTasks($userId)
     {
         $taskManager = new TaskManager();
+        $listManager = new ListManager();
 
         $tasks = $taskManager->getImportantTasks($userId);
+        $lists = $listManager->getLists($userId);
 
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
@@ -63,8 +69,10 @@ class TaskController
     public function getTodayTasks($userId)
     {
         $taskManager = new TaskManager();
+        $listManager = new ListManager();
 
         $tasks = $taskManager->getTodayTasks($userId);
+        $lists = $listManager->getLists($userId);
 
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
@@ -80,8 +88,10 @@ class TaskController
     public function getWeekTasks($userId)
     {
         $taskManager = new TaskManager();
+        $listManager = new ListManager();
 
         $tasks = $taskManager->getWeekTasks($userId);
+        $lists = $listManager->getLists($userId);
 
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
@@ -97,8 +107,10 @@ class TaskController
     public function getOverdueTasks($userId)
     {
         $taskManager = new TaskManager();
+        $listManager = new ListManager();
 
         $tasks = $taskManager->getOverdueTasks($userId);
+        $lists = $listManager->getLists($userId);
 
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
@@ -114,8 +126,10 @@ class TaskController
     public function getArchivedTasks($userId)
     {
         $taskManager = new TaskManager();
+        $listManager = new ListManager();
 
         $tasks = $taskManager->getArchivedTasks($userId);
+        $lists = $listManager->getLists($userId);
 
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
@@ -128,7 +142,7 @@ class TaskController
     }
 
 	// Ajout d'une tâche
-    public function addTask($name, $userId, $important, $time, $deadline, $reccuring, $scheduleNumber, $scheduleDelay)
+    public function addTask($name, $userId, $important, $time, $deadline, $reccuring, $scheduleNumber, $scheduleDelay, $list, $listId)
     {
         $taskManager = new TaskManager();
 
@@ -143,12 +157,23 @@ class TaskController
             $schedule = NULL;
         }
 
-        if($nameLength <= 255) {
+        if($nameLength > 0 AND $nameLength <= 255) {
             $insertTask = $taskManager->insertTask($name, $userId, $important, $reccuring);
             if ($insertTask === false) {
                 throw new \Exception('Impossible d\'ajouter la tâche.');
             }
             else {
+                if ($list == true) {
+                    if (is_int($listId) OR $listId == null) {
+                        $setList = $taskManager->setList($insertTask, $userId, $listId);
+                    }
+                    else {
+                        header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    }
+                    if ($setList === false) {
+                        throw new \Exception('Impossible d\'associer à la liste.');
+                    }
+                }
                 if ($time == true) {
                     if (preg_match("#(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))#", $deadline)) {
                         $setDeadline = $taskManager->setDeadline($insertTask, $userId, $deadline);
@@ -185,7 +210,7 @@ class TaskController
     }
 
     // Modification d'une tâche
-    public function editTask($id, $name, $userId, $important, $time, $deadline, $reccuring, $scheduleNumber, $scheduleDelay)
+    public function editTask($id, $name, $userId, $important, $time, $deadline, $reccuring, $scheduleNumber, $scheduleDelay, $list, $listId)
     {
         $taskManager = new TaskManager();
 
@@ -200,12 +225,29 @@ class TaskController
             $schedule = null;
         }
 
-        if($nameLength <= 255) {
+        if($nameLength > 0 AND $nameLength <= 255) {
             $editTask = $taskManager->editTask($id, $name, $userId, $important, $reccuring);
             if ($editTask === false) {
                 throw new \Exception('Impossible de modifier la tâche.');
             }
             else {
+                if ($list == true) {
+                    if (is_int($listId) OR $listId == null) {
+                        $setList = $taskManager->setList($id, $userId, $listId);
+                    }
+                    else {
+                        header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    }
+                    if ($setList === false) {
+                        throw new \Exception('Impossible de modifier la liste.');
+                    }
+                }
+                else {
+                    $setList = $taskManager->setList($id, $userId, null);
+                    if ($setList === false) {
+                        throw new \Exception('Impossible de modifier la liste.');
+                    }
+                }
                 if ($time == true) {
                     if (preg_match("#(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))#", $deadline)) {
                         $setDeadline = $taskManager->setDeadline($id, $userId, $deadline);

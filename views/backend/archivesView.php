@@ -13,6 +13,7 @@ $title = "Archives";
 		<thead>
 			<tr>
 				<th>Tâche</th>
+				<th>Liste</th>
 				<th>Date d'accomplissement</th>
 			</tr>
 		</thead>
@@ -22,6 +23,13 @@ $title = "Archives";
 					<td>
 						<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
 						<label for="<?= $task->id() ?>" important="<?= $task->important() ?>"><?= $task->name() ?></label>
+					</td>
+					<td>
+						<?php foreach ($lists as $list) { 
+							if ($list->id() === $task->listId()) { ?>
+								<p><?= $list->name() ?></p> 
+							<?php } ?>
+						<?php } ?>
 					</td>
 					<td>
 						<p class="date"><?= $task->completionDate() ?></p>

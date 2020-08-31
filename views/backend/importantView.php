@@ -14,6 +14,7 @@ $title = "Important";
 			<tr>
 				<th>Tâche</th>
 				<th>Deadline</th>
+				<th>Liste</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -28,12 +29,19 @@ $title = "Important";
 						<p class="date" <?php if($task->reccuring() == 1) { echo 'schedule="' . $task->schedule() . '"'; } ?>><?= $task->deadlineDate() ?></p>
 					</td>
 					<td>
+						<?php foreach ($lists as $list) { 
+							if ($list->id() === $task->listId()) { ?>
+								<p><?= $list->name() ?></p> 
+							<?php } ?>
+						<?php } ?>
+					</td>
+					<td>
 						<i class="fas fa-edit" title="Modifier"></i>
-						<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash" onclick="
-							if(<?= $task->reccuring() ?> == 1) {
-								if(confirm('Attention, ceci est une tâche récurrente. Pensez à décocher la case \'Répéter\' si vous voulez aussi supprimer les récurrences. Supprimer définitivement ?')){return true;}else{return false;}
-							} else if(confirm('Supprimer définitivement ?')){return true;}else{return false;}
-							"title="Supprimer"></i></a>
+						<?php if($task->reccuring() == 1) { ?>
+							<i class="fas fa-trash" title="Supprimer"></i>
+						<?php } else { ?>
+							<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash" title="Supprimer"></i></a>
+						<?php } ?>
 					</td>
 				</tr>
 			<?php } ?>

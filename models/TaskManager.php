@@ -89,10 +89,29 @@ class TaskManager extends Manager
     public function getAllTasks($userId)
     {
         $req = $this->db->prepare('
-        	SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done, reccuring, schedule
-        	FROM tasks
-        	WHERE user_id = ? AND done = 0
-        	ORDER BY creation_date'
+            SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done, reccuring, schedule
+            FROM tasks
+            WHERE user_id = ?
+            ORDER BY creation_date'
+        );
+        $req->execute(array($userId));
+
+        $tasks = [];
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $tasks[] = new Task($data);
+        }
+
+        return $tasks;
+    }
+    
+    // Récupération de toutes les tâches non terminées d'un utilisateur
+    public function getAllUnfinishedTasks($userId)
+    {
+        $req = $this->db->prepare('
+            SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done, reccuring, schedule
+            FROM tasks
+            WHERE user_id = ? AND done = 0
+            ORDER BY creation_date'
         );
         $req->execute(array($userId));
 
@@ -245,12 +264,39 @@ class TaskManager extends Manager
         return $setRecurring;
     }
 
+    // Edition d'une affectation à une liste
+    public function setList($taskId, $userId, $listId)
+    {
+        $req = $this->db->prepare('UPDATE tasks SET list_id = ? WHERE id = ? AND user_id = ?');
+        $setList = $req->execute(array($listId, $taskId, $userId));
+
+        return $setList;
+    }
+
+    // Suppression des affectations à une liste
+    public function setListToNull($listId, $userId)
+    {
+        $req = $this->db->prepare('UPDATE tasks SET list_id = ? WHERE list_id = ? AND user_id = ?');
+        $setListToNull = $req->execute(array(NULL, $listId, $userId));
+
+        return $setListToNull;
+    }
+
     // Suppression d'une tâche
     public function deleteTask($taskId, $userId)
     {
         $req = $this->db->prepare('DELETE FROM tasks WHERE id = ? AND user_id = ?');
-        $deleteProduct = $req->execute(array($taskId, $userId));
+        $deleteTask = $req->execute(array($taskId, $userId));
 
         return $deleteTask;
+    }
+
+    // Suppression des tâches d'une liste
+    public function deleteTasksFromList($listId, $userId)
+    {
+        $req = $this->db->prepare('DELETE FROM tasks WHERE list_id = ? AND user_id = ?');
+        $deleteTasks = $req->execute(array($listId, $userId));
+
+        return $deleteTasks;
     }
 }

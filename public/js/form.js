@@ -1,27 +1,54 @@
 class Form {
 	constructor() {
+		// Général
 		this.task = document.querySelectorAll(".task");
+		this.list = document.querySelectorAll(".list");
+		this.background = document.querySelector("#background");
+
+		// Formulaire
 		this.addTaskButton = document.querySelector(".fa-plus");
 		this.closeButton = document.querySelector(".fa-times");
 		this.taskForm = document.querySelector("#task-form");
-		this.background = document.querySelector("#background");
-
 		this.form = document.querySelector("#task-form form");
 		this.formTitle = document.querySelector("#task-form h2");
 		this.formText = document.querySelector("#task-form input[type='text']");
-		this.formDate = document.querySelector("#task-form input[type='date']");
-		this.inputScheduleNumber = document.querySelector("#task-form input[type='number']");
-		this.inputScheduleDelay = document.querySelector("#schedule_delay");
 		this.formSubmit = document.querySelector("#task-form input[type='submit']");
 
+		// Sous-formulaires
 		this.importantButton = document.querySelector("#important");
 		this.importantActiveButton = document.querySelector("#important_active");
 		this.importantCheckbox = document.querySelector("#task-form form p span input[type='checkbox']");
+
 		this.timeButton = document.querySelector("#time");
 		this.timeMenu = document.querySelector("#time-menu");
 		this.deadlineCheckbox = document.querySelector("#deadline_checkbox");
 		this.reccuringCheckbox = document.querySelector("#reccuring_checkbox");
 		this.reccuringLabel = document.querySelector("#reccuring_label");
+		this.formDate = document.querySelector("#task-form input[type='date']");
+		this.inputScheduleNumber = document.querySelector("#task-form input[type='number']");
+		this.inputScheduleDelay = document.querySelector("#schedule_delay");
+		
+		this.listButton = document.querySelector("#list");
+		this.listMenu = document.querySelector("#list-menu");
+		this.listCheckbox = document.querySelector("#list_checkbox");
+		this.inputList = document.querySelector("#list_select");
+
+		// Formulaire d'ajout de liste
+		this.listFormDiv = document.querySelector("#list-form");
+		this.listForm = document.querySelector("#list-form form");
+		this.listFormTitle = document.querySelector("#list-form h2");
+		this.listFormSubmit = document.querySelector("#list-form input[type='submit']");
+		this.addListButton = document.querySelector("#add-list");
+		this.closeListForm = document.querySelector("#list-form i.fa-times");
+		this.inputListName = document.querySelector("#list-form input[type='text']");
+		this.inputListDescription = document.querySelector("#list-form textarea");
+
+		// Popup
+		this.popup = document.querySelector("#popup");
+		this.closePopup = document.querySelector("#popup i.fa-times");
+		this.popupText = document.querySelector("#popup p");
+		this.popupYes = document.querySelector("#yes");
+		this.popupNo = document.querySelector("#no");
 
 		this.open();
 		this.close();
@@ -30,36 +57,16 @@ class Form {
 	}
 
 	open() {
-		// Ouverture du formulaire d'ajout
+		// Ouverture du formulaire d'ajout de tâche
 		this.addTaskButton.addEventListener("click", function () {
 			// Vide le formulaire
-			this.form.setAttribute("action", "index.php?action=addTask");
-			this.formTitle.textContent = "Ajouter une tâche";
-			this.formText.value = '';
-			this.formDate.value = '';
-			this.inputScheduleNumber.value = '';
-			this.inputScheduleDelay.value = 'day';
-			this.formSubmit.value = "Ajouter";
-			this.deadlineCheckbox.checked = false;
-			this.importantCheckbox.checked = false;
-			this.reccuringCheckbox.checked = false;
-			this.reccuringCheckbox.setAttribute('disabled', 'disabled');
-			this.reccuringLabel.style.color = "#808080";
-			this.inputScheduleNumber.setAttribute('disabled', 'disabled');
-			this.inputScheduleDelay.setAttribute('disabled', 'disabled');
-			if (this.importantActiveButton.className !== "invisible") {
-				this.importantActiveButton.classList.add("invisible");
-				this.importantButton.classList.remove("invisible");
-			}
-			if(this.timeMenu.className !== "invisible") {	
-				this.timeMenu.classList.add("invisible");
-			}
-
+			this.clear();
 			// Ouvre le formulaire
-			this.toggleInvisible();
+			this.taskForm.classList.remove("invisible");
+			this.background.classList.remove("invisible");
 		}.bind(this));
 
-		// Ouverture du formulaire de modification
+		// Ouverture du formulaire de modification de tâche
 		if(this.task !== null) {
 			this.task.forEach(function (task) {
 				// Récupération des valeurs des inputs
@@ -68,9 +75,16 @@ class Form {
 				let taskName = label.innerHTML;
 				let taskImportant = label.getAttribute("important");
 				let taskEditButton = task.querySelector(".fa-edit");
+				let taskDeleteButton = task.querySelector(".delete");
 				let deadline = task.querySelector(".date").innerHTML.replace(/\//g, "-").split('-').reverse().join('-');
 				let schedule = task.querySelector(".date").getAttribute("schedule");
 				if (schedule !== null) { schedule = schedule.replace('+', '').split(' '); }
+				let listValue = task.querySelector(".list");
+				if (listValue !== null) { listValue = Number(listValue.getAttribute("list")); }
+				else {
+					listValue = document.querySelector(".list");
+					if (listValue !== null) { listValue = Number(listValue.getAttribute("list")); }
+				}
 
 				if(taskEditButton !== null) {
 					taskEditButton.addEventListener("click", function() {
@@ -100,9 +114,13 @@ class Form {
 							this.importantButton.classList.remove("invisible");
 						}
 
-						// Gestion du menu des dates
+						// Gestion des sous-menus
 						if(this.timeMenu.className !== "invisible") {
 							this.timeMenu.classList.add("invisible");
+						}
+
+						if(this.listMenu.className !== "invisible") {
+							this.listMenu.classList.add("invisible");
 						}
 
 						// Vérifie si la tâche à une date d'échéance
@@ -120,14 +138,6 @@ class Form {
 							this.inputScheduleDelay.setAttribute('disabled', 'disabled');
 						}
 
-						// Passe l'input "date" en requis et active les input de récurrence si la checkbox correspondante est cochée
-						if (this.deadlineCheckbox.checked == true) {
-								this.formDate.setAttribute('required', '');
-							}
-						else {
-							this.formDate.removeAttribute('required');
-						}
-
 						// Vérifie si la tâche à une récurrence
 						if (this.inputScheduleNumber.value !== '') {
 							this.reccuringCheckbox.checked = true;
@@ -136,7 +146,14 @@ class Form {
 							this.reccuringCheckbox.checked = false;
 						}
 
-						// Passe les input number et select en requis si la checkbox correspondante est cochée
+						// Passe certains input en requis si la checkbox correspondante est cochée
+						if (this.deadlineCheckbox.checked == true) {
+								this.formDate.setAttribute('required', '');
+							}
+						else {
+							this.formDate.removeAttribute('required');
+						}
+
 						if (this.reccuringCheckbox.checked == true) {
 								this.inputScheduleNumber.setAttribute('required', '');
 								this.inputScheduleDelay.setAttribute('required', '');
@@ -146,28 +163,206 @@ class Form {
 							this.inputScheduleDelay.removeAttribute('required');
 						}
 
-						// Ouverture du formulaire
-						this.toggleInvisible();
+						if (this.listCheckbox.checked == true) {
+								this.inputList.setAttribute('required', '');
+							}
+						else {
+							this.inputList.removeAttribute('required');
+						}
+
+						// Vérifie si la tâche appartient à une liste
+						if (listValue !== null) {
+							this.listCheckbox.checked = true;
+							this.inputList.value = listValue;
+						}
+						else {
+							this.listCheckbox.checked = false;
+							this.inputList.value = "";
+						}
+
+						// Ouverture du formulaire des tâches
+						this.taskForm.classList.remove("invisible");
+						this.background.classList.remove("invisible");
 					}.bind(this));
 				};
+
+				if(taskDeleteButton !== null) {
+					taskDeleteButton.addEventListener("click", function() {
+						// Affichage de la popup de confirmation de suppression si la tâche a une récurrence
+						this.popup.classList.remove("invisible");
+						this.popupText.textContent = "Voulez-vous aussi supprimer les répétitions prévues pour cette tâche ?";
+						this.popupYes.setAttribute("href", "index.php?action=deleteTask&id=" + taskId + "&reccuring=true");
+						this.popupNo.setAttribute("href", "index.php?action=deleteTask&id=" + taskId);
+						this.background.classList.remove("invisible");
+					}.bind(this));
+				}
 			}.bind(this));
 		};
 
 		// Ouverture du sous-formulaire de planification
 		this.timeButton.addEventListener("click", function () {
 			this.timeMenu.classList.toggle("invisible");
+			if(this.listMenu.className !== "invisible") {
+				this.listMenu.classList.add("invisible");
+			}
 		}.bind(this));
+
+		// Ouverture du sous-formulaire de liste
+		this.listButton.addEventListener("click", function () {
+			this.listMenu.classList.toggle("invisible");
+			if(this.timeMenu.className !== "invisible") {
+				this.timeMenu.classList.add("invisible");
+			}
+		}.bind(this));
+
+		// Ouverture du formulaire d'ajout de liste
+		if (this.addListButton !== null) {
+			this.addListButton.addEventListener("click", function() {
+				// Vide le formulaire
+				this.listFormTitle.textContent = "Créer une liste";
+				this.inputListName.value = "";
+				this.inputListDescription.value = "";
+				this.listFormSubmit.value = "Créer";
+
+				this.listFormDiv.classList.remove("invisible");
+				this.background.classList.remove("invisible");
+			}.bind(this));
+		}
+
+		// Ouverture du formulaire de modification de liste
+		if(this.list !== null) {
+			this.list.forEach(function (list) {
+				// Récupération des valeurs des inputs
+				let listId = list.getAttribute("list");
+				let listName = list.querySelector(".list-name").textContent;
+				let listDescription = list.querySelector(".list-description")
+				if (listDescription !== null) { listDescription = listDescription.textContent };
+				let listEditButton = list.querySelector("span.edit");
+				let listDeleteButton = list.querySelector("span.delete");
+				let listAddTaskButton = document.querySelector("#addtask-list");
+				let taskExist = list.querySelector("tr.task");
+
+				// Ouverture du formulaire d'ajout de tâche depuis la page des listes
+				if(listAddTaskButton !== null) {
+					listAddTaskButton.addEventListener("click", function () {
+						// Vide le formulaire et pré-remplis le sous-formulaire de liste
+						this.clear();
+						this.listCheckbox.checked = true;
+						this.inputList.value = listId;
+						this.inputList.setAttribute('required', '');
+
+						// Ouvre le formulaire
+						this.taskForm.classList.remove("invisible");
+						this.background.classList.remove("invisible");
+					}.bind(this));
+				}
+
+				if(listEditButton !== null) {
+					listEditButton.addEventListener("click", function() {
+						// Remplis le formulaire suivant la tâche selectionnée
+						this.listForm.setAttribute("action", "index.php?action=editList&id=" + listId);
+						this.listFormTitle.textContent = "Modifier une liste";
+						this.inputListName.value = listName;
+						this.inputListDescription.value = listDescription;
+						this.listFormSubmit.value = "Enregistrer";
+
+						this.listFormDiv.classList.remove("invisible");
+						this.background.classList.remove("invisible");
+					}.bind(this));
+				}
+
+				if(listDeleteButton !== null) {
+					listDeleteButton.addEventListener("click", function() {
+						if(taskExist !== null) {
+							// Affichage d'une pop-up de confirmation de suppression d'une liste
+							this.popup.classList.remove("invisible");
+							this.popupText.textContent = "Voulez-vous aussi supprimer les tâches de cette liste ?";
+							this.popupYes.setAttribute("href", "index.php?action=deleteList&id=" + listId + "&tasks=true");
+							this.popupNo.setAttribute("href", "index.php?action=deleteList&id=" + listId);
+							this.background.classList.remove("invisible");
+						}
+						else {
+							document.location.href = "index.php?action=deleteList&id=" + listId; 
+						}
+					}.bind(this));
+				}
+			}.bind(this));
+		}
+
+		// Fermeture du formulaire de liste
+		if (this.closeListForm !== null) {
+			this.closeListForm.addEventListener("click", function() {
+				this.listFormDiv.classList.add("invisible");
+				this.background.classList.add("invisible");
+			}.bind(this));
+		}
 	}
 
 	close() {
-		// Fermeture du formulaire
-		this.background.addEventListener("click", this.toggleInvisible.bind(this));
-		this.closeButton.addEventListener("click", this.toggleInvisible.bind(this));
+		// Fermeture des formulaire par le background
+		this.background.addEventListener("click", function () {
+			this.background.classList.add("invisible");
+			if (this.taskForm.className !== "invisible") {
+				this.taskForm.classList.add("invisible");
+			}
+			if (this.listFormDiv !== null) {
+				if (this.listFormDiv.className !== "invisible") {
+					this.listFormDiv.classList.add("invisible");
+				}
+			}
+			if (this.popup.className !== "invisible") {
+				this.popup.classList.add("invisible");
+			}
+		}.bind(this));
+		// Fermeture des formulaires par la croix
+		this.closeButton.addEventListener("click", function () {
+			this.taskForm.classList.add("invisible");
+			this.background.classList.add("invisible");
+		}.bind(this));
+		if(this.closeListForm !== null) {
+			this.closeListForm.addEventListener("click", function () {
+				this.listFormDiv.classList.add("invisible");
+				this.background.classList.add("invisible");
+			}.bind(this));
+		}
+		this.closePopup.addEventListener("click", function () {
+			this.popup.classList.add("invisible");
+			this.background.classList.add("invisible");
+		}.bind(this));
 	}
 
-	toggleInvisible() {
-		this.taskForm.classList.toggle("invisible");
-		this.background.classList.toggle("invisible");
+	clear() {
+	// Vide le formulaire d'ajout de tâche
+		this.form.setAttribute("action", "index.php?action=addTask");
+		this.formTitle.textContent = "Ajouter une tâche";
+		this.formText.value = '';
+		this.formDate.value = '';
+		this.formDate.removeAttribute('required');
+		this.inputScheduleNumber.value = '';
+		this.inputScheduleDelay.value = 'day';
+		this.formSubmit.value = "Ajouter";
+		this.deadlineCheckbox.checked = false;
+		this.importantCheckbox.checked = false;
+		this.reccuringCheckbox.checked = false;
+		this.reccuringCheckbox.setAttribute('disabled', 'disabled');
+		this.reccuringLabel.style.color = "#808080";
+		this.inputScheduleNumber.setAttribute('disabled', 'disabled');
+		this.inputScheduleDelay.setAttribute('disabled', 'disabled');
+		this.inputScheduleNumber.removeAttribute('required');
+		this.inputScheduleDelay.removeAttribute('required');
+		this.listCheckbox.checked = false;
+		this.inputList.value = '';
+		this.inputList.removeAttribute('required');
+		if (this.importantActiveButton.className !== "invisible") {
+			this.importantActiveButton.classList.add("invisible");
+			this.importantButton.classList.remove("invisible");
+		}
+		if(this.timeMenu.className !== "invisible") {	
+			this.timeMenu.classList.add("invisible");
+		}
+		if(this.listMenu.className !== "invisible") {	
+			this.listMenu.classList.add("invisible");
+		}
 	}
 
 	checkboxSubmit() {
@@ -246,6 +441,15 @@ class Form {
 			else {
 				this.inputScheduleNumber.removeAttribute('required');
 				this.inputScheduleDelay.removeAttribute('required');
+			}
+		}.bind(this));
+
+		this.listCheckbox.addEventListener('click', function() {
+			if (this.listCheckbox.checked == true) {
+				this.inputList.setAttribute('required', '');
+			}
+			else {
+				this.inputList.removeAttribute('required');
 			}
 		}.bind(this));
 	}

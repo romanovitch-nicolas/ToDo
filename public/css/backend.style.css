@@ -7,6 +7,17 @@ body
 	margin-left: 280px;
 }
 
+input, textarea
+{
+	font-family: "Montserrat", sans-serif;
+	font-size: 14px;
+}
+
+.button
+{
+	cursor: pointer;
+}
+
 .active
 {
 	font-weight: bold;
@@ -105,7 +116,7 @@ header
 	left: 0;
 	bottom: 0;
 	border-right: 1px solid #000;
-	width: 250px;
+	width: 255px;
 	height: 100%;
 	z-index: 999;
 }
@@ -128,7 +139,7 @@ header
 }
 
 
-	/* Bloc Formulaire */
+	/* Formulaire des tâches */
 
 #task-form
 {
@@ -224,4 +235,99 @@ header
 #time-menu select
 {
 	padding: 4px;
+}
+
+#list-menu
+{
+	display: flex;
+	justify-content: center;
+	font-size: 14px;
+	border-top: 1px solid #000;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#list-menu select
+{
+	padding: 4px;
+	min-width: 100px;
+}
+
+
+	/* Listes */
+
+#list-form
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	border: 1px solid #000;
+	z-index: 1002;
+	padding: 0 30px;
+	background-color: #FFF;
+}
+
+#list-form h2
+{
+	font-size: 20px;
+	padding-top: 5px;
+	padding-bottom: 4px;
+}
+
+#list-form .fa-times
+{
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	padding: 10px;
+	cursor: pointer;
+}
+
+#list-form input[type="text"]
+{
+	width: 288px;
+	padding: 4px;
+	margin-bottom: 6px;
+}
+
+#list textarea
+{
+	padding: 4px;
+	width: 290px;
+	height: 100px;
+	resize: none;
+}
+
+
+	/* Pop-up */
+
+#popup
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	border: 1px solid #000;
+	z-index: 1002;
+	padding: 0 30px;
+	background-color: #FFF;
+}
+
+#popup h2
+{
+	font-size: 20px;
+	padding-top: 5px;
+	padding-bottom: 4px;
+}
+
+#popup .fa-times
+{
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	padding: 10px;
+	cursor: pointer;
 }
