@@ -10,3 +10,4 @@ define("LINK_WEEK", "index.php?action=week");
 define("LINK_OVERDUE", "index.php?action=overdue");
 define("LINK_ARCHIVES", "index.php?action=archives");
 define("LINK_LISTS", "index.php?action=lists");
+define("LINK_OPTIONS", "index.php?action=options");

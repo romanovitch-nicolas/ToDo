@@ -107,6 +107,36 @@ header
 	cursor: pointer;
 }
 
+#top-nav #submenu
+{
+	position: absolute;
+	right: 2%;
+	top: 50px;
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	z-index: 1000;
+}
+
+#submenu li
+{
+	border: 1px solid #000;
+	background-color: #FFF;
+	border-top: none;
+	padding: 5px;
+}
+
+#submenu li:first-child
+{
+	border-top: 1px solid #000;;
+}
+
+#submenu a
+{
+	padding: 5px;
+}
+
+
 	/* Menu de navigation secondaire */
 
 #left-nav

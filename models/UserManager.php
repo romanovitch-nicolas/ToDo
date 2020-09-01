@@ -32,13 +32,32 @@ class UserManager extends Manager
         return $insertUser;
     }
 
+    // Récupération des informations d'un utilisateur depuis son id
+    public function getUserInfoById($userId)
+    {
+        $req = $this->db->prepare('SELECT * FROM users WHERE id = ?');
+        $req->execute(array($userId));
+        $userinfo = $req->fetch(\PDO::FETCH_ASSOC);
+
+        return new User($userinfo);
+    }
+
     // Récupération des informations d'un utilisateur depuis son login
-    public function getUserInfo($login)
+    public function getUserInfoByLogin($login)
     {
         $req = $this->db->prepare('SELECT * FROM users WHERE login = ?');
         $req->execute(array($login));
         $userinfo = $req->fetch(\PDO::FETCH_ASSOC);
 
         return new User($userinfo);
+    }
+
+    // Edition d'un mot de passe
+    public function setPass($userId, $pass)
+    {
+        $req = $this->db->prepare('UPDATE users SET pass = ? WHERE id = ?');
+        $setPass = $req->execute(array($pass, $userId));
+
+        return $setPass;
     }
 }

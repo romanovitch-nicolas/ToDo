@@ -11,8 +11,12 @@
     			<a id="logo" href="<?= LINK_HOME ?>"><img src="http://placehold.it/125x40" alt="Logo" /></a>
     			<ul>
     				<li><i class="fas fa-plus fa-fw" title="Ajouter une tâche"></i></li>
-    				<li><a href="#"><i class="fas fa-cog fa-fw" title="Préférences"></i></a></li>
+    				<li><i class="fas fa-cog fa-fw" title="Préférences"></i></li>
     			</ul>
+                <ul id="submenu" class="invisible">
+                    <li><a href="<?= LINK_OPTIONS ?>">Préférences</a></li>
+                    <li><a href="index.php?action=disconnect">Se déconnecter</a></li>
+                </ul>
     		</nav>
     		<nav id="left-nav">
     			<ul>
@@ -90,5 +94,6 @@
         <script src="https://kit.fontawesome.com/45b095f08c.js" crossorigin="anonymous"></script>
         <script src="public/js/ajax.js"></script>
         <script src="public/js/form.js"></script>
+        <script src="public/js/nav.js"></script>
     </body>
 </html>

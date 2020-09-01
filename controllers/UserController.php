@@ -1,6 +1,7 @@
 <?php
 namespace ToDo\Controllers;
 
+use ToDo\Models\TaskManager;
 use ToDo\Models\UserManager;
 
 class UserController
@@ -82,7 +83,7 @@ class UserController
 		if (!empty($_POST["login"]) AND !empty($_POST["pass"])) {
             $login = htmlspecialchars($_POST["login"]);
             $pass = htmlspecialchars($_POST["pass"]);
-            $userinfo = $userManager->getUserInfo($login);
+            $userinfo = $userManager->getUserInfoByLogin($login);
             $passverif = password_verify($pass, $userinfo->pass());
             if ($passverif) {
             	session_start();
@@ -112,4 +113,85 @@ class UserController
         setcookie('id', '');
         header("Location: " . LINK_HOME);
     }
+
+    // Options
+    public function options($userId)
+    {
+    	$taskManager = new TaskManager();
+
+    	$nbTasks = $taskManager->getNumberOfTasks($userId);
+        $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+        $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+        $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+        $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+        $nbArchivedTasks = $taskManager->getNumberOfArchived($userId);
+
+    	require('views/backend/optionsView.php');
+    }
+
+    // Changement de mot de passe
+	public function changePass($userId)
+    {
+    	$taskManager = new TaskManager();
+		$userManager = new UserManager();
+
+		// Empêchement des injections de code
+		if (!empty($_POST["old_pass"]) AND !empty($_POST["new_pass"]) AND !empty($_POST["pass_confirm"])) {	
+	        $oldPass = htmlspecialchars($_POST["old_pass"]);
+	        $newPass = htmlspecialchars($_POST["new_pass"]);
+	        $passConfirm = htmlspecialchars($_POST["pass_confirm"]);
+
+	        $oldPassLength = strlen($oldPass);
+	        $newPassLength = strlen($newPass);
+	        $passConfirmLength = strlen($passConfirm);
+
+	        // Vérifications du formulaire
+			if ($oldPassLength <= 255) {
+				if ($newPassLength <= 255) {
+					if ($passConfirmLength <= 255 AND $newPass === $passConfirm) {
+						$userInfo = $userManager->getUserInfoById($userId);
+						$passVerif = password_verify($oldPass, $userInfo->pass());
+						if ($passVerif === true) {
+
+							// Hachage du mot de passe
+							$passHash = password_hash($newPass, PASSWORD_DEFAULT);
+							// Modification du mot de passe dans la BDD
+							$setPass = $userManager->setPass($userId, $passHash);
+
+							if ($setPass === false) {
+								throw new \Exception('Impossible de modifier le mot de passe.');
+							}
+							else {
+								$return = true;
+							}
+						}
+						else {
+							$return = 'Mauvais mot de passe.';
+						}
+					}
+					else {
+						$return = 'Les mots de passe ne correspondent pas.';
+					}
+				}
+				else {
+					$return = 'Le mot de passe ne doit pas dépasser 255 caractères.';
+				}
+			}
+			else {
+				$return = 'Le mot de passe ne doit pas dépasser 255 caractères.';
+			}
+		}
+		else {
+	        $return = 'Tous les champs ne sont pas remplis.';
+	    }
+
+	    $nbTasks = $taskManager->getNumberOfTasks($userId);
+        $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+        $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+        $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+        $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+        $nbArchivedTasks = $taskManager->getNumberOfArchived($userId);
+
+	    require('views/backend/optionsView.php');
+	}
 }

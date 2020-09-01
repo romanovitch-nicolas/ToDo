@@ -37,10 +37,10 @@ $title = "Tableau de Bord";
 						</td>
 						<td>
 							<i class="fas fa-edit" title="Modifier"></i>
-							<?php if($task->reccuring() == 1) { ?>
+							<?php if($overdueTask->reccuring() == 1) { ?>
 								<i class="fas fa-trash" title="Supprimer"></i>
 							<?php } else { ?>
-								<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash" title="Supprimer"></i></a>
+								<a href="index.php?action=deleteTask&id=<?= $overdueTask->id() ?>"><i class="fas fa-trash" title="Supprimer"></i></a>
 							<?php } ?>
 						</td>
 					</tr>
@@ -79,10 +79,10 @@ $title = "Tableau de Bord";
 						</td>
 						<td>
 							<i class="fas fa-edit" title="Modifier"></i>
-							<?php if($task->reccuring() == 1) { ?>
+							<?php if($todayTask->reccuring() == 1) { ?>
 								<i class="fas fa-trash" title="Supprimer"></i>
 							<?php } else { ?>
-								<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash" title="Supprimer"></i></a>
+								<a href="index.php?action=deleteTask&id=<?= $todayTask->id() ?>"><i class="fas fa-trash" title="Supprimer"></i></a>
 							<?php } ?>
 						</td>
 					</tr>

@@ -74,7 +74,12 @@ try {
             break;
 
             case 'disconnect':
-                $userController->disconnection();
+                if (!empty($userId)) {
+                    $userController->disconnection();
+                }
+                else {
+                    require('views/frontend/homeView.php');
+                }
             break;
 
             case 'dashboard':
@@ -146,6 +151,24 @@ try {
                 } 
                 else {
                     require('views/frontend/connectView.php');
+                }
+            break;
+
+            case 'options':
+                if (!empty($userId)) {
+                    $userController->options($userId);
+                }
+                else {
+                    require('views/frontend/connectView.php');
+                }
+            break;
+
+            case 'changePass':
+                if (!empty($userId)) {
+                    $userController->changePass($userId);
+                }
+                else {
+                    require('views/frontend/homeView.php');
                 }
             break;
 
