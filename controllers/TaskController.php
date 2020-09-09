@@ -17,6 +17,8 @@ class TaskController
         $importantTasks = $taskManager->getImportantTasks($userId);
         $lists = $listManager->getLists($userId);
 
+        $todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);
@@ -36,6 +38,8 @@ class TaskController
         $tasks = $taskManager->getAllUnfinishedTasks($userId);
         $lists = $listManager->getLists($userId);
 
+        $todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);
@@ -55,6 +59,8 @@ class TaskController
         $tasks = $taskManager->getImportantTasks($userId);
         $lists = $listManager->getLists($userId);
 
+        $todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);
@@ -74,6 +80,8 @@ class TaskController
         $tasks = $taskManager->getTodayTasks($userId);
         $lists = $listManager->getLists($userId);
 
+        $todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);
@@ -90,9 +98,19 @@ class TaskController
         $taskManager = new TaskManager();
         $listManager = new ListManager();
 
-        $tasks = $taskManager->getWeekTasks($userId);
+        for($i = 1; $i < 8; ++$i) {
+            $days[$i] = $taskManager->getDateDiffTasks($userId, $i);
+            $date[$i] = new \DateTime();
+            $date[$i] = $date[$i]->modify("+" . $i . "day");
+            $date[$i] = $date[$i]->format('w j n');
+            $dateNum[$i] = new \DateTime();
+            $dateNum[$i] = $dateNum[$i]->modify("+" . $i . "day");
+            $dateNum[$i] = $dateNum[$i]->format('Y-m-d');
+        }
         $lists = $listManager->getLists($userId);
 
+        $todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);
@@ -112,6 +130,8 @@ class TaskController
         $tasks = $taskManager->getOverdueTasks($userId);
         $lists = $listManager->getLists($userId);
 
+        $todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);
@@ -131,6 +151,8 @@ class TaskController
         $tasks = $taskManager->getArchivedTasks($userId);
         $lists = $listManager->getLists($userId);
 
+        $todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);
@@ -288,14 +310,16 @@ class TaskController
     {
         $taskManager = new TaskManager();
 
+        if(!isset($_GET['reccuring'])) {
         $task = $taskManager->getTask($taskId, $userId);
-        if ($task['reccuring'] == 1) {
-            $deadline = new \DateTime($task['deadline_date']);
-            $deadline = $deadline->modify($task['schedule']);
-            $deadline = $deadline->format('Y-m-d');
-            $insertReccuringTask = $taskManager->insertReccuringTask($userId, $task['name'], $deadline, $task['important'], $task['schedule']);
-            if ($insertReccuringTask === false) {
-                throw new \Exception('Impossible d\'ajouter la tâche récurrente.');
+            if ($task['reccuring'] == 1) {
+                $deadline = new \DateTime($task['deadline_date']);
+                $deadline = $deadline->modify($task['schedule']);
+                $deadline = $deadline->format('Y-m-d');
+                $insertReccuringTask = $taskManager->insertReccuringTask($userId, $task['name'], $deadline, $task['important'], $task['schedule']);
+                if ($insertReccuringTask === false) {
+                    throw new \Exception('Impossible d\'ajouter la tâche récurrente.');
+                }
             }
         }
 

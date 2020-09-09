@@ -161,16 +161,16 @@ class TaskManager extends Manager
         return $tasks;
     }
 
-    // Récupération des tâches des 7 prochains jours d'un utilisateur
-    public function getWeekTasks($userId)
+    // Récupération des tâches d'un utilisateur suivant la différence de jours entre maintenant et l'échéance
+    public function getDateDiffTasks($userId, $dateDiff)
     {
         $req = $this->db->prepare('
             SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, important, done, reccuring, schedule
             FROM tasks
-            WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) >= 0 AND DATEDIFF(deadline_date, NOW()) <= 7
+            WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) = ?
             ORDER BY creation_date'
         );
-        $req->execute(array($userId));
+        $req->execute(array($userId, $dateDiff));
 
         $tasks = [];
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {

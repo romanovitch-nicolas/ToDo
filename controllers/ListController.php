@@ -15,6 +15,8 @@ class ListController
         $lists = $listManager->getLists($userId);
         $tasks = $taskManager->getAllTasks($userId);
 
+        $todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
         $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);

@@ -8,7 +8,7 @@
 
     <body>
     	<header>
-    		<a id="logo" href="<?= LINK_HOME ?>"><img src="http://placehold.it/250x80" alt="Logo" /></a>
+    		<a id="logo" href="<?= LINK_HOME ?>"><img src="public/images/frontend/logo.png" alt="Logo" /></a>
     		<nav>
     			<ul>
     				<li><a href="#">Fonctionnalités</a></li>

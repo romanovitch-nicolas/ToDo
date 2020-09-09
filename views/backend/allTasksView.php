@@ -7,30 +7,33 @@
 <?php if(count($tasks)) { ?>
 
 <section id="all_tasks">
-	<table>
+	<table class="table-task">
 		<thead>
 			<tr>
 				<th>Tâche</th>
-				<th>Deadline</th>
+				<th>Echéance</th>
 				<th>Liste</th>
 				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach ($tasks as $task) { ?>
-				<tr class="task">
+				<tr class="task <?php if($task->reccuring() == 1) { ?>reccuring<?php } ?>"
+					<?php if($task->reccuring() == 1 && $task->important() == 1) { ?>title="Tâche importante et récurrente [<?= $task->schedule() ?>]"
+					<?php } elseif($task->reccuring() == 1) { ?>title="Tâche récurrente [<?= $task->schedule() ?>]"
+					<?php } elseif($task->important() == 1) { ?>title="Tâche importante"<?php } ?>>
 					<td>
 						<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
-						<label for="<?= $task->id() ?>" important="<?= $task->important() ?>"><?= $task->name() ?></label>
+						<label for="<?= $task->id() ?>" important="<?= $task->important() ?>" class="<?php if($task->important() == 1) { ?>active<?php } ?>"><?= $task->name() ?></label>
 					</td>
 					<td>
-						<p class="date" <?php if($task->reccuring() == 1) { echo 'schedule="' . $task->schedule() . '"'; } ?>><?= $task->deadlineDate() ?></p>
+						<span class="date <?php if($task->important() == 1) { ?>active<?php } ?>" <?php if($task->reccuring() == 1) { ?> schedule="<?= $task->schedule() ?>"<?php } ?>><?= $task->deadlineDate() ?></span>
 					</td>
 					<td>
 						<?php foreach ($lists as $list) { 
-							if ($list->id() === $task->listId()) { ?>.
+							if ($list->id() === $task->listId()) { ?>
 								<div class="list" list="<?= $list->id() ?>">
-									<p class="list-name"><?= $list->name() ?></p>
+									<span class="list-name"><?= $list->name() ?></span>
 								</div>
 							<?php } ?>
 						<?php } ?>
@@ -47,9 +50,13 @@
 			<?php } ?>
 		</tbody>
 	</table>
+	<div class="addtask-all"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
 </section>
 
-<?php } else { ?><p>Pas de tâche.</p><?php } ?>
+<?php } else { ?>
+	<p>Pas de tâche.</p>
+	<p><div class="addtask-all"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div></p>
+<?php } ?>
 
 <?php $content = ob_get_clean(); ?>
 

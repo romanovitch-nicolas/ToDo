@@ -9,7 +9,7 @@ $title = "Archives";
 <?php if(count($tasks)) { ?>
 
 <section id="archives">
-	<table>
+	<table class="table-task">
 		<thead>
 			<tr>
 				<th>Tâche</th>
@@ -19,20 +19,25 @@ $title = "Archives";
 		</thead>
 		<tbody>
 			<?php foreach ($tasks as $task) { ?>
-				<tr class="task">
+				<tr class="task <?php if($task->reccuring() == 1) { ?>reccuring<?php } ?>"
+					<?php if($task->reccuring() == 1 && $task->important() == 1) { ?>title="Tâche importante et récurrente [<?= $task->schedule() ?>]"
+					<?php } elseif($task->reccuring() == 1) { ?>title="Tâche récurrente [<?= $task->schedule() ?>]"
+					<?php } elseif($task->important() == 1) { ?>title="Tâche importante"<?php } ?>>
 					<td>
 						<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
-						<label for="<?= $task->id() ?>" important="<?= $task->important() ?>"><?= $task->name() ?></label>
+						<label for="<?= $task->id() ?>" important="<?= $task->important() ?>" class="<?php if($task->important() == 1) { ?>active<?php } ?>"><?= $task->name() ?></label>
 					</td>
 					<td>
 						<?php foreach ($lists as $list) { 
 							if ($list->id() === $task->listId()) { ?>
-								<p><?= $list->name() ?></p> 
+								<div class="list" list="<?= $list->id() ?>">
+									<span class="list-name"><?= $list->name() ?></span>
+								</div>
 							<?php } ?>
 						<?php } ?>
 					</td>
 					<td>
-						<p class="date"><?= $task->completionDate() ?></p>
+						<span class="date"><?= $task->completionDate() ?></span>
 					</td>
 				</tr>
 			<?php } ?>

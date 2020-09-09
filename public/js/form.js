@@ -3,6 +3,7 @@ class Form {
 		// Général
 		this.task = document.querySelectorAll(".task");
 		this.list = document.querySelectorAll(".list");
+		this.days = document.querySelectorAll(".day");
 		this.background = document.querySelector("#background");
 
 		// Formulaire
@@ -43,6 +44,11 @@ class Form {
 		this.inputListName = document.querySelector("#list-form input[type='text']");
 		this.inputListDescription = document.querySelector("#list-form textarea");
 
+		// Boutons
+		this.addAllTaskButton = document.querySelector(".addtask-all");
+		this.addImportantTaskButton = document.querySelector(".addtask-important");
+		this.addTodayTaskButton = document.querySelector(".addtask-today");
+
 		// Popup
 		this.popup = document.querySelector("#popup");
 		this.closePopup = document.querySelector("#popup i.fa-times");
@@ -81,9 +87,11 @@ class Form {
 				if (schedule !== null) { schedule = schedule.replace('+', '').split(' '); }
 				let listValue = task.querySelector(".list");
 				if (listValue !== null) { listValue = Number(listValue.getAttribute("list")); }
-				else {
-					listValue = document.querySelector(".list");
-					if (listValue !== null) { listValue = Number(listValue.getAttribute("list")); }
+				else { listValue = Number(label.getAttribute("list")); }
+				let reccuringTitle = task.getAttribute("title");
+				if (reccuringTitle !== null) { 
+					reccuringTitle = reccuringTitle.replace("+", "").replace("day", "jour(s)").replace("week", "semaine(s)").replace("month", "mois").replace("year", "an(s)");
+					task.setAttribute("title", reccuringTitle);
 				}
 
 				if(taskEditButton !== null) {
@@ -128,55 +136,59 @@ class Form {
 							this.deadlineCheckbox.checked = true;
 							this.reccuringCheckbox.removeAttribute('disabled');
 							this.reccuringLabel.style.color = "#000";
-							this.inputScheduleNumber.removeAttribute('disabled');
-							this.inputScheduleDelay.removeAttribute('disabled');
+							this.formDate.removeAttribute('disabled');
 						}
 						else {
 							this.deadlineCheckbox.checked = false;
 							this.reccuringCheckbox.setAttribute('disabled', 'disabled');
-							this.inputScheduleNumber.setAttribute('disabled', 'disabled');
-							this.inputScheduleDelay.setAttribute('disabled', 'disabled');
+							this.formDate.setAttribute('disabled', 'disabled');
 						}
 
 						// Vérifie si la tâche à une récurrence
 						if (this.inputScheduleNumber.value !== '') {
 							this.reccuringCheckbox.checked = true;
+							this.inputScheduleNumber.removeAttribute('disabled');
+							this.inputScheduleDelay.removeAttribute('disabled');
 						}
 						else {
 							this.reccuringCheckbox.checked = false;
+							this.inputScheduleNumber.setAttribute('disabled', 'disabled');
+							this.inputScheduleDelay.setAttribute('disabled', 'disabled');
 						}
 
 						// Passe certains input en requis si la checkbox correspondante est cochée
 						if (this.deadlineCheckbox.checked == true) {
-								this.formDate.setAttribute('required', '');
-							}
+							this.formDate.setAttribute('required', '');
+						}
 						else {
 							this.formDate.removeAttribute('required');
 						}
 
 						if (this.reccuringCheckbox.checked == true) {
-								this.inputScheduleNumber.setAttribute('required', '');
-								this.inputScheduleDelay.setAttribute('required', '');
-							}
+							this.inputScheduleNumber.setAttribute('required', '');
+							this.inputScheduleDelay.setAttribute('required', '');
+						}
 						else {
 							this.inputScheduleNumber.removeAttribute('required');
 							this.inputScheduleDelay.removeAttribute('required');
 						}
 
 						if (this.listCheckbox.checked == true) {
-								this.inputList.setAttribute('required', '');
-							}
+							this.inputList.setAttribute('required', '');
+						}
 						else {
 							this.inputList.removeAttribute('required');
 						}
 
 						// Vérifie si la tâche appartient à une liste
-						if (listValue !== null) {
+						if (listValue !== 0) {
 							this.listCheckbox.checked = true;
+							this.inputList.removeAttribute('disabled');
 							this.inputList.value = listValue;
 						}
 						else {
 							this.listCheckbox.checked = false;
+							this.inputList.setAttribute('disabled', 'disabled');
 							this.inputList.value = "";
 						}
 
@@ -215,6 +227,71 @@ class Form {
 			}
 		}.bind(this));
 
+		// Différentes ouvertures du menu d'ajout de tâche
+		if (this.addAllTaskButton !== null) {
+			this.addAllTaskButton.addEventListener("click", function () {
+				this.clear();
+
+				this.taskForm.classList.remove("invisible");
+				this.background.classList.remove("invisible");
+			}.bind(this));
+		}
+
+		if (this.addImportantTaskButton !== null) {
+			this.addImportantTaskButton.addEventListener("click", function () {
+				this.clear();
+				this.importantCheckbox.checked = true;
+				this.importantButton.classList.add("invisible");
+				this.importantActiveButton.classList.remove("invisible");
+
+				this.taskForm.classList.remove("invisible");
+				this.background.classList.remove("invisible");
+			}.bind(this));
+		}
+
+		if (this.addTodayTaskButton !== null) {
+			this.addTodayTaskButton.addEventListener("click", function () {
+				let deadline = new Date();
+				let year = deadline.getFullYear();
+				let month = deadline.getMonth() + 1;
+				let day = deadline.getDate();
+				if (month < 10) { month = "0" + month; }
+				if (day < 10) { day = "0" + day; }
+				deadline = year + "-" + month + "-" + day;
+
+				this.clear();
+				this.deadlineCheckbox.checked = true;
+				this.formDate.value = deadline;
+				this.reccuringCheckbox.removeAttribute('disabled');
+				this.reccuringLabel.style.color = "#000";
+				this.inputScheduleNumber.removeAttribute('disabled');
+				this.inputScheduleDelay.removeAttribute('disabled');
+				this.timeMenu.classList.remove("invisible");
+
+				this.taskForm.classList.remove("invisible");
+				this.background.classList.remove("invisible");
+			}.bind(this));
+		}
+
+		if (this.days !== null) {
+			this.days.forEach(function (day) {
+				let deadline = day.getAttribute("date");
+				let addDayTaskButton = day.querySelector(".addtask-day");
+				addDayTaskButton.addEventListener("click", function () {
+					this.clear();
+					this.deadlineCheckbox.checked = true;
+					this.formDate.value = deadline;
+					this.formDate.removeAttribute('disabled');
+					this.reccuringCheckbox.removeAttribute('disabled');
+					this.reccuringLabel.style.color = "#000";
+					this.timeMenu.classList.remove("invisible");
+
+					this.taskForm.classList.remove("invisible");
+					this.background.classList.remove("invisible");
+				}.bind(this));
+			}.bind(this));
+		}
+
 		// Ouverture du formulaire d'ajout de liste
 		if (this.addListButton !== null) {
 			this.addListButton.addEventListener("click", function() {
@@ -235,25 +312,29 @@ class Form {
 				// Récupération des valeurs des inputs
 				let listId = list.getAttribute("list");
 				let listName = list.querySelector(".list-name").textContent;
-				let listDescription = list.querySelector(".list-description")
+				let listDescription = list.querySelector(".list-description");
 				if (listDescription !== null) { listDescription = listDescription.textContent };
 				let listEditButton = list.querySelector("span.edit");
 				let listDeleteButton = list.querySelector("span.delete");
-				let listAddTaskButton = document.querySelector("#addtask-list");
+				let listAddTaskButtons = list.querySelectorAll(".addtask-list");
 				let taskExist = list.querySelector("tr.task");
 
 				// Ouverture du formulaire d'ajout de tâche depuis la page des listes
-				if(listAddTaskButton !== null) {
-					listAddTaskButton.addEventListener("click", function () {
-						// Vide le formulaire et pré-remplis le sous-formulaire de liste
-						this.clear();
-						this.listCheckbox.checked = true;
-						this.inputList.value = listId;
-						this.inputList.setAttribute('required', '');
+				if(listAddTaskButtons !== null) {
+					listAddTaskButtons.forEach(function (listAddTaskButton) {
+						listAddTaskButton.addEventListener("click", function () {
+							// Vide le formulaire et pré-remplis le sous-formulaire de liste
+							this.clear();
+							this.listCheckbox.checked = true;
+							this.inputList.value = listId;
+							this.inputList.setAttribute('required', '');
+							this.inputList.removeAttribute('disabled');
+							this.listMenu.classList.remove("invisible");
 
-						// Ouvre le formulaire
-						this.taskForm.classList.remove("invisible");
-						this.background.classList.remove("invisible");
+							// Ouvre le formulaire
+							this.taskForm.classList.remove("invisible");
+							this.background.classList.remove("invisible");
+						}.bind(this));
 					}.bind(this));
 				}
 
@@ -337,6 +418,7 @@ class Form {
 		this.formTitle.textContent = "Ajouter une tâche";
 		this.formText.value = '';
 		this.formDate.value = '';
+		this.formDate.setAttribute('disabled', 'disabled');
 		this.formDate.removeAttribute('required');
 		this.inputScheduleNumber.value = '';
 		this.inputScheduleDelay.value = 'day';
@@ -352,6 +434,7 @@ class Form {
 		this.inputScheduleDelay.removeAttribute('required');
 		this.listCheckbox.checked = false;
 		this.inputList.value = '';
+		this.inputList.setAttribute('disabled', 'disabled');
 		this.inputList.removeAttribute('required');
 		if (this.importantActiveButton.className !== "invisible") {
 			this.importantActiveButton.classList.add("invisible");
@@ -419,36 +502,40 @@ class Form {
 		this.deadlineCheckbox.addEventListener('click', function() {
 			if (this.deadlineCheckbox.checked == true) {
 				this.reccuringCheckbox.removeAttribute('disabled');
-				this.reccuringLabel.style.color = "#000";
-				this.inputScheduleNumber.removeAttribute('disabled');
-				this.inputScheduleDelay.removeAttribute('disabled');
+				this.reccuringLabel.style.color = "#000";	
 				this.formDate.setAttribute('required', '');
+				this.formDate.removeAttribute('disabled');
 			}
 			else {
 				this.reccuringCheckbox.setAttribute('disabled', 'disabled');
 				this.reccuringLabel.style.color = "#808080";
-				this.inputScheduleNumber.setAttribute('disabled', 'disabled');
-				this.inputScheduleDelay.setAttribute('disabled', 'disabled');
 				this.formDate.removeAttribute('required');
+				this.formDate.setAttribute('disabled', 'disabled');
 			}
 		}.bind(this));
 
 		this.reccuringCheckbox.addEventListener('click', function() {
 			if (this.reccuringCheckbox.checked == true) {
+				this.inputScheduleNumber.removeAttribute('disabled');
+				this.inputScheduleDelay.removeAttribute('disabled');
 				this.inputScheduleNumber.setAttribute('required', '');
 				this.inputScheduleDelay.setAttribute('required', '');
 			}
 			else {
 				this.inputScheduleNumber.removeAttribute('required');
 				this.inputScheduleDelay.removeAttribute('required');
+				this.inputScheduleNumber.setAttribute('disabled', 'disabled');
+				this.inputScheduleDelay.setAttribute('disabled', 'disabled');
 			}
 		}.bind(this));
 
 		this.listCheckbox.addEventListener('click', function() {
 			if (this.listCheckbox.checked == true) {
+				this.inputList.removeAttribute('disabled');
 				this.inputList.setAttribute('required', '');
 			}
 			else {
+				this.inputList.setAttribute('disabled', 'disabled');
 				this.inputList.removeAttribute('required');
 			}
 		}.bind(this));
