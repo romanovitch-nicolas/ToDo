@@ -299,4 +299,42 @@ class TaskManager extends Manager
 
         return $deleteTasks;
     }
+
+    // Rechercher une tâche
+    public function searchTasks($search, $userId)
+    {
+        $req = $this->db->prepare('
+            SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, DATE_FORMAT(completion_date, \'%d/%m/%Y\') AS completion_date_fr, important, done, reccuring, schedule 
+            FROM tasks 
+            WHERE name LIKE ? AND done = 0 AND user_id = ?
+            ORDER BY creation_date 
+            DESC');
+        $req->execute(array("%" . $search . "%", $userId));
+
+        $tasks = [];
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $tasks[] = new Task($data);
+        }
+
+        return $tasks;
+    }
+
+    // Rechercher une tâche terminée
+    public function searchAchievedTasks($search, $userId)
+    {
+        $req = $this->db->prepare('
+            SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, DATE_FORMAT(completion_date, \'%d/%m/%Y\') AS completion_date_fr, important, done, reccuring, schedule 
+            FROM tasks 
+            WHERE name LIKE ? AND done = 1 AND DATEDIFF(completion_date, NOW()) <= 0 AND DATEDIFF(completion_date, NOW()) >= "-30" AND user_id = ?
+            ORDER BY creation_date 
+            DESC');
+        $req->execute(array("%" . $search . "%", $userId));
+
+        $achievedTasks = [];
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+            $achievedTasks[] = new Task($data);
+        }
+
+        return $achievedTasks;
+    }
 }

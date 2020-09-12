@@ -29,5 +29,20 @@
     	</header>
 
     	<?= $content ?>
+
+        <footer>
+            <ul>
+                <li><a href="<?= LINK_HOME ?>">TOOD</a></li>
+                <li> | </li>
+                <li><a href="<?= LINK_HOME ?>">Fonctionnalités</a></li>
+                <li> | </li>
+                <li><a href="<?= LINK_HOME ?>">Contact</a></li>
+                <li> | </li>
+                <li><a href="<?= LINK_LEGAL ?>">Mentions légales</a></li>
+            </ul>
+            <select>
+                <option value="fr">Français</option>
+            </select>
+        </footer>
     </body>
 </html>

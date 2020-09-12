@@ -331,4 +331,37 @@ class TaskController
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         }    
     }
+
+    // Recherche d'un tâche
+    public function search($userId)
+    {
+        $taskManager = new TaskManager();
+        $listManager = new ListManager();
+
+        if(!empty($_POST['search'])) {
+            $_SESSION['search'] = htmlspecialchars($_POST['search']);
+        }
+        $search = $_SESSION['search'];
+        if($search !== null) {
+            $searchArray = explode(' ', $search);
+            foreach ($searchArray as $value) {
+                $tasks = $taskManager->searchTasks($value, $userId);
+                $achievedTasks = $taskManager->searchAchievedTasks($value, $userId);
+            }
+            $lists = $listManager->getLists($userId);
+
+            $todayDate = new \DateTime();
+            $todayDate = $todayDate->format('w j n');
+            $nbTasks = $taskManager->getNumberOfTasks($userId);
+            $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
+            $nbTodayTasks = $taskManager->getNumberOfToday($userId);
+            $nbWeekTasks = $taskManager->getNumberOfWeek($userId);
+            $nbOverdueTasks = $taskManager->getNumberOfOverdue($userId);
+            $nbArchivedTasks = $taskManager->getNumberOfArchived($userId);
+        }
+        else {
+            header('Location: ' . LINK_DASHBOARD);
+        }
+        require('views/backend/searchView.php');
+    }
 }

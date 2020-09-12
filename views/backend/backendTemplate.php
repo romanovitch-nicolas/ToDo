@@ -9,6 +9,7 @@
     	<header>
     		<nav id="top-nav">
     			<a id="logo" href="<?= LINK_HOME ?>"><img src="public/images/backend/logo.png" alt="Logo" /></a>
+                <form method="POST" action="<?= LINK_SEARCH ?>" id="search"><i class="fas fa-search"></i><input type="search" name="search" placeholder="Recherche..." required /><input type="submit" class="invisible" /></form>
     			<ul>
     				<li><i class="fas fa-plus fa-fw" title="Ajouter une tâche"></i></li>
     				<li><i class="fas fa-cog fa-fw" title="Préférences"></i></li>
@@ -92,6 +93,21 @@
         </div>
 
         <?= $content ?>
+
+        <footer>
+            <ul>
+                <li><a href="<?= LINK_HOME ?>">TOOD</a></li>
+                <li> | </li>
+                <li><a href="<?= LINK_HOME ?>">Fonctionnalités</a></li>
+                <li> | </li>
+                <li><a href="<?= LINK_HOME ?>">Contact</a></li>
+                <li> | </li>
+                <li><a href="<?= LINK_LEGAL ?>">Mentions légales</a></li>
+            </ul>
+            <select>
+                <option value="fr">Français</option>
+            </select>
+        </footer>
 
         <script src="https://kit.fontawesome.com/45b095f08c.js" crossorigin="anonymous"></script>
         <script src="public/js/ajax.js"></script>

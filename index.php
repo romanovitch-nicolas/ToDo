@@ -204,7 +204,7 @@ try {
                     }
                     else
                     {
-                        require('views/backend/dashboardView.php');
+                        $taskController->getDashboard($userId);
                     }
                 }
                 else {
@@ -219,7 +219,7 @@ try {
                     }
                     else
                     {
-                        require('views/backend/dashboardView.php');
+                        $taskController->getDashboard($userId);
                     }
                 }
                 else {
@@ -243,7 +243,7 @@ try {
                     }
                     else
                     {
-                        require('views/backend/dashboardView.php');
+                        $taskController->getDashboard($userId);
                     }
                 }
                 else {
@@ -263,8 +263,17 @@ try {
                     }
                     else
                     {
-                        require('views/backend/dashboardView.php');
+                        $taskController->getDashboard($userId);
                     }
+                }
+                else {
+                    require('views/frontend/connectView.php'); 
+                }
+            break;
+
+            case 'search':
+                if (!empty($userId)) {
+                    $taskController->search($userId);
                 }
                 else {
                     require('views/frontend/connectView.php'); 
