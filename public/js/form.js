@@ -33,6 +33,8 @@ class Form {
 		this.listMenu = document.querySelector("#list-menu");
 		this.listCheckbox = document.querySelector("#list_checkbox");
 		this.inputList = document.querySelector("#list_select");
+		this.newList = document.querySelector("#new_list");
+		this.inputNewList = document.querySelector("#new_list input");
 
 		// Formulaire d'ajout de liste
 		this.listFormDiv = document.querySelector("#list-form");
@@ -125,10 +127,12 @@ class Form {
 						// Gestion des sous-menus
 						if(this.timeMenu.className !== "invisible") {
 							this.timeMenu.classList.add("invisible");
+							this.timeButton.classList.remove("blue");
 						}
 
 						if(this.listMenu.className !== "invisible") {
 							this.listMenu.classList.add("invisible");
+							this.listButton.classList.remove("blue");
 						}
 
 						// Vérifie si la tâche à une date d'échéance
@@ -214,16 +218,20 @@ class Form {
 		// Ouverture du sous-formulaire de planification
 		this.timeButton.addEventListener("click", function () {
 			this.timeMenu.classList.toggle("invisible");
+			this.timeButton.classList.toggle("blue");
 			if(this.listMenu.className !== "invisible") {
 				this.listMenu.classList.add("invisible");
+				this.listButton.classList.remove("blue");
 			}
 		}.bind(this));
 
 		// Ouverture du sous-formulaire de liste
 		this.listButton.addEventListener("click", function () {
 			this.listMenu.classList.toggle("invisible");
+			this.listButton.classList.toggle("blue");
 			if(this.timeMenu.className !== "invisible") {
 				this.timeMenu.classList.add("invisible");
+				this.timeButton.classList.remove("blue");
 			}
 		}.bind(this));
 
@@ -264,9 +272,11 @@ class Form {
 				this.formDate.value = deadline;
 				this.reccuringCheckbox.removeAttribute('disabled');
 				this.reccuringLabel.style.color = "#000";
+				this.formDate.removeAttribute('disabled');
 				this.inputScheduleNumber.removeAttribute('disabled');
 				this.inputScheduleDelay.removeAttribute('disabled');
 				this.timeMenu.classList.remove("invisible");
+				this.timeButton.classList.add("blue");
 
 				this.taskForm.classList.remove("invisible");
 				this.background.classList.remove("invisible");
@@ -285,6 +295,7 @@ class Form {
 					this.reccuringCheckbox.removeAttribute('disabled');
 					this.reccuringLabel.style.color = "#000";
 					this.timeMenu.classList.remove("invisible");
+					this.timeButton.classList.add("blue");
 
 					this.taskForm.classList.remove("invisible");
 					this.background.classList.remove("invisible");
@@ -330,6 +341,7 @@ class Form {
 							this.inputList.setAttribute('required', '');
 							this.inputList.removeAttribute('disabled');
 							this.listMenu.classList.remove("invisible");
+							this.listButton.classList.add("blue");
 
 							// Ouvre le formulaire
 							this.taskForm.classList.remove("invisible");
@@ -442,9 +454,11 @@ class Form {
 		}
 		if(this.timeMenu.className !== "invisible") {	
 			this.timeMenu.classList.add("invisible");
+			this.timeButton.classList.remove("blue");
 		}
 		if(this.listMenu.className !== "invisible") {	
 			this.listMenu.classList.add("invisible");
+			this.listButton.classList.remove("blue");
 		}
 	}
 
@@ -537,6 +551,19 @@ class Form {
 			else {
 				this.inputList.setAttribute('disabled', 'disabled');
 				this.inputList.removeAttribute('required');
+			}
+		}.bind(this));
+
+		this.inputList.addEventListener('change', function() {
+			if (this.inputList.value === "0") {
+				this.newList.classList.remove("invisible");
+				this.inputNewList.setAttribute('required', '');
+			}
+			else {
+				if (this.newList.className !== "invisible") {
+					this.newList.classList.add("invisible");
+					this.inputNewList.removeAttribute('required');
+				}
 			}
 		}.bind(this));
 	}

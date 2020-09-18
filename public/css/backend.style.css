@@ -6,10 +6,17 @@ body
 	margin: 0;
 	padding-top: 53px;
 	padding-left: 300px;
-	padding-bottom: 54px;
+	padding-bottom: 53px;
 	position: relative;
 	min-height: calc(100vh - 106px);
 	letter-spacing: 0.2px;
+}
+
+#content
+{
+	max-width: 90%;
+	margin: auto;
+	margin-top: 40px;
 }
 
 input, textarea
@@ -44,6 +51,16 @@ h2
 .button
 {
 	cursor: pointer;
+    font-size: 14px;
+    padding: 8px 15px;
+    background-color: #2A6EC9;
+    border-radius: 3px;
+    color: #FFF;
+    box-shadow: 1px 1px 2px #000;
+    border: none;
+    white-space: nowrap;
+    font-weight: bold;
+    width: min-content;
 }
 
 .active
@@ -73,6 +90,16 @@ h2
 	font-size: 14px;
 }
 
+.blue
+{
+	color: #2A6EC9;
+}
+
+h1 span.grey, h2 span.grey
+{
+	font-size: 16px;
+}
+
 #background
 {
 	position: fixed;
@@ -89,6 +116,22 @@ h2
 	font-size: 18px;
 	font-weight: normal;
 	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.edit, .delete
+{
+	cursor: pointer;
+}
+
+.fa-exclamation-circle
+{
+	color: #F00;
+}
+
+.fa-check
+{
+	color: #0B1;
 }
 
 
@@ -151,30 +194,61 @@ header
 #top-nav #submenu
 {
 	position: absolute;
-	right: 2%;
-	top: 53px;
+	right: 4%;
+	top: 45px;
 	display: flex;
 	flex-direction: column;
 	margin: 0;
 	z-index: 1000;
 }
 
-#submenu li
+#top-nav #submenu li
 {
-	border: 1px solid #000;
-	background-color: #FFF;
+	border: 1px solid #F8F9FA;
+	background-color: #2A6EC9;
 	border-top: none;
-	padding: 5px;
+	padding: 10px;
+	width: 180px;
+	text-align: right;
+	margin-left: 0;
+	margin-right: 0;
 }
 
-#submenu li:first-child
+#top-nav #submenu li:first-child
 {
-	border-top: 1px solid #000;;
+	border-top: 1px solid #F8F9FA;
 }
 
 #submenu a
 {
-	padding: 5px;
+	padding: 10px;
+	color: #FFF;
+}
+
+#submenu a:hover
+{
+	font-weight: bold;
+}
+
+form#search
+{
+	margin-left: 30%;
+}
+
+header input[type="search"]
+{
+	width: 200px;
+	height: 25px;
+	padding-left: 24px;
+}
+
+.fa-search
+{
+	position: relative;
+	left: 22px;
+	color: #BBB;
+	cursor: none !important;
+	font-size: 15px !important;
 }
 
 
@@ -205,6 +279,11 @@ header
 	padding: 15px 10px;
 }
 
+#left-nav li:first-child
+{
+	text-align: center;
+}
+
 #left-nav i
 {
 	margin-right: 5px;
@@ -218,28 +297,43 @@ header
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 300px;
-	border: 1px solid #000;
+	transform: translate(-50%, -50%) perspective(1px);
+	width: 360px;
 	z-index: 1002;
-	padding: 0 30px;
 	background-color: #FFF;
+	border-radius: 5px;
 }
 
 #task-form h2
 {
-	font-size: 20px;
-	padding-top: 5px;
-	padding-bottom: 4px;
+	font-size: 17px;
+	padding: 10px 15px;
+	background-color: #2A6EC9;
+	margin: 0;
+	color: #FFF;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
 #task-form .fa-times
 {
 	position: absolute;
-	top: 10px;
-	right: 20px;
+	top: 1px;
+	right: 3px;
 	padding: 10px;
 	cursor: pointer;
+	color: #FFF;
+}
+
+#task-form div, #task-form p
+{
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+#time-menu div, #time-menu p, #list-menu div, #list-menu p
+{
+	padding: 0;
 }
 
 #task-form input[type="text"]
@@ -248,17 +342,24 @@ header
 	padding: 4px;
 }
 
+#task-form input[type="text"]:first-child
+{
+	margin-top: 10px;
+}
+
 #task-form form p:nth-child(2)
 {
 	display: flex;
 	justify-content: space-between;
-	padding-bottom: 5px;
-	padding-top: 5px;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	align-items: center;
 }
 
 #task-form form p:nth-child(2) i
 {
 	cursor: pointer;
+	margin-top: 8px;
 	padding-left: 5px;
 	padding-right: 5px;
 }
@@ -269,9 +370,11 @@ header
 	flex-direction: column;
 	align-items: center;
 	font-size: 14px;
-	border-top: 1px solid #000;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	background-color: #DFDFDF;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 #time-menu label
@@ -311,18 +414,43 @@ header
 
 #list-menu
 {
-	display: flex;
-	justify-content: center;
 	font-size: 14px;
-	border-top: 1px solid #000;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	background-color: #DFDFDF;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#list-menu div
+{
+	display: flex;
+	justify-content: center;
 }
 
 #list-menu select
 {
 	padding: 4px;
-	min-width: 100px;
+	width: 144px;
+}
+
+#list-menu p
+{
+	margin-block-start: 0.5em;
+	margin-block-end: 0.5em;
+}
+
+#task-form form p#new_list
+{
+	margin-top: -1px;
+	margin-bottom: 0;
+	margin-left: 26px;
+	display: block;
+}
+
+#new_list input[type="text"]
+{
+	width: 151px;
 }
 
 
@@ -333,34 +461,46 @@ header
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 300px;
-	border: 1px solid #000;
+	transform: translate(-50%, -50%) perspective(1px);
+	width: 360px;
 	z-index: 1002;
-	padding: 0 30px;
 	background-color: #FFF;
+	border-radius: 5px;
 }
 
 #list-form h2
 {
-	font-size: 20px;
-	padding-top: 5px;
-	padding-bottom: 4px;
+	font-size: 17px;
+	padding: 10px 15px;
+	background-color: #2A6EC9;
+	margin: 0;
+	color: #FFF;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
 #list-form .fa-times
 {
 	position: absolute;
-	top: 10px;
-	right: 20px;
+	top: 1px;
+	right: 3px;
 	padding: 10px;
 	cursor: pointer;
+	color: #FFF;
+}
+
+#list-form form
+{
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-bottom: 10px;
 }
 
 #list-form input[type="text"]
 {
 	width: 288px;
 	padding: 4px;
+	margin-top: 10px;
 	margin-bottom: 6px;
 }
 
@@ -372,6 +512,17 @@ header
 	resize: none;
 }
 
+#add-list.button
+{
+	margin-bottom: 30px;
+	padding: 10px 15px;
+}
+
+#list p.grey
+{
+	margin-top: -12px;
+}
+
 
 	/* Pop-up */
 
@@ -380,7 +531,7 @@ header
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%) perspective(1px);
 	width: 300px;
 	border: 1px solid #000;
 	z-index: 1002;
@@ -411,6 +562,7 @@ header
 {
 	border-collapse: collapse;
 	width: 100%;
+	margin-bottom: 10px;
 }
 
 .table-task tbody:before
@@ -440,11 +592,11 @@ tr.task:first-child
 	min-width: 200px;
 }
 
-.addtask-all, .addtask-list, .addtask-important, .addtask-today
+.addtask-all, .addtask-list, .addtask-important, .addtask-today, .addtask-day
 {
-	margin-top: 10px;
 	margin-left: 10px;
 	margin-bottom: 50px;
+	cursor: pointer;
 }
 
 
@@ -483,20 +635,80 @@ footer select
 }
 
 
-/* Recherche */
+	/* Tableau de bord */
 
-header input
+#dashboard h2
 {
-	width: 200px;
-	height: 25px;
-	padding-left: 24px;
+	margin-top: 40px;
 }
 
-.fa-search
+
+	/* 7 Prochains Jours */
+
+.day h2 span.dateformat
 {
-	position: relative;
-	left: 22px;
-	color: #BBB;
-	cursor: none !important;
-	font-size: 15px !important;
+	font-size: 20px;
+	font-weight: bold;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.day h2
+{
+	margin-top: 40px;
+}
+
+
+	/* Retard */
+
+#overdue table
+{
+	margin-bottom: 50px;
+}
+
+
+	/* Archives */
+
+#archives table
+{
+	margin-bottom: 50px;
+}
+
+
+	/* Recherche */
+
+#search table
+{
+	margin-bottom: 50px;
+}
+
+
+	/* Options */
+
+.option_button
+{
+	cursor: pointer;
+    line-height: 250%;
+    background-color: #2A6EC9;
+    border-radius: 3px;
+    color: #FFF;
+    box-shadow: 1px 1px 2px #000;
+    border: none;
+    white-space: nowrap;
+    font-weight: bold;
+    max-width: 600px;
+    padding-left: 40px;
+    margin: 10px 20px;
+}
+
+.option_content
+{
+	margin: 10px 60px;
+	font-size: 15px;
+}
+
+.option_content p
+{
+	margin-block-start: 10px;
+	margin-block-end: 10px;
 }

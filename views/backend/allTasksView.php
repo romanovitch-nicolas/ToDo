@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 
-<h1>Toutes les tâches</h1>
+<h1>Toutes les tâches <span class="grey">(<?= count($tasks) ?>)</span></h1>
 
 <?php if(count($tasks)) { ?>
 

@@ -119,6 +119,8 @@ class UserController
     {
     	$taskManager = new TaskManager();
 
+    	$todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
     	$nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);
@@ -185,6 +187,8 @@ class UserController
 	        $return = 'Tous les champs ne sont pas remplis.';
 	    }
 
+	    $todayDate = new \DateTime();
+        $todayDate = $todayDate->format('w j n');
 	    $nbTasks = $taskManager->getNumberOfTasks($userId);
         $nbImportantTasks = $taskManager->getNumberOfImportant($userId);
         $nbTodayTasks = $taskManager->getNumberOfToday($userId);

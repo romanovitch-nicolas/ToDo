@@ -167,6 +167,7 @@ class TaskController
     public function addTask($name, $userId, $important, $time, $deadline, $reccuring, $scheduleNumber, $scheduleDelay, $list, $listId)
     {
         $taskManager = new TaskManager();
+        $listManager = new ListManager();
 
         $name = htmlspecialchars($name);
         $nameLength = strlen($name);
@@ -185,9 +186,21 @@ class TaskController
                 throw new \Exception('Impossible d\'ajouter la tâche.');
             }
             else {
-                if ($list == true) {
+                if ($list == true) {             
                     if (is_int($listId) OR $listId == null) {
-                        $setList = $taskManager->setList($insertTask, $userId, $listId);
+                        if ($listId == 0) {
+                            $listName = htmlspecialchars($_POST["new_list"]);
+                            $listNameLength = strlen($listName);
+                            $listDescription = "";
+                            if($listNameLength > 0 AND $listNameLength <= 255) {
+                                $insertList = $listManager->insertList($userId, $listName, $listDescription);
+                                $setList = $taskManager->setList($insertTask, $userId, $insertList);
+                                
+                            }
+                        }
+                        else {
+                            $setList = $taskManager->setList($insertTask, $userId, $listId);
+                        }
                     }
                     else {
                         header('Location: ' . $_SERVER['HTTP_REFERER']);

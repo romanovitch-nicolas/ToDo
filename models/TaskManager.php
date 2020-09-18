@@ -44,7 +44,7 @@ class TaskManager extends Manager
     // Récupération du nombre de tâches de la semaine d'un utilisateur
     public function getNumberOfWeek($userId)
     {
-        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) >= 0 AND DATEDIFF(deadline_date, NOW()) <= 7');
+        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) >= 1 AND DATEDIFF(deadline_date, NOW()) <= 7');
         $req->execute(array($userId));
         $nbTasks = $req->rowCount();
 

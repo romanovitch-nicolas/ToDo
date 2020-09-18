@@ -35,8 +35,9 @@ class ListManager extends Manager
     {
     	$req = $this->db->prepare('INSERT INTO lists(user_id, name, description, creation_date) VALUES(?, ?, ?, NOW())');
         $insertList = $req->execute(array($userId, $name, $description));
+        $lastId = $this->db->lastInsertId();
 
-        return $insertList;
+        return $lastId;
     }
 
     // Edition d'une liste

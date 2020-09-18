@@ -4,7 +4,7 @@ $title = "Archives";
 
 <?php ob_start(); ?>
 
-<h1>Archives des 30 derniers jours</h1>
+<h1>Archives des 30 derniers jours <span class="grey">(<?= count($tasks) ?>)</span></h1>
 
 <?php if(count($tasks)) { ?>
 

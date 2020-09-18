@@ -43,13 +43,13 @@
             <form method="POST" action="index.php?action=addTask">
                 <p><input type="text" name="task" maxlength="255" placeholder="Nom" required /></p>
                 <p>
-                    <input type="submit" value="Ajouter" />
+                    <input class="button" type="submit" value="Ajouter" />
                     <span>
                         <i class="fas fa-list" id="list" title="Liste"></i>
                         <i class="far fa-clock" id="time" title="Date"></i>
                         <input type="checkbox" name="important" class="invisible" />
                         <i class="far fa-flag" id="important" title="Important"></i>
-                        <i class="fas fa-flag invisible" id="important_active" title="Important"></i>
+                        <i class="fas fa-flag invisible blue" id="important_active" title="Important"></i>
                     </span>
                 </p>
                 <div id="time-menu" class="invisible">
@@ -71,15 +71,22 @@
                     </p>
                 </div>
                 <div id="list-menu" class="invisible">
-                    <p>
-                        <input id="list_checkbox" type="checkbox" name="list" />
-                        <label for="list">Assigner une liste :</label>
-                        <select id="list_select" name="list_select">
-                            <option></option>
-                            <?php foreach ($lists as $list) { ?>
-                                <option value="<?= $list->id() ?>"><?= $list->name() ?></option> 
-                            <?php } ?>
-                        </select>
+                    <div>
+                        <p>
+                            <input id="list_checkbox" type="checkbox" name="list" />
+                            <label for="list">Assigner une liste :</label>
+                            <select id="list_select" name="list_select">
+                                <option></option>
+                                <?php foreach ($lists as $list) { ?>
+                                    <option value="<?= $list->id() ?>"><?= $list->name() ?></option> 
+                                <?php } ?>
+                                <option value="0">-- Créer une liste --</option>
+                            </select>
+                        </p>
+                    </div>
+                    <p id="new_list" class="invisible">
+                        <label for="list">Nom de la liste :</label>
+                        <input type="text" name="new_list" />
                     </p>
                 </div>
             </form>
@@ -92,7 +99,9 @@
             <p><a id="yes" href="#">Oui</a><a id="no" href="#">Non</a></p>
         </div>
 
-        <?= $content ?>
+        <div id="content">
+            <?= $content ?>
+        </div>
 
         <footer>
             <ul>

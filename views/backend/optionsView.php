@@ -9,7 +9,7 @@
 	<?php if (isset($return) && $return === true) { echo '<p><i class="fas fa-check"></i> Les modifications ont été prises en compte.</p>'; } ?>
 	<div class="option">
 		<p class="option_button">Modifier mon mot de passe</p>
-		<div class="option_content invisible">
+		<div class="option_content <?php if(($_GET['action'] === 'changePass' && isset($return) && $return === true) || ($_GET['action'] !== 'changePass')) { ?>invisible<?php }?>">
 			<form method="POST" action="index.php?action=changePass">
 				<table>
 					<tr>
@@ -25,7 +25,7 @@
 						<td><input type="password" name="pass_confirm" maxlength="255" required /></td>
 					</tr>
 				</table>
-				<p><input type="submit" name="change_pass" value="Valider" /></p>
+				<p><input class="button" type="submit" name="change_pass" value="Valider" /></p>
 			</form>
 		</div>
 	</div>

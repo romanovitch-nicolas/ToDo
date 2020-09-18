@@ -4,7 +4,7 @@
 
 <h1>Recherche</h1>
 
-<h2><?= count($tasks) + count($achievedTasks) ?> résultats pour la recherche "<?= $search ?>".</h2>
+<h2><?= count($tasks) + count($achievedTasks) ?> résultat(s) pour la recherche "<?= $search ?>".</h2>
 
 <section id="search">
 

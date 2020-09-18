@@ -7,7 +7,7 @@ $title = "Tableau de Bord";
 <h1>Tableau de Bord</h1>
 
 <section id="dashboard">
-	<h2>Retard</h2>
+	<h2>Retard <span class="grey">(<?= count($overdueTasks) ?>)</span></h2>
 	<?php if(count($overdueTasks)) { ?>
 		<table class="table-task">
 			<thead>
@@ -54,7 +54,7 @@ $title = "Tableau de Bord";
 		</table>
 	<?php } else { ?><p>Pas de tâche en retard.</p><?php } ?>
 
-	<h2>Aujourd'hui <span class="dateformat"><?= $todayDate ?></span></h2>
+	<h2>Aujourd'hui <span class="dateformat"><?= $todayDate ?></span><span class="grey">(<?= count($todayTasks) ?>)</span></h2>
 	<?php if(count($todayTasks)) { ?>
 		<table class="table-task">
 			<thead>

@@ -7,21 +7,21 @@ $title = "Listes";
 <h1>Listes</h1>
 
 <section id="list">
-	<p><div id="add-list" class="button">Créer une liste</div></p>
+	<div id="add-list" class="button">Créer une liste</div>
 	<div id="list-form" class="invisible">
 		<i class="fas fa-times"></i>
 	    <h2>Créer une liste</h2>
 		<form method="POST" action="index.php?action=addList">
 			<p><input type="text" placeholder="Nom" name="name" maxlength="255" required />
 			<textarea placeholder="Description (optionnel)" name="description"></textarea></p>
-			<p><input type="submit" value="Créer" /></p>
+			<p><input class="button" type="submit" value="Créer" /></p>
 		</form>
 	</div>
 
 		<?php foreach ($lists as $list) { ?>
 			<div class="list" list="<?= $list->id() ?>">
 				<h2 class="list-name"><?= $list->name() ?></h2>
-				<p><span class="edit">Modifier</span> - <span class="delete">Supprimer</span></p>
+				<p class="grey"><span class="edit">Modifier</span> - <span class="delete">Supprimer</span></p>
 				<p class="list-description"><?= nl2br($list->description()) ?></p>
 				<?php if(count($tasks)) { ?>
 					<table class="table-task">

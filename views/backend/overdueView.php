@@ -4,7 +4,7 @@ $title = "En retard";
 
 <?php ob_start(); ?>
 
-<h1>En retard</h1>
+<h1>En retard <span class="grey">(<?= count($tasks) ?>)</span></h1>
 
 <?php if(count($tasks)) { ?>
 
