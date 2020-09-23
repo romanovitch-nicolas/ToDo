@@ -26,6 +26,11 @@ input, textarea
 	letter-spacing: 0.2px;
 }
 
+section
+{
+	margin-top: 45px;
+}
+
 a
 {
 	color: #000;
@@ -41,6 +46,12 @@ h1
 h2
 {
 	font-size: 20px;
+}
+
+.category h2, .day h2, .list h2
+{
+	cursor: pointer;
+	width: max-content;
 }
 
 .reccuring
@@ -132,6 +143,12 @@ h1 span.grey, h2 span.grey
 .fa-check
 {
 	color: #0B1;
+}
+
+.fa-caret-up, .fa-caret-down
+{
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 
@@ -496,6 +513,17 @@ header input[type="search"]
 	padding-bottom: 10px;
 }
 
+#list-form form p
+{
+	margin-bottom: 10px;
+}
+
+#list-form form label
+{
+	font-size: 14px;
+}
+
+
 #list-form input[type="text"]
 {
 	width: 288px;
@@ -514,13 +542,40 @@ header input[type="search"]
 
 #add-list.button
 {
-	margin-bottom: 30px;
 	padding: 10px 15px;
 }
 
 #list p.grey
 {
 	margin-top: -12px;
+}
+
+#list h2.list-name
+{
+	margin-top: 35px;
+	display: inline-block;
+}
+
+#list h2.list-name i
+{
+	margin-left: 10px;
+}
+
+.progress-bar
+{
+	display: inline-block;
+	width: 175px;
+	height: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	margin-left: 5px;
+}
+
+.progress
+{
+	display: inline-block;
+	height: 10px;
+	background-color: #2A6EC9;
+	position: absolute;
 }
 
 
@@ -592,11 +647,20 @@ tr.task:first-child
 	min-width: 200px;
 }
 
-.addtask-all, .addtask-list, .addtask-important, .addtask-today, .addtask-day
+.addtask-all, .addtask-important, .addtask-today, .addtask-day
 {
 	margin-left: 10px;
 	margin-bottom: 50px;
 	cursor: pointer;
+	width: 155px;
+}
+
+.addtask-list
+{
+	margin-left: 10px;
+	margin-bottom: 30px;
+	cursor: pointer;
+	width: 155px;
 }
 
 
@@ -642,6 +706,74 @@ footer select
 	margin-top: 40px;
 }
 
+.graph-path
+{
+	fill: transparent;
+	stroke-width: 2px;
+	stroke: #2A6EC9;
+}
+
+.graph-fill
+{
+	stroke-width: 0;
+	stroke: #2A6EC9;
+	fill: rgba(42, 111, 201, 0.5);
+}
+
+#overview
+{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+#overview div
+{
+	width: 220px;
+	height: 120px;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+#overview div p
+{
+	width: 200px;
+	margin: 10px;
+	margin-bottom: 20px;
+}
+
+#overview div:first-child p:first-child
+{
+	margin-top: 34px;
+}
+
+#overview div:first-child p:nth-child(2)
+{
+	margin-bottom: 40px;
+}
+
+#overview div:nth-child(2) p
+{
+	margin-top: 52px;
+	margin-bottom: 60px;
+}
+
+#overview div svg
+{
+	margin-bottom: 7px;
+}
+
+#overview div svg circle:hover
+{
+	r: 5px;
+}
+
+#overview div span
+{
+	font-weight: bold;
+	font-size: 15px;
+}
 
 	/* 7 Prochains Jours */
 

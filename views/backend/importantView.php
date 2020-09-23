@@ -57,7 +57,7 @@ $title = "Important";
 
 <?php } else { ?>
 	<p>Pas de tâche importante.</p>
-	<p><div class="addtask-important"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div></p>
+	<div class="addtask-important"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
 <?php } ?>
 
 <?php $content = ob_get_clean(); ?>

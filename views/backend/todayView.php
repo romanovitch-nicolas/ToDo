@@ -57,7 +57,7 @@ $title = "Aujourd'hui";
 
 <?php } else { ?>
 	<p>Pas de tâche prévue aujourd'hui.</p>
-	<p><div class="addtask-today"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div></p>
+	<div class="addtask-today"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
 <?php } ?>
 
 <?php $content = ob_get_clean(); ?>

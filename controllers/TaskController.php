@@ -17,6 +17,19 @@ class TaskController
         $importantTasks = $taskManager->getImportantTasks($userId);
         $lists = $listManager->getLists($userId);
 
+        $nbTodayDoneTasks = $taskManager->getNumberOfTodayDone($userId);
+        $nbTodayAllTasks = $taskManager->getNumberOfTodayAll($userId);
+        $nbDoneTasks = $taskManager->getNumberOfDone($userId);
+        for($i = -6; $i < 1; ++$i) {
+            $days[$i] = $taskManager->getNumberOfDateDiffDoneTasks($userId, $i);
+            $date[$i] = new \DateTime();
+            $date[$i] = $date[$i]->modify("+" . $i . "day");
+            $date[$i] = $date[$i]->format('w j n');
+            $dateNum[$i] = new \DateTime();
+            $dateNum[$i] = $dateNum[$i]->modify("+" . $i . "day");
+            $dateNum[$i] = $dateNum[$i]->format('Y-m-d');
+        }
+
         $todayDate = new \DateTime();
         $todayDate = $todayDate->format('w j n');
         $nbTasks = $taskManager->getNumberOfTasks($userId);

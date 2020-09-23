@@ -94,7 +94,7 @@
 
         <div id="popup" class="invisible">
             <i class="fas fa-times"></i>
-            <h2>Attention :</h2>
+            <h2>Attention</h2>
             <p>Supprimer définitivement ?</p>
             <p><a id="yes" href="#">Oui</a><a id="no" href="#">Non</a></p>
         </div>

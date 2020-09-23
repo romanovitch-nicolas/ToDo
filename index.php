@@ -229,7 +229,7 @@ try {
 
             case 'addList':
                 if (!empty($userId)) {
-                    $listController->addList($userId, $_POST['name'], $_POST['description']);
+                    $listController->addList($userId, $_POST['name'], $_POST['description'], $_POST['progress']);
                 }
                 else {
                     require('views/frontend/connectView.php'); 
@@ -239,7 +239,7 @@ try {
             case 'editList':
                 if (!empty($userId)) {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
-                        $listController->editList($_GET['id'], $userId, $_POST['name'], $_POST['description']);
+                        $listController->editList($_GET['id'], $userId, $_POST['name'], $_POST['description'], $_POST['progress']);
                     }
                     else
                     {

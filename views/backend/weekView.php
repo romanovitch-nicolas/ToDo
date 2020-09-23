@@ -7,13 +7,13 @@ $title = "7 Prochains Jours";
 <h1>7 Prochains Jours <span class="grey">(<?= $nbWeekTasks ?>)</span></h1>
 
 <section id="week">
-	<?php $i= 0 ?>
+	<?php $i = 0 ?>
 	<?php foreach ($days as $dayTasks) { ?>
 		<?php $i = $i + 1; ?>
 		<div class="day" date="<?= $dateNum[$i] ?>">
-			<h2><span class="dateformat"><?= $date[$i] ?></span> <span class="grey">(<?= count($dayTasks) ?>)</span></h2>
+			<h2><span class="dateformat"><?= $date[$i] ?></span> <span class="grey">(<?= count($dayTasks) ?>)</span> <i class="fas fa-caret-up invisible"></i><i class="fas fa-caret-down"></i></h2>
 			<?php if(count($dayTasks)) {?>
-				<table class="table-task">
+				<table class="table-task invisible">
 					<thead>
 						<tr>
 							<th>Tâche</th>
@@ -56,10 +56,10 @@ $title = "7 Prochains Jours";
 					<?php } ?>
 					</tbody>
 				</table>
-				<div class="addtask-day"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
+				<div class="addtask-day invisible"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
 			<?php } else { ?>
-				<p>Pas de tâche prévue ce jour.</p>
-				<p><div class="addtask-day"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div></p>
+				<p class="invisible">Pas de tâche prévue ce jour.</p>
+				<div class="addtask-day invisible"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
 			<?php } ?>
 		</div>
 	<?php } ?>

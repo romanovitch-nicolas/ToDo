@@ -28,16 +28,17 @@ class ListController
     }
 
     // Ajout d'une liste
-    public function addList($userId, $name, $description)
+    public function addList($userId, $name, $description, $progress)
     {
         $listManager = new ListManager();
 
         $name = htmlspecialchars($name);
         $nameLength = strlen($name);
         $description = htmlspecialchars($description);
+        if ($progress == true) { $progress = 1; } else { $progress = 0; }
 
         if($nameLength > 0 AND $nameLength <= 255) {
-            $insertList = $listManager->insertList($userId, $name, $description);
+            $insertList = $listManager->insertList($userId, $name, $description, $progress);
             if ($insertList === false) {
                 throw new \Exception('Impossible d\'ajouter la liste.');
             }
@@ -51,16 +52,17 @@ class ListController
     }
 
     // Modification d'une liste
-    public function editList($id, $userId, $name, $description)
+    public function editList($id, $userId, $name, $description, $progress)
     {
         $listManager = new ListManager();
 
         $name = htmlspecialchars($name);
         $nameLength = strlen($name);
         $description = htmlspecialchars($description);
+        if ($progress == true) { $progress = 1; } else { $progress = 0; }
 
         if($nameLength > 0 AND $nameLength <= 255) {
-            $editList = $listManager->editList($id, $userId, $name, $description);
+            $editList = $listManager->editList($id, $userId, $name, $description, $progress);
             if ($editList === false) {
                 throw new \Exception('Impossible de modifier la liste.');
             }

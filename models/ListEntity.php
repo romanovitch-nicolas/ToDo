@@ -8,6 +8,7 @@ class ListEntity
     protected $name;
     protected $description;
     protected $creationDate;
+    protected $progressBar;
 
     public function __construct(array $data)
     {
@@ -37,6 +38,10 @@ class ListEntity
         {
             $this->setCreationDate($data['creation_date']);
         }
+        if (isset($data['progress_bar']))
+        {
+            $this->setProgressBar($data['progress_bar']);
+        }
     }
 
     // Getters    
@@ -58,6 +63,10 @@ class ListEntity
 
     public function creationDate() {
         return $this->creationDate;
+    }
+
+    public function progressBar() {
+        return $this->progressBar;
     }
 
     // Setters
@@ -96,5 +105,12 @@ class ListEntity
     public function setCreationDate($creationDate)
     {
         $this->creationDate = $creationDate;
+    }
+
+    public function setProgressBar($progressBar) {
+        if ($progressBar == 0 || $progressBar == 1)
+        {
+            $this->progressBar = $progressBar;
+        }
     }
 }

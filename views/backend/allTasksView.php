@@ -55,7 +55,7 @@
 
 <?php } else { ?>
 	<p>Pas de tâche.</p>
-	<p><div class="addtask-all"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div></p>
+	<div class="addtask-all"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
 <?php } ?>
 
 <?php $content = ob_get_clean(); ?>

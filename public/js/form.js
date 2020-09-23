@@ -45,6 +45,7 @@ class Form {
 		this.closeListForm = document.querySelector("#list-form i.fa-times");
 		this.inputListName = document.querySelector("#list-form input[type='text']");
 		this.inputListDescription = document.querySelector("#list-form textarea");
+		this.listProgressCheckbox = document.querySelector("#list-form input[type='checkbox']");
 
 		// Boutons
 		this.addAllTaskButton = document.querySelector(".addtask-all");
@@ -310,6 +311,7 @@ class Form {
 				this.listFormTitle.textContent = "Créer une liste";
 				this.inputListName.value = "";
 				this.inputListDescription.value = "";
+				this.listProgressCheckbox.checked = true;
 				this.listFormSubmit.value = "Créer";
 
 				this.listFormDiv.classList.remove("invisible");
@@ -323,6 +325,7 @@ class Form {
 				// Récupération des valeurs des inputs
 				let listId = list.getAttribute("list");
 				let listName = list.querySelector(".list-name").textContent;
+				let listProgress = list.getAttribute("progress");
 				let listDescription = list.querySelector(".list-description");
 				if (listDescription !== null) { listDescription = listDescription.textContent };
 				let listEditButton = list.querySelector("span.edit");
@@ -357,6 +360,8 @@ class Form {
 						this.listFormTitle.textContent = "Modifier une liste";
 						this.inputListName.value = listName;
 						this.inputListDescription.value = listDescription;
+						if(listProgress == 1) { this.listProgressCheckbox.checked = true; }
+						else { this.listProgressCheckbox.checked = false; }
 						this.listFormSubmit.value = "Enregistrer";
 
 						this.listFormDiv.classList.remove("invisible");
@@ -369,7 +374,7 @@ class Form {
 						if(taskExist !== null) {
 							// Affichage d'une pop-up de confirmation de suppression d'une liste
 							this.popup.classList.remove("invisible");
-							this.popupText.textContent = "Voulez-vous aussi supprimer les tâches de cette liste ?";
+							this.popupText.innerHTML = "Voulez-vous aussi supprimer les tâches de cette liste ? <br /><br /><em>Elles seront également supprimées des archives.</em>";
 							this.popupYes.setAttribute("href", "index.php?action=deleteList&id=" + listId + "&tasks=true");
 							this.popupNo.setAttribute("href", "index.php?action=deleteList&id=" + listId);
 							this.background.classList.remove("invisible");

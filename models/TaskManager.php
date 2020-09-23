@@ -11,7 +11,7 @@ class TaskManager extends Manager
         $this->db = $this->dbConnect();
     }
 
-    // Récupération du nombre de tâches d'un utilisateur
+    // Récupération du nombre de tâches non terminées d'un utilisateur
     public function getNumberOfTasks($userId)
     {
         $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 0');
@@ -21,7 +21,7 @@ class TaskManager extends Manager
         return $nbTasks;
     }
 
-    // Récupération du nombre de tâches importantes d'un utilisateur
+    // Récupération du nombre de tâches importantes non terminées d'un utilisateur
     public function getNumberOfImportant($userId)
     {
         $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 0 AND important = 1');
@@ -31,7 +31,7 @@ class TaskManager extends Manager
         return $nbTasks;
     }
 
-    // Récupération du nombre de tâches du jour d'un utilisateur
+    // Récupération du nombre de tâches du jour non terminées d'un utilisateur
     public function getNumberOfToday($userId)
     {
         $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) = 0');
@@ -41,7 +41,27 @@ class TaskManager extends Manager
         return $nbTasks;
     }
 
-    // Récupération du nombre de tâches de la semaine d'un utilisateur
+    // Récupération du nombre de tâches du jour terminées d'un utilisateur
+    public function getNumberOfTodayDone($userId)
+    {
+        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 1 AND DATEDIFF(deadline_date, NOW()) = 0');
+        $req->execute(array($userId));
+        $nbTasks = $req->rowCount();
+
+        return $nbTasks;
+    }
+
+    // Récupération du nombre total de tâches du jour d'un utilisateur
+    public function getNumberOfTodayAll($userId)
+    {
+        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND DATEDIFF(deadline_date, NOW()) = 0');
+        $req->execute(array($userId));
+        $nbTasks = $req->rowCount();
+
+        return $nbTasks;
+    }
+
+    // Récupération du nombre de tâches de la semaine non terminées d'un utilisateur
     public function getNumberOfWeek($userId)
     {
         $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 0 AND DATEDIFF(deadline_date, NOW()) >= 1 AND DATEDIFF(deadline_date, NOW()) <= 7');
@@ -66,6 +86,27 @@ class TaskManager extends Manager
     {
         $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 1 AND DATEDIFF(completion_date, NOW()) <= 0 AND DATEDIFF(completion_date, NOW()) >= "-30"');
         $req->execute(array($userId));
+        $nbTasks = $req->rowCount();
+
+        return $nbTasks;
+    }
+
+    // Récupération du nombre de tâches effectuées d'un utilisateur
+    public function getNumberOfDone($userId)
+    {
+        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 1');
+        $req->execute(array($userId));
+        $nbTasks = $req->rowCount();
+
+        return $nbTasks;
+    }
+
+    // Récupération des tâches d'un utilisateur suivant la différence de jours entre maintenant et l'échéance
+    public function getNumberOfDateDiffDoneTasks($userId, $dateDiff)
+    {
+        $req = $this->db->prepare('SELECT id FROM tasks WHERE user_id = ? AND done = 1 AND DATEDIFF(completion_date, NOW()) = ?');
+        $req->execute(array($userId, $dateDiff));
+
         $nbTasks = $req->rowCount();
 
         return $nbTasks;
