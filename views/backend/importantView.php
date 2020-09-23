@@ -41,11 +41,11 @@ $title = "Important";
 						<?php } ?>
 					</td>
 					<td>
-						<i class="fas fa-edit" title="Modifier"></i>
+						<i class="fas fa-edit edit" title="Modifier"></i>
 						<?php if($task->reccuring() == 1) { ?>
 							<i class="fas fa-trash delete" title="Supprimer"></i>
 						<?php } else { ?>
-							<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash" title="Supprimer"></i></a>
+							<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash delete" title="Supprimer"></i></a>
 						<?php } ?>
 					</td>
 				</tr>

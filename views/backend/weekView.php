@@ -12,55 +12,57 @@ $title = "7 Prochains Jours";
 		<?php $i = $i + 1; ?>
 		<div class="day" date="<?= $dateNum[$i] ?>">
 			<h2><span class="dateformat"><?= $date[$i] ?></span> <span class="grey">(<?= count($dayTasks) ?>)</span> <i class="fas fa-caret-up invisible"></i><i class="fas fa-caret-down"></i></h2>
-			<?php if(count($dayTasks)) {?>
-				<table class="table-task invisible">
-					<thead>
-						<tr>
-							<th>Tâche</th>
-							<th>Echéance</th>
-							<th>Liste</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-					<?php foreach ($dayTasks as $task) { ?>
-						<tr class="task <?php if($task->reccuring() == 1) { ?>reccuring<?php } ?>"
-							<?php if($task->reccuring() == 1 && $task->important() == 1) { ?>title="Tâche importante et récurrente [<?= $task->schedule() ?>]"
-							<?php } elseif($task->reccuring() == 1) { ?>title="Tâche récurrente [<?= $task->schedule() ?>]"
-							<?php } elseif($task->important() == 1) { ?>title="Tâche importante"<?php } ?>>
-							<td>
-								<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
-								<label for="<?= $task->id() ?>" important="<?= $task->important() ?>" class="<?php if($task->important() == 1) { ?>active<?php } ?>"><?= $task->name() ?></label>
-							</td>
-							<td>
-								<span class="date <?php if($task->important() == 1) { ?>active<?php } ?>" <?php if($task->reccuring() == 1) { ?> schedule="<?= $task->schedule() ?>"<?php } ?>><?= $task->deadlineDate() ?></span>
-							</td>
-							<td>
-								<?php foreach ($lists as $list) { 
-									if ($list->id() === $task->listId()) { ?>
-										<div class="list" list="<?= $list->id() ?>">
-											<span class="list-name"><?= $list->name() ?></span>
-										</div>
+			<div class="display_content invisible">
+				<?php if(count($dayTasks)) {?>
+					<table class="table-task">
+						<thead>
+							<tr>
+								<th>Tâche</th>
+								<th>Echéance</th>
+								<th>Liste</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php foreach ($dayTasks as $task) { ?>
+							<tr class="task <?php if($task->reccuring() == 1) { ?>reccuring<?php } ?>"
+								<?php if($task->reccuring() == 1 && $task->important() == 1) { ?>title="Tâche importante et récurrente [<?= $task->schedule() ?>]"
+								<?php } elseif($task->reccuring() == 1) { ?>title="Tâche récurrente [<?= $task->schedule() ?>]"
+								<?php } elseif($task->important() == 1) { ?>title="Tâche importante"<?php } ?>>
+								<td>
+									<input type="checkbox" id="<?= $task->id() ?>" name="<?= $task->id() ?>" <?php if ($task->done() == 1) {?> checked <?php } ?> />
+									<label for="<?= $task->id() ?>" important="<?= $task->important() ?>" class="<?php if($task->important() == 1) { ?>active<?php } ?>"><?= $task->name() ?></label>
+								</td>
+								<td>
+									<span class="date <?php if($task->important() == 1) { ?>active<?php } ?>" <?php if($task->reccuring() == 1) { ?> schedule="<?= $task->schedule() ?>"<?php } ?>><?= $task->deadlineDate() ?></span>
+								</td>
+								<td>
+									<?php foreach ($lists as $list) { 
+										if ($list->id() === $task->listId()) { ?>
+											<div class="list" list="<?= $list->id() ?>">
+												<span class="list-name"><?= $list->name() ?></span>
+											</div>
+										<?php } ?>
 									<?php } ?>
-								<?php } ?>
-							</td>
-							<td>
-								<i class="fas fa-edit" title="Modifier"></i>
-								<?php if($task->reccuring() == 1) { ?>
-									<i class="fas fa-trash delete" title="Supprimer"></i>
-								<?php } else { ?>
-									<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash" title="Supprimer"></i></a>
-								<?php } ?>
-							</td>
-						</tr>
-					<?php } ?>
-					</tbody>
-				</table>
-				<div class="addtask-day invisible"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
-			<?php } else { ?>
-				<p class="invisible">Pas de tâche prévue ce jour.</p>
-				<div class="addtask-day invisible"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
-			<?php } ?>
+								</td>
+								<td>
+									<i class="fas fa-edit edit" title="Modifier"></i>
+									<?php if($task->reccuring() == 1) { ?>
+										<i class="fas fa-trash delete" title="Supprimer"></i>
+									<?php } else { ?>
+										<a href="index.php?action=deleteTask&id=<?= $task->id() ?>"><i class="fas fa-trash delete" title="Supprimer"></i></a>
+									<?php } ?>
+								</td>
+							</tr>
+						<?php } ?>
+						</tbody>
+					</table>
+					<div class="addtask-day"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
+				<?php } else { ?>
+					<p>Pas de tâche prévue ce jour.</p>
+					<div class="addtask-day"><i class="fas fa-plus fa-fw"></i> Ajouter une tâche</div>
+				<?php } ?>
+			</div>
 		</div>
 	<?php } ?>
 </section>

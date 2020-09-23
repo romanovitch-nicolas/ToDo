@@ -13,7 +13,44 @@ class Nav {
 
 	openSubmenu() {
 		this.submenuButton.addEventListener("click", function () {
-			this.submenu.classList.toggle("invisible");
+			if(this.submenu.classList.contains("invisible")) {
+				this.submenu.classList.remove("invisible");
+				this.submenu.animate([
+					{ transform: "translateY(-3%)", opacity: 0.4 },
+					{ transform: "translateY(0)", opacity: 1 }
+					], {
+						duration: 100,
+						fill: "forwards"
+					}
+				);
+			}
+			else {
+				setTimeout(function() { this.submenu.classList.add("invisible"); }, 100);
+				this.submenu.animate([
+					{ transform: "translateY(0)", opacity: 1 },
+					{ transform: "translateY(-3%)", opacity: 0.4 }
+					], {
+						duration: 100,
+						fill: "forwards"
+					}
+				);
+			}
+		}.bind(this));
+				
+		window.addEventListener('click', function(e) {
+			if(!this.submenu.classList.contains("invisible")) {
+			    if (!this.submenu.contains(e.target) && (!this.submenuButton.contains(e.target))) {
+				    setTimeout(function() { this.submenu.classList.add("invisible"); }, 100);
+					this.submenu.animate([
+						{ transform: "translateY(0)", opacity: 1 },
+						{ transform: "translateY(-3%)", opacity: 0.4 }
+						], {
+							duration: 100,
+							fill: "forwards"
+						}
+					);
+				}
+			}
 		}.bind(this));
 	}
 
@@ -24,7 +61,28 @@ class Nav {
 				let optionDescription = option.querySelector(".option_content");
 
 				optionButton.addEventListener("click", function() {
-					optionDescription.classList.toggle("invisible");
+					if(optionDescription.classList.contains("invisible")) {
+						optionDescription.classList.remove("invisible");
+						optionDescription.animate([
+							{ transform: "translateY(-3%)", opacity: 0.4 },
+							{ transform: "translateY(0)", opacity: 1 }
+							], {
+								duration: 200,
+								fill: "forwards"
+							}
+						);
+					}
+					else {
+						setTimeout(function() { optionDescription.classList.add("invisible"); }, 200);
+						optionDescription.animate([
+							{ transform: "translateY(0)", opacity: 1 },
+							{ transform: "translateY(-3%)", opacity: 0.4 }
+							], {
+								duration: 200,
+								fill: "forwards"
+							}
+						);
+					}
 				});
 			});
 		}

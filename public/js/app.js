@@ -54,21 +54,34 @@ class App {
 		if (this.categories !== null) {
 			this.categories.forEach(function (category) {
 				let title = category.querySelector("h2");
-				let table = category.querySelector(".table-task");
-				let p = category.querySelector("p");
-				let button = category.querySelector(".addtask-today");
+				let content = category.querySelector(".display_content");
 				let arrowUp = category.querySelector(".fa-caret-up");
 				let arrowDown = category.querySelector(".fa-caret-down");
 
 				title.addEventListener('click', function() {
-					if(table !== null) {
-						table.classList.toggle("invisible");
-					}
-					if(p !== null) {
-						p.classList.toggle("invisible");
-					}
-					if(button !== null) {
-						button.classList.toggle("invisible");
+					if(content !== null) {
+						if(content.classList.contains("invisible")) {
+							content.classList.remove("invisible");
+							content.animate([
+								{ transform: "translateY(-3%)", opacity: 0.4 },
+								{ transform: "translateY(0)", opacity: 1 }
+								], {
+									duration: 200,
+									fill: "forwards"
+								}
+							);
+						}
+						else {
+							setTimeout(function() { content.classList.add("invisible"); }, 200);
+							content.animate([
+								{ transform: "translateY(0)", opacity: 1 },
+								{ transform: "translateY(-3%)", opacity: 0.4 }
+								], {
+									duration: 200,
+									fill: "forwards"
+								}
+							);
+						}
 					}
 					if(arrowUp !== null) {
 						arrowUp.classList.toggle("invisible");
@@ -84,21 +97,34 @@ class App {
 		if (this.days !== null) {
 			this.days.forEach(function (day) {
 				let title = day.querySelector("h2");
-				let table = day.querySelector(".table-task");
-				let p = day.querySelector("p");
-				let button = day.querySelector(".addtask-day");
+				let content = day.querySelector(".display_content");
 				let arrowUp = day.querySelector(".fa-caret-up");
 				let arrowDown = day.querySelector(".fa-caret-down");
 
 				title.addEventListener('click', function() {
-					if(table !== null) {
-						table.classList.toggle("invisible");
-					}
-					if(p !== null) {
-						p.classList.toggle("invisible");
-					}
-					if(button !== null) {
-						button.classList.toggle("invisible");
+					if(content !== null) {
+						if(content.classList.contains("invisible")) {
+							content.classList.remove("invisible");
+							content.animate([
+								{ transform: "translateY(-3%)", opacity: 0.4 },
+								{ transform: "translateY(0)", opacity: 1 }
+								], {
+									duration: 200,
+									fill: "forwards"
+								}
+							);
+						}
+						else {
+							setTimeout(function() { content.classList.add("invisible"); }, 200);
+							content.animate([
+								{ transform: "translateY(0)", opacity: 1 },
+								{ transform: "translateY(-3%)", opacity: 0.4 }
+								], {
+									duration: 200,
+									fill: "forwards"
+								}
+							);
+						}
 					}
 					if(arrowUp !== null) {
 						arrowUp.classList.toggle("invisible");
@@ -114,23 +140,34 @@ class App {
 		if (this.lists !== null) {
 			this.lists.forEach(function (list) {
 				let title = list.querySelector("h2");
-				let table = list.querySelector(".table-task");
-				let p = list.querySelectorAll("p");
-				let button = list.querySelector(".addtask-list");
+				let content = list.querySelector(".display_content");
 				let arrowUp = list.querySelector(".fa-caret-up");
 				let arrowDown = list.querySelector(".fa-caret-down");
 
 				title.addEventListener('click', function() {
-					if(table !== null) {
-						table.classList.toggle("invisible");
-					}
-					p.forEach(function (p) {
-						if(p !== null) {
-							p.classList.toggle("invisible");
+					if(content !== null) {
+						if(content.classList.contains("invisible")) {
+							content.classList.remove("invisible");
+							content.animate([
+								{ transform: "translateY(-3%)", opacity: 0.4 },
+								{ transform: "translateY(0)", opacity: 1 }
+								], {
+									duration: 200,
+									fill: "forwards"
+								}
+							);
 						}
-					});
-					if(button !== null) {
-						button.classList.toggle("invisible");
+						else {
+							setTimeout(function() { content.classList.add("invisible"); }, 200);
+							content.animate([
+								{ transform: "translateY(0)", opacity: 1 },
+								{ transform: "translateY(-3%)", opacity: 0.4 }
+								], {
+									duration: 200,
+									fill: "forwards"
+								}
+							);
+						}
 					}
 					if(arrowUp !== null) {
 						arrowUp.classList.toggle("invisible");

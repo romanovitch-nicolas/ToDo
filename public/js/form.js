@@ -72,7 +72,16 @@ class Form {
 			this.clear();
 			// Ouvre le formulaire
 			this.taskForm.classList.remove("invisible");
+			this.taskForm.animate([
+				{ opacity: 0.4 },
+				{ opacity: 1 }
+				], {
+					duration: 100,
+					fill: "forwards"
+				}
+			);
 			this.background.classList.remove("invisible");
+			this.formText.focus();
 		}.bind(this));
 
 		// Ouverture du formulaire de modification de tâche
@@ -199,7 +208,16 @@ class Form {
 
 						// Ouverture du formulaire des tâches
 						this.taskForm.classList.remove("invisible");
+						this.taskForm.animate([
+							{ opacity: 0.4 },
+							{ opacity: 1 }
+							], {
+								duration: 100,
+								fill: "forwards"
+							}
+						);
 						this.background.classList.remove("invisible");
+						this.formText.focus();
 					}.bind(this));
 				};
 
@@ -207,6 +225,14 @@ class Form {
 					taskDeleteButton.addEventListener("click", function() {
 						// Affichage de la popup de confirmation de suppression si la tâche a une récurrence
 						this.popup.classList.remove("invisible");
+						this.popup.animate([
+							{ opacity: 0.4 },
+							{ opacity: 1 }
+							], {
+								duration: 100,
+								fill: "forwards"
+							}
+						);
 						this.popupText.textContent = "Voulez-vous aussi supprimer les répétitions prévues pour cette tâche ?";
 						this.popupYes.setAttribute("href", "index.php?action=deleteTask&id=" + taskId + "&reccuring=true");
 						this.popupNo.setAttribute("href", "index.php?action=deleteTask&id=" + taskId);
@@ -242,7 +268,16 @@ class Form {
 				this.clear();
 
 				this.taskForm.classList.remove("invisible");
+				this.taskForm.animate([
+					{ opacity: 0.4 },
+					{ opacity: 1 }
+					], {
+						duration: 100,
+						fill: "forwards"
+					}
+				);
 				this.background.classList.remove("invisible");
+				this.formText.focus();
 			}.bind(this));
 		}
 
@@ -254,7 +289,16 @@ class Form {
 				this.importantActiveButton.classList.remove("invisible");
 
 				this.taskForm.classList.remove("invisible");
+				this.taskForm.animate([
+					{ opacity: 0.4 },
+					{ opacity: 1 }
+					], {
+						duration: 100,
+						fill: "forwards"
+					}
+				);
 				this.background.classList.remove("invisible");
+				this.formText.focus();
 			}.bind(this));
 		}
 
@@ -280,7 +324,16 @@ class Form {
 				this.timeButton.classList.add("blue");
 
 				this.taskForm.classList.remove("invisible");
+				this.taskForm.animate([
+					{ opacity: 0.4 },
+					{ opacity: 1 }
+					], {
+						duration: 100,
+						fill: "forwards"
+					}
+				);
 				this.background.classList.remove("invisible");
+				this.formText.focus();
 			}.bind(this));
 		}
 
@@ -299,7 +352,16 @@ class Form {
 					this.timeButton.classList.add("blue");
 
 					this.taskForm.classList.remove("invisible");
+					this.taskForm.animate([
+						{ opacity: 0.4 },
+						{ opacity: 1 }
+						], {
+							duration: 100,
+							fill: "forwards"
+						}
+					);
 					this.background.classList.remove("invisible");
+					this.formText.focus();
 				}.bind(this));
 			}.bind(this));
 		}
@@ -315,7 +377,16 @@ class Form {
 				this.listFormSubmit.value = "Créer";
 
 				this.listFormDiv.classList.remove("invisible");
+				this.listFormDiv.animate([
+					{ opacity: 0.4 },
+					{ opacity: 1 }
+					], {
+						duration: 100,
+						fill: "forwards"
+					}
+				);
 				this.background.classList.remove("invisible");
+				this.inputListName.focus();
 			}.bind(this));
 		}
 
@@ -348,7 +419,16 @@ class Form {
 
 							// Ouvre le formulaire
 							this.taskForm.classList.remove("invisible");
+							this.taskForm.animate([
+								{ opacity: 0.4 },
+								{ opacity: 1 }
+								], {
+									duration: 100,
+									fill: "forwards"
+								}
+							);
 							this.background.classList.remove("invisible");
+							this.formText.focus();
 						}.bind(this));
 					}.bind(this));
 				}
@@ -365,7 +445,16 @@ class Form {
 						this.listFormSubmit.value = "Enregistrer";
 
 						this.listFormDiv.classList.remove("invisible");
+						this.listFormDiv.animate([
+							{ opacity: 0.4 },
+							{ opacity: 1 }
+							], {
+								duration: 100,
+								fill: "forwards"
+							}
+						);
 						this.background.classList.remove("invisible");
+						this.inputListName.focus();
 					}.bind(this));
 				}
 
@@ -374,6 +463,14 @@ class Form {
 						if(taskExist !== null) {
 							// Affichage d'une pop-up de confirmation de suppression d'une liste
 							this.popup.classList.remove("invisible");
+							this.popup.animate([
+								{ opacity: 0.4 },
+								{ opacity: 1 }
+								], {
+									duration: 100,
+									fill: "forwards"
+								}
+							);
 							this.popupText.innerHTML = "Voulez-vous aussi supprimer les tâches de cette liste ? <br /><br /><em>Elles seront également supprimées des archives.</em>";
 							this.popupYes.setAttribute("href", "index.php?action=deleteList&id=" + listId + "&tasks=true");
 							this.popupNo.setAttribute("href", "index.php?action=deleteList&id=" + listId);
