@@ -1,5 +1,7 @@
 <?php
 define("LINK_HOME", "index.php");
+define("LINK_FEATURES", "index.php#features_anchor");
+define("LINK_CONTACT", "index.php#contact_anchor");
 define("LINK_INSCRIPTION", "index.php?action=inscription");
 define("LINK_CONNECTION", "index.php?action=connection");
 

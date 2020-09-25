@@ -198,4 +198,62 @@ class UserController
 
 	    require('views/backend/optionsView.php');
 	}
+
+	// Envoi d'un mail de contact
+    public function contact($author, $mail, $subject, $content)
+    {
+        $author = htmlspecialchars($author);
+        $mail = htmlspecialchars($mail);
+        $subject = htmlspecialchars($subject);
+        $content = htmlspecialchars($content);
+
+        if (!empty($author) && !empty($mail) && !empty($subject) && !empty($content)) {
+            $nameLength = strlen($author);
+            $mailLength = strlen($mail);
+            $subjectLength = strlen($subject);
+            if($nameLength <= 255) {
+                if($mailLength <= 255) {
+                    if($subjectLength <= 255) {
+                        if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $mail)) {
+                            $header="MIME-Version: 1.0\r\n";
+                            $header.='From:"TOOD.com"<contact@tood.com>'."\n";
+                            $header.='Content-Type: text/html; charset="utf-8"'."\n";
+                            $header.='Content-Transfer-Encoding: 8bit';
+                            $message='
+                                <html>
+                                    <body>
+                                        <p>Vous avez reçu un nouveau message depuis <a href="www.tood.com">tood.com</a>.</p>
+                                        <br />
+                                        <p>De : ' . $author . ' (' . $mail . ')</p>
+                                        <p>Objet : ' . $subject . '</p>
+                                        <p>' . $content . '</p>
+                                        <br />
+                                        <p><em>Ceci est un mail automatique, merci de ne pas répondre.</em></p>
+                                    </body>
+                                </html>
+                                ';
+                            mail("nromanovitch@gmail.com", "Nouveau message !", $message, $header);
+                            $return = true;
+                        }
+                        else {
+                            $return = 'Veuillez renseigner une adresse mail valide.';
+                        }
+                    }
+                    else {
+                        $return = 'Le sujet ne doit pas dépasser 255 caractères.';
+                    }
+                }
+                else {
+                    $return = 'Votre email ne doit pas dépasser 255 caractères.';
+                }
+            }
+            else {
+                $return = 'Votre nom ne doit pas dépasser 255 caractères.';
+            }
+        }
+        else {
+            $return = 'Tous les champs ne sont pas remplis.';
+        }
+        require("views/frontend/homeView.php");
+    }
 }

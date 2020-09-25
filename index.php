@@ -82,6 +82,15 @@ try {
                 }
             break;
 
+            case 'contact':
+                if (isset($_POST['author'])) {
+                    $userController->contact($_POST['author'], $_POST['mail'], $_POST['subject'], $_POST['content']);
+                }
+                else {
+                    require('views/frontend/homeView.php');
+                }
+            break;
+
             case 'dashboard':
                 if (!empty($userId)) {
                     $taskController->getDashboard($userId);

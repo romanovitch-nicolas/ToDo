@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>ToDo - <?= $title ?></title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="public/css/frontend.style.css">
     </head>
 
@@ -11,8 +12,8 @@
     		<a id="logo" href="<?= LINK_HOME ?>"><img src="public/images/frontend/logo.png" alt="Logo" /></a>
     		<nav>
     			<ul>
-    				<li><a href="#">Fonctionnalités</a></li>
-    				<li><a href="#">Contact</a></li>
+    				<li><a href="<?= LINK_FEATURES ?>">Fonctionnalités</a></li>
+    				<li><a href="<?= LINK_CONTACT ?>">Contact</a></li>
     			</ul>
                 <?php if (isset($_SESSION['id']) OR isset($_COOKIE['id'])) { ?>
                     <ul>
@@ -34,9 +35,9 @@
             <ul>
                 <li><a href="<?= LINK_HOME ?>">TOOD</a></li>
                 <li> | </li>
-                <li><a href="<?= LINK_HOME ?>">Fonctionnalités</a></li>
+                <li><a href="<?= LINK_FEATURES ?>">Fonctionnalités</a></li>
                 <li> | </li>
-                <li><a href="<?= LINK_HOME ?>">Contact</a></li>
+                <li><a href="<?= LINK_CONTACT ?>">Contact</a></li>
                 <li> | </li>
                 <li><a href="<?= LINK_LEGAL ?>">Mentions légales</a></li>
             </ul>
@@ -44,5 +45,8 @@
                 <option value="fr">Français</option>
             </select>
         </footer>
+
+        <script src="https://kit.fontawesome.com/45b095f08c.js" crossorigin="anonymous"></script>
+        <script src="public/js/frontend.js"></script>
     </body>
 </html>

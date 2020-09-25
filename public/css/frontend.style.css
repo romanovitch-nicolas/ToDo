@@ -15,9 +15,83 @@ body
 	margin: 0;
 }
 
+h1, h2
+{
+	font-family: 'Roboto Slab', serif;
+}
+
+a
+{
+	color: #000;
+	text-decoration: none;
+}
+
+input, textarea
+{
+	padding: 4px;
+	font-family: "Montserrat", sans-serif;
+	font-size: 14px;
+	letter-spacing: 0.2px;
+	font-size: 16px;
+}
+
+input
+{
+	width: 268px;
+}
+
+textarea
+{
+	width: 270px;
+	height: 130px;
+	resize: none;
+}
+
+label
+{
+	margin-right: 10px;
+	font-size: 16px;
+}
+
 .invisible
 {
 	display: none;
+}
+
+.center
+{
+	text-align: center;
+}
+
+.button
+{
+	cursor: pointer;
+    font-size: 14px;
+    padding: 8px 15px;
+    background-color: #2A6EC9;
+    border-radius: 3px;
+    color: #FFF;
+    box-shadow: 1px 1px 2px #000;
+    border: none;
+    white-space: nowrap;
+    font-weight: bold;
+    width: min-content;
+}
+
+#features_anchor, #contact_anchor
+{
+	position: relative;
+	bottom: 100px;
+}
+
+.green
+{
+	color: #00890D;
+}
+
+.red
+{
+	color: #EC0000;
 }
 
 
@@ -25,7 +99,6 @@ body
 
 header
 {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 	height: 100px;
 	display: flex;
 	align-items: center;
@@ -35,6 +108,7 @@ header
 	left: 0;
 	z-index: 1000;
 	background-color: #F8F9FA;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 nav
@@ -61,6 +135,12 @@ nav ul li
 	margin-right: 30px;
 	margin-left: 30px;
 	text-align: center;
+}
+
+nav ul li a:hover
+{
+	border-bottom: 2px solid #2A6EC9;
+	padding-bottom: 15px;
 }
 
 #logo
@@ -106,7 +186,149 @@ footer ul li
 	padding: 5px;
 }
 
+footer ul li a
+{
+	color: #000;
+	text-decoration: none;
+}
+
 footer select
 {
 	padding: 3px;
+}
+
+
+	/* Accueil */
+
+.column
+{
+	width: 20%;
+	max-width: 350px;
+	height: calc(100vh - 100px);
+	background-color: #2A6EC9;
+}
+
+.blank
+{
+	width: 45%;
+	height: calc(92vh - 100px);
+	padding-top: 8vh;
+}
+
+#home
+{
+	background-image: url("../../public/images/frontend/home.jpeg");
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+	height: calc(100vh);
+	margin-top: -101px;
+	position: relative;
+	text-align: center;
+}
+
+#home h1
+{
+	text-align: center;
+	font-size: 3em;
+	max-width: 80%;
+	margin: auto;
+	padding-top: 22vh;
+}
+
+#home div
+{
+	margin-top: 50px;
+}
+
+#home a
+{
+	color: #FFF;
+	font-size: 18px;
+	padding: 12px 20px;
+}
+
+#home .chevron
+{
+	color: #000;
+	position: absolute;
+	bottom: 10px;
+	animation: 2s infinite bounce;
+}
+
+#features
+{
+	display: flex;
+	background-color: #F8F9FA;
+}
+
+#features .column
+{
+	margin-left: 12%;
+	margin-right: 9%;
+}
+
+#features .blank
+{
+	margin-right: 12%;	
+}
+
+#features img
+{
+	width: 100%;
+	max-width: 750px;
+	margin-top: 25px;
+}
+
+#features h2, #contact h2
+{
+	font-size: 34px;
+}
+
+#features p, #contact p
+{
+	font-size: 18px;
+}
+
+#contact
+{
+	display: flex;
+}
+
+#contact .column
+{
+	height: calc(100vh - 153px);
+	margin-right: 11%;
+	margin-left: 7%;
+}
+
+#contact .blank
+{
+	height: calc(80vh - 153px);
+	margin-left: 17%;	
+}
+
+#contact form
+{
+	margin: auto;
+	width: max-content;
+	text-align: center;
+	margin-top: 70px;
+}
+
+#contact .return
+{
+	margin-top: 60px;
+	margin-bottom: -30px;
+}
+
+
+	/* Keyframes */
+
+@keyframes bounce
+{
+    0%   { transform: translateY(0); }
+    30%  { transform: translateY(-15px); }
+    50%  { transform: translateY(0); }
+    100% { transform: translateY(0); }
 }
