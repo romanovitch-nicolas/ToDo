@@ -91,6 +91,10 @@ try {
                 }
             break;
 
+            case 'legal':
+                require('views/frontend/legalView.php');
+            break;
+
             case 'dashboard':
                 if (!empty($userId)) {
                     $taskController->getDashboard($userId);

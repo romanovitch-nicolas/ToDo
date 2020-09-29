@@ -4,7 +4,7 @@ $title = "Important";
 
 <?php ob_start(); ?>
 
-<h1>Important <span class="grey">(<?= count($tasks) ?>)</span></h1>
+<h1>Important <span class="grey">( <?= count($tasks) ?> )</span></h1>
 
 <?php if(count($tasks)) { ?>
 

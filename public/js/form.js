@@ -224,19 +224,21 @@ class Form {
 				if(taskDeleteButton !== null) {
 					taskDeleteButton.addEventListener("click", function() {
 						// Affichage de la popup de confirmation de suppression si la tâche a une récurrence
-						this.popup.classList.remove("invisible");
-						this.popup.animate([
-							{ opacity: 0.4 },
-							{ opacity: 1 }
-							], {
-								duration: 100,
-								fill: "forwards"
-							}
-						);
-						this.popupText.textContent = "Voulez-vous aussi supprimer les répétitions prévues pour cette tâche ?";
-						this.popupYes.setAttribute("href", "index.php?action=deleteTask&id=" + taskId + "&reccuring=true");
-						this.popupNo.setAttribute("href", "index.php?action=deleteTask&id=" + taskId);
-						this.background.classList.remove("invisible");
+						if (schedule !== null) {
+							this.popup.classList.remove("invisible");
+							this.popup.animate([
+								{ opacity: 0.4 },
+								{ opacity: 1 }
+								], {
+									duration: 100,
+									fill: "forwards"
+								}
+							);
+							this.popupText.textContent = "Voulez-vous aussi supprimer les répétitions prévues pour cette tâche ?";
+							this.popupYes.setAttribute("href", "index.php?action=deleteTask&id=" + taskId + "&reccuring=true");
+							this.popupNo.setAttribute("href", "index.php?action=deleteTask&id=" + taskId);
+							this.background.classList.remove("invisible");
+						}
 					}.bind(this));
 				}
 			}.bind(this));

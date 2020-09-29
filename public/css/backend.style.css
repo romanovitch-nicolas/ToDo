@@ -2,11 +2,12 @@
 
 body
 {
-	font-family: "Montserrat", sans-serif;
+	font-family: "Comfortaa", sans-serif;
+	line-height: 1.5;
 	margin: 0;
-	padding-top: 53px;
+	padding-top: 51px;
 	padding-left: 300px;
-	padding-bottom: 53px;
+	padding-bottom: 50px;
 	position: relative;
 	min-height: calc(100vh - 106px);
 	letter-spacing: 0.2px;
@@ -21,7 +22,8 @@ body
 
 input, textarea
 {
-	font-family: "Montserrat", sans-serif;
+	font-family: "Comfortaa", sans-serif;
+	line-height: 1.5;
 	font-size: 14px;
 	letter-spacing: 0.2px;
 }
@@ -274,7 +276,7 @@ header input[type="search"]
 #left-nav
 {
 	position: fixed;
-	top: 54px;
+	top: 56px;
 	left: 0;
 	bottom: 0;
 	border-right: 1px solid rgba(0, 0, 0, 0.15);
@@ -304,6 +306,13 @@ header input[type="search"]
 #left-nav li:first-child
 {
 	text-align: center;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+#left-nav li:first-child span
+{
+	margin: 0;
 }
 
 #left-nav i
@@ -426,12 +435,12 @@ header input[type="search"]
 {
 	width: 37px;
 	margin-right: 2px;
-	padding: 4px;
 }
 
 #time-menu select
 {
 	padding: 4px;
+	width: 96px;
 }
 
 #list-menu
@@ -453,7 +462,7 @@ header input[type="search"]
 #list-menu select
 {
 	padding: 4px;
-	width: 144px;
+	width: 132px;
 }
 
 #list-menu p
@@ -682,7 +691,7 @@ tr.task:first-child
 	margin-left: 10px;
 	margin-bottom: 50px;
 	cursor: pointer;
-	width: 155px;
+	width: max-content;
 }
 
 .addtask-list
@@ -690,7 +699,7 @@ tr.task:first-child
 	margin-left: 10px;
 	margin-bottom: 30px;
 	cursor: pointer;
-	width: 155px;
+	width: max-content;
 }
 
 
@@ -775,7 +784,7 @@ footer select
 
 #overview div:first-child p:first-child
 {
-	margin-top: 34px;
+	margin-top: 27px;
 }
 
 #overview div:first-child p:nth-child(2)

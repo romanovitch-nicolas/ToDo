@@ -4,14 +4,14 @@ $title = "7 Prochains Jours";
 
 <?php ob_start(); ?>
 
-<h1>7 Prochains Jours <span class="grey">(<?= $nbWeekTasks ?>)</span></h1>
+<h1>7 Prochains Jours <span class="grey"></span></h1>
 
 <section id="week">
 	<?php $i = 0 ?>
 	<?php foreach ($days as $dayTasks) { ?>
 		<?php $i = $i + 1; ?>
 		<div class="day" date="<?= $dateNum[$i] ?>">
-			<h2><span class="dateformat"><?= $date[$i] ?></span> <span class="grey">(<?= count($dayTasks) ?>)</span> <i class="fas fa-caret-up invisible"></i><i class="fas fa-caret-down"></i></h2>
+			<h2><span class="dateformat"><?= $date[$i] ?></span> <span class="grey">( <?= count($dayTasks) ?> )</span> <i class="fas fa-caret-up invisible"></i><i class="fas fa-caret-down"></i></h2>
 			<div class="display_content invisible">
 				<?php if(count($dayTasks)) {?>
 					<table class="table-task">

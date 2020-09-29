@@ -5,7 +5,7 @@ $title = "Accueil";
 <?php ob_start(); ?>
 
 <section id="home">
-	<h1>Lorem ipsum dolor sit amet consectetur adipiscing elit</h1>
+	<h1>Organisez votre quotidien avec Tood</h1>
 	<div class="center">
 		<?php if (isset($_SESSION['id']) OR isset($_COOKIE['id'])) { ?><a class="button" href="<?= LINK_DASHBOARD ?>">Tableau de Bord</a>
 		<?php } else { ?><a class="button" href="<?= LINK_INSCRIPTION ?>">S'inscrire</a>
@@ -19,8 +19,8 @@ $title = "Accueil";
 	<div class="column"></div>
 	<div class="blank">
 		<h2>Fonctionnalités</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat urna id fringilla porta. Aliquam nisi urna, finibus in sagittis ut, posuere sed sem. Nam ultricies placerat est. </p>
-		<p>Vivamus eu porttitor tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus molestie varius leo ut efficitur. Donec eu tempor nisl, sed iaculis tellus. Phasellus auctor ligula et leo porttitor euismod.</p>
+		<p>Tood vous permet de créer des tâches rapidement, simplement, et des les organiser en liste.<br /> Selon vos besoin, planifiez-les, de manière récurrente ou non, et déterminez leur degré d'importance.</p>
+		<p>C'est 100% gratuit, et sans aucune publicité.</p>
 		<div class="center"><img src="public/images/frontend/features.png" /></div>
 	</div>
 </section>
@@ -29,7 +29,7 @@ $title = "Accueil";
 	<div id="contact_anchor"></div>
 	<div class="blank">
 		<h2>Contact</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat urna id fringilla porta. Aliquam nisi urna, finibus in sagittis ut, posuere sed sem.</p>
+		<p>Un problème ? Une suggestion ?<br />Utilisez-le formulaire de contact ci-dessous pour laisser votre message.</p>
 		<?php if (isset($return) && $return === true) { echo("<p class='center return'><i class='fas fa-check green'></i> Votre message à bien été envoyé.</p>"); } ?>
 		<?php if (isset($return) && $return !== true) { echo("<p class='center return'><i class='fas fa-exclamation-circle red'></i> " . $return . "</p>"); } ?>
 		<form method="POST" action="index.php?action=contact#contact_anchor">
@@ -52,7 +52,7 @@ $title = "Accueil";
 			</tr>
 			<tr>
 				<td></td>
-				<td><p><input class="button" type="submit" name="sendMessage" value="Envoyer" /></p></td>
+				<td><p class="center"><input class="button" type="submit" name="sendMessage" value="Envoyer" /></p></td>
 			</tr>
 		</table>
 	</form>

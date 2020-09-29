@@ -36,6 +36,26 @@ class UserController
 									$passHash = password_hash($pass, PASSWORD_DEFAULT);
 									// Insertion dans la BDD
 									$insertUser = $userManager->insertUser($login, $passHash, $mail);
+									// Envoi du mail d'inscription
+									$header="MIME-Version: 1.0\r\n";
+		                            $header.='From:"TOOD.com"<contact@tood.com>'."\n";
+		                            $header.='Content-Type: text/html; charset="utf-8"'."\n";
+		                            $header.='Content-Transfer-Encoding: 8bit';
+		                            $message='
+		                                <html>
+		                                    <body>
+		                                        <p>Merci de vous être inscrit sur <a href="www.tood.com">tood.com</a>.</p>
+		                                        <br />
+		                                        <p>Rappel de vos identifiants :</p>
+		                                        <p>Login : <strong>' . $login . '</strong></p>
+		                                        <p>Mot de passe : <strong>' . $pass . '</strong></p>
+		                                        <p>Ces informations sont confidentielles, ne les communiquez à personne.</p>
+		                                        <br />
+		                                        <p><em>Ceci est un mail automatique, merci de ne pas répondre.</em></p>
+		                                    </body>
+		                                </html>
+		                                ';
+		                            mail("nromanovitch@gmail.com", "Nouveau message !", $message, $header);
 
 									if ($insertUser === false) {
 										throw new \Exception('Impossible de finaliser l\'inscription.');
@@ -159,6 +179,24 @@ class UserController
 							$passHash = password_hash($newPass, PASSWORD_DEFAULT);
 							// Modification du mot de passe dans la BDD
 							$setPass = $userManager->setPass($userId, $passHash);
+							// Envoi d'un mail
+							$header="MIME-Version: 1.0\r\n";
+                            $header.='From:"TOOD.com"<contact@tood.com>'."\n";
+                            $header.='Content-Type: text/html; charset="utf-8"'."\n";
+                            $header.='Content-Transfer-Encoding: 8bit';
+                            $message='
+                                <html>
+                                    <body>
+                                        <p>Votre changement de mot de passe est effectif sur <a href="www.tood.com">tood.com</a>.</p>
+                                        <br />
+                                        <p>Votre nouveau mot de passe : <strong>' . $newPass . '</strong></p>
+                                        <p>Cette information est confidentielle, ne la communiquez à personne.</p>
+                                        <br />
+                                        <p><em>Ceci est un mail automatique, merci de ne pas répondre.</em></p>
+                                    </body>
+                                </html>
+                                ';
+                            mail("nromanovitch@gmail.com", "Nouveau message !", $message, $header);
 
 							if ($setPass === false) {
 								throw new \Exception('Impossible de modifier le mot de passe.');
@@ -199,7 +237,7 @@ class UserController
 	    require('views/backend/optionsView.php');
 	}
 
-	// Envoi d'un mail de contact
+	// Envoi d'un mail depuis le formulaire de contact
     public function contact($author, $mail, $subject, $content)
     {
         $author = htmlspecialchars($author);

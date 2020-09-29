@@ -4,7 +4,7 @@ $title = "Aujourd'hui";
 
 <?php ob_start(); ?>
 
-<h1 class="today">Aujourd'hui<span class="dateformat"><?= $todayDate ?></span><span class="grey">(<?= count($tasks) ?>)</span></h1>
+<h1 class="today">Aujourd'hui<span class="dateformat"><?= $todayDate ?></span><span class="grey">( <?= count($tasks) ?> )</span></h1>
 
 <?php if(count($tasks)) { ?>
 

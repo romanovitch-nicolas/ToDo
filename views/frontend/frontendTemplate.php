@@ -3,13 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <title>ToDo - <?= $title ?></title>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="public/css/frontend.style.css">
     </head>
 
     <body>
     	<header>
-    		<a id="logo" href="<?= LINK_HOME ?>"><img src="public/images/frontend/logo.png" alt="Logo" /></a>
+    		<a id="logo" href="<?php if (isset($_GET['action'])) { echo(LINK_HOME); } else { echo(LINK_HOME_TOP); } ?>"><img src="public/images/frontend/logo.png" alt="Logo" /></a>
     		<nav>
     			<ul>
     				<li><a href="<?= LINK_FEATURES ?>">Fonctionnalités</a></li>

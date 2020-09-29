@@ -7,17 +7,13 @@ html
 
 body
 {
-	font-family: "Montserrat", sans-serif;
-	padding-top: 101px;
+	font-family: "Comfortaa", sans-serif;
+	line-height: 1.5;
+	padding-top: 100px;
 	padding-bottom: 54px;
 	position: relative;
 	min-height: calc(100vh - 154px);
 	margin: 0;
-}
-
-h1, h2
-{
-	font-family: 'Roboto Slab', serif;
 }
 
 a
@@ -82,6 +78,14 @@ label
 {
 	position: relative;
 	bottom: 100px;
+}
+
+.return
+{
+	margin-top: 60px;
+	margin-bottom: -30px;
+	font-style: italic;
+	font-size: 16px !important;
 }
 
 .green
@@ -211,8 +215,8 @@ footer select
 .blank
 {
 	width: 45%;
-	height: calc(92vh - 100px);
-	padding-top: 8vh;
+	height: calc(94vh - 100px);
+	padding-top: 6vh;
 }
 
 #home
@@ -222,7 +226,7 @@ footer select
 	background-position: center;
 	width: 100%;
 	height: calc(100vh);
-	margin-top: -101px;
+	margin-top: -100px;
 	position: relative;
 	text-align: center;
 }
@@ -312,14 +316,99 @@ footer select
 {
 	margin: auto;
 	width: max-content;
-	text-align: center;
 	margin-top: 70px;
 }
 
-#contact .return
+	
+	/* Connexion et Inscription */
+
+#connexion, #inscription
 {
-	margin-top: 60px;
-	margin-bottom: -30px;
+	display: flex;
+}
+
+#connexion h1, #inscription h1
+{
+	font-size: 34px;
+}
+
+#connexion .column, #inscription .column
+{
+	margin-left: 12%;
+	margin-right: 9%;
+	height: auto;
+}
+
+#connexion .blank, #inscription .blank
+{
+	margin-right: 12%;
+	height: calc(94vh - 214px);
+	padding-bottom: 60px;
+}
+
+#connexion form, #inscription form
+{
+	width: max-content;
+	margin-top: 70px;
+}
+
+#connexion input[type="checkbox"], #inscription input[type="checkbox"]
+{
+	width: initial;
+	margin: 0;
+}
+
+#connexion form table tr:nth-child(5) p, #inscription form table tr:nth-child(6) p
+{
+	margin-bottom: 0;
+}
+
+#connexion form table tr:last-child p, #inscription form table tr:last-child p
+{
+	margin: 0;
+}
+
+#connexion form table p:hover, #inscription form table p:hover
+{
+	font-weight: bold;
+}
+
+#inscription input
+{
+	margin-left: 10px;
+}
+
+
+	/* Mentions légales */
+
+#legal
+{
+	display: flex;
+}
+
+#legal h1
+{
+	font-size: 34px;
+}
+
+#legal a
+{
+	color: #2A6EC9;
+	text-decoration: underline;
+}
+
+#legal .column
+{
+	margin-left: 12%;
+	margin-right: 9%;
+	height: auto;
+}
+
+#legal .blank
+{
+	margin-right: 12%;
+	height: 100%;
+	padding-bottom: 60px;
 }
 
 

@@ -105,7 +105,7 @@ $title = "Tableau de Bord";
 	</div>
 
 	<div class="category">
-		<h2 class="table-title">Retard <span class="grey">(<?= count($overdueTasks) ?>)</span> <i class="fas fa-caret-up"></i><i class="fas fa-caret-down invisible"></i></h2>
+		<h2 class="table-title">Retard <span class="grey">( <?= count($overdueTasks) ?> )</span> <i class="fas fa-caret-up"></i><i class="fas fa-caret-down invisible"></i></h2>
 		<div class="display_content">
 			<?php if(count($overdueTasks)) { ?>
 				<table class="table-task">
@@ -156,7 +156,7 @@ $title = "Tableau de Bord";
 	</div>
 
 	<div class="category">
-		<h2>Aujourd'hui <span class="dateformat"><?= $todayDate ?></span><span class="grey">(<?= count($todayTasks) ?>)</span> <i class="fas fa-caret-up"></i><i class="fas fa-caret-down invisible"></i></h2>
+		<h2>Aujourd'hui <span class="dateformat"><?= $todayDate ?></span><span class="grey">( <?= count($todayTasks) ?> )</span> <i class="fas fa-caret-up"></i><i class="fas fa-caret-down invisible"></i></h2>
 		<div class="display_content">
 			<?php if(count($todayTasks)) { ?>
 				<table class="table-task">
