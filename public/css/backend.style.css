@@ -575,6 +575,11 @@ header input[type="search"]
 	margin-left: 10px;
 }
 
+.list:last-child
+{
+	margin-bottom: 60px;
+}
+
 .progress-bar
 {
 	display: inline-block;
@@ -697,7 +702,7 @@ tr.task:first-child
 .addtask-list
 {
 	margin-left: 10px;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 	cursor: pointer;
 	width: max-content;
 }

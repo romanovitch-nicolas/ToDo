@@ -10,7 +10,7 @@
 	<div class="option">
 		<p class="option_button">Modifier mon mot de passe</p>
 		<div class="option_content <?php if(($_GET['action'] === 'changePass' && isset($return) && $return === true) || ($_GET['action'] !== 'changePass')) { ?>invisible<?php }?>">
-			<form method="POST" action="index.php?action=changePass">
+			<form method="POST" action="changement-de-mdp">
 				<table>
 					<tr>
 						<td>Mot de passe actuel</td>

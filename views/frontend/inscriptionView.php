@@ -10,7 +10,7 @@ $title = "Inscription";
 		<h1>Inscription</h1>
 		<?php if (isset($return) && $return !== true) { echo '<p class="return"><i class="fas fa-exclamation-circle red"></i> ' . $return . '</p>'; } ?>
 		<?php if (isset($return) && $return === true) { echo '<p class="return"><i class="fas fa-check green"></i> Votre inscription est terminé, vous pouvez maintenant <a href="' . LINK_CONNECTION . '">vous connecter</a>.</p>'; } ?>
-		<form <?php if (isset($return) && $return === true) { echo 'class="invisible"'; }?> method="POST" action="index.php?action=register">
+		<form <?php if (isset($return) && $return === true) { echo 'class="invisible"'; }?> method="POST" action="verification-inscription">
 			<table>
 				<tr>
 					<td>Identifiant</td>

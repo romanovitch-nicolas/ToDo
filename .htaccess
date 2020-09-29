@@ -1,0 +1,23 @@
+Options +FollowSymlinks
+RewriteEngine On
+#RewriteBase /
+
+RewriteRule ^inscription$ index.php?action=inscription [L]
+RewriteRule ^verification-inscription$ index.php?action=register [L]
+RewriteRule ^connexion$ index.php?action=connection [L]
+RewriteRule ^verification-connexion$ index.php?action=connect [L]
+RewriteRule ^mentions-legales$ index.php?action=legal [L]
+
+RewriteRule ^tableau-de-bord$ index.php?action=dashboard [L]
+RewriteRule ^toutes-les-taches$ index.php?action=allTasks [L]
+RewriteRule ^important$ index.php?action=important [L]
+RewriteRule ^aujourdhui$ index.php?action=today [L]
+RewriteRule ^7-prochains-jours$ index.php?action=week [L]
+RewriteRule ^retard$ index.php?action=overdue [L]
+RewriteRule ^archives$ index.php?action=archives [L]
+RewriteRule ^listes$ index.php?action=lists [L]
+RewriteRule ^recherche$ index.php?action=search [L]
+RewriteRule ^preferences$ index.php?action=options [L]
+RewriteRule ^changement-de-mdp$ index.php?action=changePass [L]
+
+RewriteRule ^sitemap$ sitemap.xml [L]

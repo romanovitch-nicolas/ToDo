@@ -38,13 +38,13 @@ class UserController
 									$insertUser = $userManager->insertUser($login, $passHash, $mail);
 									// Envoi du mail d'inscription
 									$header="MIME-Version: 1.0\r\n";
-		                            $header.='From:"TOOD.com"<contact@tood.com>'."\n";
+		                            $header.='From:"TOOD.me"<contact@tood.me>'."\n";
 		                            $header.='Content-Type: text/html; charset="utf-8"'."\n";
 		                            $header.='Content-Transfer-Encoding: 8bit';
 		                            $message='
 		                                <html>
 		                                    <body>
-		                                        <p>Merci de vous être inscrit sur <a href="www.tood.com">tood.com</a>.</p>
+		                                        <p>Merci de vous être inscrit sur <a href="www.tood.me">tood.me</a>.</p>
 		                                        <br />
 		                                        <p>Rappel de vos identifiants :</p>
 		                                        <p>Login : <strong>' . $login . '</strong></p>
@@ -181,13 +181,13 @@ class UserController
 							$setPass = $userManager->setPass($userId, $passHash);
 							// Envoi d'un mail
 							$header="MIME-Version: 1.0\r\n";
-                            $header.='From:"TOOD.com"<contact@tood.com>'."\n";
+                            $header.='From:"TOOD.me"<contact@tood.me>'."\n";
                             $header.='Content-Type: text/html; charset="utf-8"'."\n";
                             $header.='Content-Transfer-Encoding: 8bit';
                             $message='
                                 <html>
                                     <body>
-                                        <p>Votre changement de mot de passe est effectif sur <a href="www.tood.com">tood.com</a>.</p>
+                                        <p>Votre changement de mot de passe est effectif sur <a href="www.tood.me">tood.me</a>.</p>
                                         <br />
                                         <p>Votre nouveau mot de passe : <strong>' . $newPass . '</strong></p>
                                         <p>Cette information est confidentielle, ne la communiquez à personne.</p>
@@ -254,13 +254,13 @@ class UserController
                     if($subjectLength <= 255) {
                         if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $mail)) {
                             $header="MIME-Version: 1.0\r\n";
-                            $header.='From:"TOOD.com"<contact@tood.com>'."\n";
+                            $header.='From:"TOOD.me"<contact@tood.me>'."\n";
                             $header.='Content-Type: text/html; charset="utf-8"'."\n";
                             $header.='Content-Transfer-Encoding: 8bit';
                             $message='
                                 <html>
                                     <body>
-                                        <p>Vous avez reçu un nouveau message depuis <a href="www.tood.com">tood.com</a>.</p>
+                                        <p>Vous avez reçu un nouveau message depuis <a href="www.tood.me">tood.me</a>.</p>
                                         <br />
                                         <p>De : ' . $author . ' (' . $mail . ')</p>
                                         <p>Objet : ' . $subject . '</p>

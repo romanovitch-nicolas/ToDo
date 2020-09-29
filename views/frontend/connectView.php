@@ -9,7 +9,7 @@ $title = "Connexion";
 	<div class="blank">
 		<h1>Connexion</h1>
 		<?php if (isset($return)) { echo '<p class="return"><i class="fas fa-exclamation-circle red"></i> ' . $return . '</p>'; } ?>
-		<form method="POST" action="index.php?action=connect">
+		<form method="POST" action="verification-connexion">
 			<table>
 				<tr>
 					<td><label for="login">Identifiant</label></td>

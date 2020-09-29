@@ -2,9 +2,11 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>ToDo - <?= $title ?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="public/images/favicon.png" />
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="public/css/backend.style.css">
+        <title>TOOD - <?= $title ?></title>
     </head>
     <body>
     	<header>
@@ -104,6 +106,11 @@
             <?= $content ?>
         </div>
 
+        <div id="cookies" <?php if(isset($_COOKIE['cookies'])) { echo 'class="invisible"'; } ?>>
+            <p>Ce site utilise des cookies afin d'analyser le taux de fréquentation, et identifier d'éventuels soucis de navigation.</p>
+            <p><span id="accept_cookies" class="button">Accepter</span><span id="refuse_cookies" class="button">Refuser</span><a href="mentions-legales">En savoir plus</a></p>
+        </div>
+
         <footer>
             <ul>
                 <li><a href="<?= LINK_HOME ?>">TOOD</a></li>
@@ -122,6 +129,7 @@
         <script src="https://kit.fontawesome.com/45b095f08c.js" crossorigin="anonymous"></script>
         <script src="public/js/ajax.js"></script>
         <script src="public/js/app.js"></script>
+        <script src="public/js/cookies.js"></script>
         <script src="public/js/form.js"></script>
         <script src="public/js/nav.js"></script>
     </body>

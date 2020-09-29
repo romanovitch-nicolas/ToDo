@@ -1,10 +1,11 @@
 <?php
-$title = "Accueil";
+$title = "Organisez votre quotidien";
 ?>
 
 <?php ob_start(); ?>
 
 <section id="home">
+	<div id="accueil"></div>
 	<h1>Organisez votre quotidien avec Tood</h1>
 	<div class="center">
 		<?php if (isset($_SESSION['id']) OR isset($_COOKIE['id'])) { ?><a class="button" href="<?= LINK_DASHBOARD ?>">Tableau de Bord</a>
@@ -15,21 +16,21 @@ $title = "Accueil";
 </section>
 
 <section id="features">
-	<div id="features_anchor"></div>
+	<div id="fonctionnalites"></div>
 	<div class="column"></div>
 	<div class="blank">
 		<h2>Fonctionnalités</h2>
 		<p>Tood vous permet de créer des tâches rapidement, simplement, et des les organiser en liste.<br /> Selon vos besoin, planifiez-les, de manière récurrente ou non, et déterminez leur degré d'importance.</p>
-		<p>C'est 100% gratuit, et sans aucune publicité.</p>
+		<p>C'est <strong>100% gratuit</strong>, et sans <strong>aucune publicité</strong>.</p>
 		<div class="center"><img src="public/images/frontend/features.png" /></div>
 	</div>
 </section>
 
 <section id="contact">
-	<div id="contact_anchor"></div>
+	<div id="nous-contacter"></div>
 	<div class="blank">
 		<h2>Contact</h2>
-		<p>Un problème ? Une suggestion ?<br />Utilisez-le formulaire de contact ci-dessous pour laisser votre message.</p>
+		<p>Un problème ? Une suggestion ?<br />Remplissez-le formulaire ci-dessous pour laisser votre message.</p>
 		<?php if (isset($return) && $return === true) { echo("<p class='center return'><i class='fas fa-check green'></i> Votre message à bien été envoyé.</p>"); } ?>
 		<?php if (isset($return) && $return !== true) { echo("<p class='center return'><i class='fas fa-exclamation-circle red'></i> " . $return . "</p>"); } ?>
 		<form method="POST" action="index.php?action=contact#contact_anchor">
