@@ -52,6 +52,16 @@ class UserManager extends Manager
         return new User($userinfo);
     }
 
+    // Récupération des informations d'un utilisateur depuis son login
+    public function getUserInfoByMail($mail)
+    {
+        $req = $this->db->prepare('SELECT * FROM users WHERE mail = ?');
+        $req->execute(array($mail));
+        $userinfo = $req->fetch(\PDO::FETCH_ASSOC);
+
+        return new User($userinfo);
+    }
+
     // Edition d'un mot de passe
     public function setPass($userId, $pass)
     {

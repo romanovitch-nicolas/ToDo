@@ -82,6 +82,24 @@ try {
                 }
             break;
 
+            case 'forgottenPass':
+                if (empty($userId)) {
+                    require('views/frontend/passwordView.php');
+                }
+                else {
+                    require('views/frontend/homeView.php');
+                }
+            break;
+
+            case 'sendPass':
+                if (empty($userId)) {
+                    $userController->sendPass();
+                }
+                else {
+                    require('views/frontend/homeView.php');
+                }
+            break;
+
             case 'contact':
                 if (isset($_POST['author'])) {
                     $userController->contact($_POST['author'], $_POST['mail'], $_POST['subject'], $_POST['content']);

@@ -55,7 +55,7 @@ class UserController
 		                                    </body>
 		                                </html>
 		                                ';
-		                            mail("nromanovitch@gmail.com", "Nouveau message !", $message, $header);
+		                            mail("nromanovitch@gmail.com", "Inscription", $message, $header);
 
 									if ($insertUser === false) {
 										throw new \Exception('Impossible de finaliser l\'inscription.');
@@ -196,7 +196,7 @@ class UserController
                                     </body>
                                 </html>
                                 ';
-                            mail("nromanovitch@gmail.com", "Nouveau message !", $message, $header);
+                            mail("nromanovitch@gmail.com", "Changement de mot de passe", $message, $header);
 
 							if ($setPass === false) {
 								throw new \Exception('Impossible de modifier le mot de passe.');
@@ -235,6 +235,67 @@ class UserController
         $nbArchivedTasks = $taskManager->getNumberOfArchived($userId);
 
 	    require('views/backend/optionsView.php');
+	}
+
+	// Mot de passe oublié
+	public function sendPass()
+    {
+		$userManager = new UserManager();
+
+		if (!empty($_POST["mail"])) {	
+	        $mail = htmlspecialchars($_POST["mail"]);
+	        $mailLength = strlen($mail);
+
+	        // Vérifications du formulaire
+			if ($mailLength <= 255) {
+				if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $mail)) {
+					// Récupération des identifiants de l'utilisateur
+					$user = $userManager->getUserInfoByMail($mail);
+					if ($user === false) {
+						throw new \Exception('Impossible de trouver l\'utilisateur correspondant.');
+					}
+					if ($user->id() !== null) {
+						// Envoi des identifiants par mail
+						$header="MIME-Version: 1.0\r\n";
+                        $header.='From:"TOOD.me"<contact@tood.me>'."\n";
+                        $header.='Content-Type: text/html; charset="utf-8"'."\n";
+                        $header.='Content-Transfer-Encoding: 8bit';
+                        $message='
+                            <html>
+                                <body>
+                                    <p>Rappel de vos identifiants <a href="www.tood.me">tood.me</a> :</p>
+                                    <br />
+                                    <p>Login : <strong>' . $user->login() . '</strong></p>
+                                    <p>Mot de passe : <strong>' . $user->pass() . '</strong></p>
+                                    <p>Ces informations sont confidentielles, ne les communiquez à personne.</p>
+                                    <br />
+                                    <p>Si vous n\'avez pas demandé à recevoir ce mail, pensez à changer de mot de passe.</p>
+                                    <br />
+                                    <p><em>Ceci est un mail automatique, merci de ne pas répondre.</em></p>
+                                </body>
+                            </html>
+                            ';
+                        mail("nromanovitch@gmail.com", "Vos identifiants", $message, $header);
+
+						$return = true;
+					}
+					else {
+						$return = 'Aucun utilisateur n\'est inscrit avec cet email.';
+					}
+				}
+				else {
+					$return = 'L\'adresse mail n\'est pas valide.';
+				}
+			}
+			else {
+				$return = 'L\'adresse mail ne doit pas dépasser 255 caractères.';
+			}
+		}
+		else {
+	        $return = 'Tous les champs ne sont pas remplis.';
+	    }
+
+	    require('views/frontend/passwordView.php');
 	}
 
 	// Envoi d'un mail depuis le formulaire de contact

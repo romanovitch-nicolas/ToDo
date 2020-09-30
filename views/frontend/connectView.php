@@ -33,7 +33,7 @@ $title = "Connexion";
 				</tr>
 				<tr>
 					<td></td>
-					<td><p class="center"><a href="#">Mot de passe oublié ?</a></p></td>
+					<td><p class="center"><a href="mot-de-passe-oublie">Mot de passe oublié ?</a></p></td>
 				</tr>
 			</table>
 		</form>

@@ -6,6 +6,8 @@ RewriteRule ^inscription$ index.php?action=inscription [L]
 RewriteRule ^verification-inscription$ index.php?action=register [L]
 RewriteRule ^connexion$ index.php?action=connection [L]
 RewriteRule ^verification-connexion$ index.php?action=connect [L]
+RewriteRule ^mot-de-passe-oublie$ index.php?action=forgottenPass [L]
+RewriteRule ^verification-mdp-oublie$ index.php?action=sendPass [L]
 RewriteRule ^mentions-legales$ index.php?action=legal [L]
 
 RewriteRule ^tableau-de-bord$ index.php?action=dashboard [L]

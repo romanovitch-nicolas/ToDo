@@ -12,6 +12,7 @@ define("LINK_CONTACT", "index.php#nous-contacter");
 define("LINK_LEGAL", "mentions-legales");
 define("LINK_INSCRIPTION", "inscription");
 define("LINK_CONNECTION", "connexion");
+define("LINK_PASSWORD", "mot-de-passe-oublie");
 
 define("LINK_DASHBOARD", "tableau-de-bord");
 define("LINK_ALLTASKS", "toutes-les-taches");

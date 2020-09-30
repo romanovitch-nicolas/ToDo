@@ -231,9 +231,9 @@ footer select
 	text-align: center;
 }
 
-#accueil
+#accueil, #fonctionnalites, #nous-contacter
 {
-	margin-top: -50px !important;
+	margin-top: -100px !important;
 }
 
 #home h1
@@ -327,24 +327,24 @@ footer select
 	
 	/* Connexion et Inscription */
 
-#connexion, #inscription
+#connexion, #inscription, #password
 {
 	display: flex;
 }
 
-#connexion h1, #inscription h1
+#connexion h1, #inscription h1, #password h1
 {
 	font-size: 34px;
 }
 
-#connexion .column, #inscription .column
+#connexion .column, #inscription .column, #password .column
 {
 	margin-left: 12%;
 	margin-right: 9%;
 	height: auto;
 }
 
-#connexion .blank, #inscription .blank
+#connexion .blank, #inscription .blank, #password .blank
 {
 	margin-right: 12%;
 	height: calc(94vh - 214px);
@@ -355,6 +355,14 @@ footer select
 {
 	width: max-content;
 	margin-top: 70px;
+}
+
+#password form
+{
+	width: max-content;
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #connexion input[type="checkbox"], #inscription input[type="checkbox"]
@@ -378,9 +386,14 @@ footer select
 	font-weight: bold;
 }
 
-#inscription input
+#inscription input, #password input
 {
 	margin-left: 10px;
+}
+
+#password i
+{
+	margin-right: 2px;
 }
 
 
