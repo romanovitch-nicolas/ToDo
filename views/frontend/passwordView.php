@@ -19,14 +19,11 @@ $title = "Mot de passe oublié";
 		<form method="POST" action="verification-mdp-oublie">
 			<table>
 				<tr>
-					<td>Adresse mail</td>
+					<td><label for="mail">Adresse mail</label></td>
 					<td><input type="email" name="mail" maxlength="255" <?php if (isset($_POST['mail'])) { echo 'value="' . $_POST['mail'] . '"'; } ?> required /></td>
 				</tr>
-				<tr>
-					<td></td>
-					<td><p class="center"><input class="button" type="submit" name="sendPass" value="Envoyer" /></p></td>
-				</tr>
 			</table>
+			<p class="center"><input class="button" type="submit" name="sendPass" value="Envoyer" /></p>
 		</form>
 	</div>
 </section>

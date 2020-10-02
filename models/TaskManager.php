@@ -247,7 +247,7 @@ class TaskManager extends Manager
             SELECT id, user_id, list_id, name, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date_fr, DATE_FORMAT(deadline_date, \'%d/%m/%Y\') AS deadline_date_fr, DATE_FORMAT(completion_date, \'%d/%m/%Y\') AS completion_date_fr, important, done, reccuring, schedule
             FROM tasks
             WHERE user_id = ? AND done = 1 AND DATEDIFF(completion_date, NOW()) <= 0 AND DATEDIFF(completion_date, NOW()) >= "-30"
-            ORDER BY creation_date'
+            ORDER BY completion_date DESC'
         );
         $req->execute(array($userId));
 

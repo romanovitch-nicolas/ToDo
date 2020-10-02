@@ -12,8 +12,9 @@
     	<header>
     		<nav id="top-nav">
     			<a id="logo" href="<?= LINK_HOME ?>"><img src="public/images/backend/logo.png" alt="Logo" /></a>
-                <form method="POST" action="<?= LINK_SEARCH ?>" id="search"><i class="fas fa-search"></i><input type="search" name="search" placeholder="Recherche..." required /><input type="submit" class="invisible" /></form>
+                <form method="POST" action="<?= LINK_SEARCH ?>" id="search_form"><i class="fas fa-search"></i><input type="search" name="search" placeholder="Recherche..." required /><input type="submit" class="invisible" /></form>
     			<ul>
+                    <li id="search_icon"><i class="fas fa-search fa-fw"></i></li>
     				<li><i class="fas fa-plus fa-fw" title="Ajouter une tâche"></i></li>
     				<li><i class="fas fa-cog fa-fw" title="Préférences"></i></li>
     			</ul>
@@ -39,6 +40,7 @@
     		</nav>
     	</header>
 
+        <div id="left-nav-btn"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-left"></i></div>
         <div id="background" class="invisible"></div>
         <div id="task-form" class="invisible">
             <i class="fas fa-times"></i>

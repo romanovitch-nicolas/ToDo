@@ -35,6 +35,7 @@
                     </ul>
                 <?php } ?>
     		</nav>
+            <i class="fas fa-bars fa-2x"></i>
     	</header>
 
     	<?= $content ?>

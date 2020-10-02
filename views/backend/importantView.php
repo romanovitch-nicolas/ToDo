@@ -29,6 +29,7 @@ $title = "Important";
 						<label for="<?= $task->id() ?>" important="<?= $task->important() ?>" class="<?php if($task->important() == 1) { ?>active<?php } ?>"><?= $task->name() ?></label>
 					</td>
 					<td>
+						<?php if($task->deadlineDate() !== null) { ?><span class="echeance"></span><?php } ?>
 						<span class="date <?php if($task->important() == 1) { ?>active<?php } ?>" <?php if($task->reccuring() == 1) { ?> schedule="<?= $task->schedule() ?>"<?php } ?>><?= $task->deadlineDate() ?></span>
 					</td>
 					<td>

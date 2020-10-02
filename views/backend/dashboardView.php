@@ -39,6 +39,7 @@ $title = "Tableau de Bord";
 					$x = 9;
 					$inc = $width/6;
 					$max = max($days);
+					if($max == 0) { $max = 1; };
 					$i = -6;
 				?>
 				<path d="<?php foreach ($days as $dayTasks) {
@@ -60,11 +61,7 @@ $title = "Tableau de Bord";
 
 				<!-- Courbe -->
 				<?php 
-					$height = 100;
-					$width = 200;
 					$x = 10;
-					$inc = $width/6;
-					$max = max($days);
 					$i = -6;
 				?>
 				<path d="<?php foreach ($days as $dayTasks) {
@@ -83,11 +80,7 @@ $title = "Tableau de Bord";
 
 				<!-- Cercles -->
 				<?php 
-					$height = 100;
-					$width = 200;
 					$x = 10;
-					$inc = $width/6;
-					$max = max($days);
 					$i = -6;
 				?>	
 				<?php foreach ($days as $dayTasks) {
@@ -128,6 +121,7 @@ $title = "Tableau de Bord";
 									<label for="<?= $overdueTask->id() ?>" important="<?= $overdueTask->important() ?>" class="<?php if($overdueTask->important() == 1) { ?>active<?php } ?>"><?= $overdueTask->name() ?></label>
 								</td>
 								<td>
+									<?php if($overdueTask->deadlineDate() !== null) { ?><span class="echeance"></span><?php } ?>
 									<span class="date <?php if($overdueTask->important() == 1) { ?>active<?php } ?>" <?php if($overdueTask->reccuring() == 1) { ?> schedule="<?= $overdueTask->schedule() ?>"<?php } ?>><?= $overdueTask->deadlineDate() ?></span>
 								</td>
 								<td>
@@ -179,6 +173,7 @@ $title = "Tableau de Bord";
 									<label for="<?= $todayTask->id() ?>" important="<?= $todayTask->important() ?>" class="<?php if($todayTask->important() == 1) { ?>active<?php } ?>"><?= $todayTask->name() ?></label>
 								</td>
 								<td>
+									<?php if($todayTask->deadlineDate() !== null) { ?><span class="echeance"></span><?php } ?>
 									<span class="date <?php if($todayTask->important() == 1) { ?>active<?php } ?>" <?php if($todayTask->reccuring() == 1) { ?> schedule="<?= $todayTask->schedule() ?>"<?php } ?>><?= $todayTask->deadlineDate() ?></span>
 								</td>
 								<td>

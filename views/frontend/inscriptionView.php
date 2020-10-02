@@ -13,34 +13,25 @@ $title = "Inscription";
 		<form <?php if (isset($return) && $return === true) { echo 'class="invisible"'; }?> method="POST" action="verification-inscription">
 			<table>
 				<tr>
-					<td>Identifiant</td>
+					<td><label for="login">Identifiant</label></td>
 					<td><input type="text" name="login" maxlength="255" <?php if (isset($_POST['login'])) { echo 'value="' . $_POST['login'] . '"'; } ?> required /></td>
 				</tr>
 				<tr>
-					<td>Mot de passe</td>
+					<td><label for="pass">Mot de passe</label></td>
 					<td><input type="password" name="pass" maxlength="255" required /></td>
 				</tr>
 				<tr>
-					<td>Confirmation</td>
+					<td><label for="pass_confirm">Confirmation</label></td>
 					<td><input type="password" name="pass_confirm" maxlength="255" required /></td>
 				</tr>
 				<tr>
-					<td>Adresse mail</td>
+					<td><label for="mail">Adresse mail</label></td>
 					<td><input type="email" name="mail" maxlength="255" <?php if (isset($_POST['mail'])) { echo 'value="' . $_POST['mail'] . '"'; } ?> required /></td>
 				</tr>
-				<tr>
-					<td></td>
-					<td><p class="center"><input class="button" type="submit" name="Inscription" value="S'inscrire" /></p></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><p class="center"><a href="<?= LINK_CONNECTION ?>">Déjà inscrit ?</a></p></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><p class="center"><a href="mot-de-passe-oublie">Mot de passe oublié ?</a></p></td>
-				</tr>
 			</table>
+			<p class="center"><input class="button" type="submit" name="Inscription" value="S'inscrire" /></p>
+			<p class="center"><a href="<?= LINK_CONNECTION ?>">Déjà inscrit ?</a></p>
+			<p class="center"><a href="mot-de-passe-oublie">Mot de passe oublié ?</a></p>
 		</form>
 	</div>
 </section>

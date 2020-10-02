@@ -23,19 +23,10 @@ $title = "Connexion";
 					<td><label for="autoconnect">Rester connecté</label></td>
 					<td><input type="checkbox" name="autoconnect" /></td>
 				</tr>
-				<tr>
-					<td></td>
-					<td><p class="center"><input class="button" type="submit" name="connexion" value="Se connecter" /></p></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><p class="center"><a href="<?= LINK_INSCRIPTION ?>">Pas encore inscrit ?</a></p></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><p class="center"><a href="mot-de-passe-oublie">Mot de passe oublié ?</a></p></td>
-				</tr>
 			</table>
+			<p class="center"><input class="button" type="submit" name="connexion" value="Se connecter" /></p>
+			<p class="center"><a href="<?= LINK_INSCRIPTION ?>">Pas encore inscrit ?</a></p>
+			<p class="center"><a href="mot-de-passe-oublie">Mot de passe oublié ?</a></p>
 		</form>
 	</div>
 </section>

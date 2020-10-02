@@ -37,6 +37,7 @@ $title = "Archives";
 						<?php } ?>
 					</td>
 					<td>
+						<?php if($task->completionDate() !== null) { ?><span class="accomplissement"></span><?php } ?>
 						<span class="date"><?= $task->completionDate() ?></span>
 					</td>
 				</tr>

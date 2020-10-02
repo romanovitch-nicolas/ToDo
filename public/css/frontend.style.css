@@ -10,7 +10,6 @@ body
 	font-family: "Comfortaa", sans-serif;
 	line-height: 1.5;
 	padding-top: 100px;
-	padding-bottom: 54px;
 	position: relative;
 	min-height: calc(100vh - 154px);
 	margin: 0;
@@ -80,6 +79,21 @@ label
 	bottom: 100px;
 }
 
+.column
+{
+	width: 20%;
+	max-width: 350px;
+	background-color: #2A6EC9;
+}
+
+.blank
+{
+	width: 45%;
+	min-height: calc(100vh - 220px);
+	padding-top: 60px;
+	padding-bottom: 60px;
+}
+
 .return
 {
 	margin-top: 60px;
@@ -136,8 +150,8 @@ nav ul:last-child
 
 nav ul li
 {
-	margin-right: 30px;
-	margin-left: 30px;
+	margin-right: 25px;
+	margin-left: 25px;
 	text-align: center;
 }
 
@@ -157,7 +171,16 @@ nav ul li a:hover
 #logo img
 {
 	width: 100%;
+	max-width: 181px;
 }
+
+header i.fa-bars
+{
+	display: none;
+	padding: 10px;
+	cursor: pointer;
+}
+
 
 	/* Footer */
 
@@ -204,21 +227,6 @@ footer select
 
 	/* Accueil */
 
-.column
-{
-	width: 20%;
-	max-width: 350px;
-	height: calc(100vh - 100px);
-	background-color: #2A6EC9;
-}
-
-.blank
-{
-	width: 45%;
-	height: calc(94vh - 100px);
-	padding-top: 6vh;
-}
-
 #home
 {
 	background-image: url("../../public/images/frontend/home.jpeg");
@@ -261,6 +269,8 @@ footer select
 {
 	color: #000;
 	position: absolute;
+	left: calc(50% - 35.75px);
+	right: calc(50% - 35.75px);
 	bottom: 10px;
 	animation: 2s infinite bounce;
 }
@@ -306,15 +316,15 @@ footer select
 
 #contact .column
 {
-	height: calc(100vh - 153px);
 	margin-right: 11%;
 	margin-left: 7%;
 }
 
 #contact .blank
 {
-	height: calc(80vh - 153px);
-	margin-left: 17%;	
+	margin-left: 17%;
+	margin-bottom: 60px;
+	min-height: calc(100vh - 280px);
 }
 
 #contact form
@@ -347,8 +357,8 @@ footer select
 #connexion .blank, #inscription .blank, #password .blank
 {
 	margin-right: 12%;
-	height: calc(94vh - 214px);
-	padding-bottom: 60px;
+	min-height: calc(100vh - 273px)
+	margin-bottom: 53px;
 }
 
 #connexion form, #inscription form
@@ -371,12 +381,7 @@ footer select
 	margin: 0;
 }
 
-#connexion form table tr:nth-child(5) p, #inscription form table tr:nth-child(6) p
-{
-	margin-bottom: 0;
-}
-
-#connexion form table tr:last-child p, #inscription form table tr:last-child p
+#connexion p:nth-child(3), #connexion p:nth-child(4), #inscription p:nth-child(3), #inscription p:nth-child(4)
 {
 	margin: 0;
 }
@@ -427,6 +432,7 @@ footer select
 	margin-right: 12%;
 	height: 100%;
 	padding-bottom: 60px;
+	margin-bottom: 53px;
 }
 
 
@@ -483,4 +489,361 @@ footer select
     30%  { transform: translateY(-15px); }
     50%  { transform: translateY(0); }
     100% { transform: translateY(0); }
+}
+
+
+	/* Breakpoints */
+
+@media all and (min-width: 1024px)
+{
+	header nav
+	{
+		display: flex !important;
+	}
+
+	header i.fa-bars
+	{
+		display: none;
+	}
+
+	#left-nav
+	{
+		display: block;
+	}
+}
+
+@media all and (max-width: 1023px)
+{
+	/* Général */
+
+	input
+	{
+		width: 200px;
+	}
+
+	textarea
+	{
+		width: 202px;
+	}
+
+	.blank
+	{
+		width: 50%;
+	}
+
+
+	/* Menu de navigation */
+
+	header
+	{
+		justify-content: space-around;
+	}
+
+	header i.fa-bars
+	{
+		display: block;
+	}
+
+	header nav
+	{
+		display: none;
+		width: max-content;
+		position: absolute;
+		right: 12%;
+		top: 75px;
+		z-index: 1000
+	}
+
+	header nav ul
+	{
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+	}
+
+	header nav li
+	{
+		border: 1px solid #F8F9FA;
+		background-color: #2A6EC9;
+		border-top: none;
+		padding: 10px;
+		width: 180px;
+		text-align: right;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	header nav ul:first-child li:first-child
+	{
+		border-top: 1px solid #F8F9FA;
+	}
+
+	header nav a
+	{
+		padding: 10px;
+		color: #FFF;
+	}
+
+	header nav ul li a:hover
+	{
+		font-weight: bold;
+		border-bottom: none;
+	}
+
+	#left-nav
+	{
+		display: none;
+	}
+
+
+	/* Accueil */
+
+	#features img
+	{
+		margin-top: 50px;
+	}
+
+	#features .blank
+	{
+		margin-right: 8%;
+	}
+
+	#features .column, #contact .column
+	{
+		margin-left: 8%;
+		margin-right: 8%;
+	}
+
+	#contact .blank
+	{
+		margin-left: 13%;
+	}
+}
+
+
+@media all and (max-width: 768px)
+{
+	/* Général */
+
+	.blank
+	{
+		width: 68%;
+	}
+
+	#legal .blank, #connexion .blank, #inscription .blank, #password .blank
+	{
+		margin-bottom: 80px;
+		min-height: calc(100vh - 300px)
+	}
+
+
+	/* Menu de navigation */
+
+	header nav
+	{
+		right: 8%;
+	}
+
+
+	/* Accueil */
+
+	#features .blank
+	{
+		margin-right: 3%;
+	}
+
+	#features .column
+	{
+		margin-left: 3%;
+		margin-right: 8%;
+	}
+
+	#contact .column
+	{
+		margin-left: 3%;
+		margin-right: 3%;
+	}
+
+	#contact .blank
+	{
+		margin-left: 8%;
+		margin-bottom: 80px;
+		min-height: calc(100vh - 300px);
+	}
+
+
+	/* Footer */
+
+	footer
+	{
+		flex-direction: column;
+		justify-content: center;
+		height: 80px;
+	}
+
+	footer ul
+	{
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	footer select
+	{
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+}
+
+@media all and (max-width: 550px)
+{
+	/* Général */
+
+	.blank
+	{
+		width: calc(89% - 50px);
+	}
+
+	.column
+	{
+		width: 50px;
+	}
+
+	#connexion .column, #inscription .column, #password .column
+	{
+		margin-left: 3%;
+		margin-right: 5%;
+	}
+
+
+	/* Menu de navigation */
+
+	header nav
+	{
+		right: 3%;
+	}
+
+
+	/* Accueil */
+
+	#features .blank
+	{
+		margin-right: 3%;
+	}
+
+	#features .column
+	{
+		margin-left: 3%;
+		margin-right: 5%;
+	}
+
+	#contact .column
+	{
+		margin-left: 3%;
+		margin-right: 3%;
+	}
+
+	#contact .blank
+	{
+		margin-left: 5%;
+	}
+}
+
+
+@media all and (max-width: 475px)
+{
+	/* Général */
+
+	input
+	{
+		width: 165px;
+	}
+
+	textarea
+	{
+		width: 167px;
+	}
+
+	.blank
+	{
+		margin-right: 3% !important;
+		margin-left: 3% !important;
+		padding-top: 30px;
+		padding-bottom: 30px;
+		width: 94%;
+	}
+
+	.column
+	{
+		display: none;
+	}
+
+	#legal .blank, #connexion .blank, #inscription .blank, #password .blank
+	{
+		margin-bottom: 188px;
+		min-height: calc(100vh - 348px)
+	}
+
+	#connexion .blank, #inscription .blank, #password .blank
+	{
+		text-align: -webkit-center;
+	}
+
+	#connexion label, #connexion p, #inscription label, #inscription p, #password label, #password p
+	{
+		font-size: 14px;
+		margin-right: 0;
+	}
+
+
+	/* Accueil */
+
+	#home h1
+	{
+		font-size: 2.5em;
+	}
+
+	#features .blank
+	{
+		min-height: calc(100vh - 160px);
+	}
+
+	#contact .blank
+	{
+		margin-bottom: 188px;
+		min-height: calc(100vh - 468px);
+	}
+
+	#contact label
+	{
+		font-size: 14px;
+		margin-right: 0;
+	}
+
+
+	/* Footer */
+
+	footer
+	{
+		height: 188px;
+	}
+
+	footer ul
+	{
+		flex-direction: column;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	footer ul li:nth-child(2), footer ul li:nth-child(4), footer ul li:nth-child(6)
+	{
+		display: none;
+	}
+
+	footer select
+	{
+		margin-bottom: 10px;
+	}
 }

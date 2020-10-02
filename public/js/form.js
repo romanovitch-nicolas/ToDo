@@ -5,6 +5,11 @@ class Form {
 		this.list = document.querySelectorAll(".list");
 		this.days = document.querySelectorAll(".day");
 		this.background = document.querySelector("#background");
+		this.menu = document.querySelector("header");
+		this.leftmenu = document.querySelector("#left-nav");
+		this.leftmenuButton = document.querySelector("#left-nav-btn");
+		this.leftmenuArrowRight = document.querySelector(".fa-chevron-right");
+		this.leftmenuArrowLeft = document.querySelector(".fa-chevron-left");
 
 		// Formulaire
 		this.addTaskButton = document.querySelector(".fa-plus");
@@ -80,8 +85,36 @@ class Form {
 					fill: "forwards"
 				}
 			);
-			this.background.classList.remove("invisible");
+			if(this.background.classList.contains("invisible")); {
+				this.background.classList.remove("invisible");
+			}
 			this.formText.focus();
+
+			if(this.leftmenu.style.display == "block" && window.matchMedia("(max-width: 1023px)").matches) {
+				setTimeout(function() { 
+					this.leftmenu.style.display = "none";
+					this.leftmenuArrowRight.style.display = "block";
+					this.leftmenuArrowLeft.style.display = "none";
+				}.bind(this), 200);
+				this.menu.style.zIndex = 1000;
+				this.leftmenuButton.style.zIndex = 1000;
+				this.leftmenuButton.animate([
+					{ transform: "translateX(301px)" },
+					{ transform: "translateX(0)" }
+					], {
+						duration: 200,
+						fill: "forwards"
+					}
+				);
+				this.leftmenu.animate([
+					{ transform: "translateX(0)" },
+					{ transform: "translateX(-100%)" }
+					], {
+						duration: 200,
+						fill: "forwards"
+					}
+				);
+			}
 		}.bind(this));
 
 		// Ouverture du formulaire de modification de tâche
